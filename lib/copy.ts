@@ -214,6 +214,44 @@ export const dance = {
     errorGeneric: "Something went off-beat. Try again.",
   },
 
+  tracker: {
+    orderCode: "Order code",
+    greeting: "You're on the lineup, {name}!",
+    live: "Live",
+    polling: "Checking for updates",
+    countLabel: "Count {count} of 8",
+    pickup: "Pickup",
+    asap: "Drop-in · about 10 minutes",
+    classAt: "Class at {time}",
+    choreographer: "Your choreographer",
+    items: "Your set",
+    total: "Total",
+    paid: "Paid (demo)",
+    payAtPickup: "Pay at pickup",
+    stageReadyAlert: "Stage ready! Your drinks are waiting at the counter.",
+    bowMessage: "That's a wrap. Thanks for dancing with us!",
+    cutMessage: "This order was cut from the set. No charge was made.",
+    demoTitle: "Demo Backstage",
+    demoBody:
+      "Play the choreographer: open the queue and move your order through each step.",
+    demoCta: "Open Demo Backstage",
+  },
+
+  queue: {
+    demoNotice:
+      "Demo Backstage: you only see orders placed from this browser. Move them and watch the tracker update live.",
+    empty: "No orders on the floor yet.",
+    emptyCta: "Head to The Lineup",
+    moveTo: "Move to {status}",
+    cut: "Cut from the set",
+    confirmCut: "Tap again to cut",
+    classAt: "Class at {time}",
+    upcoming: "Upcoming class",
+    viewTracker: "Customer view",
+    refresh: "Refresh",
+    columnEmpty: "Nobody here yet",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -455,6 +493,44 @@ export const plain: Widen<typeof dance> = {
     errorSittingOut: "{name} is sold out now. Remove it to continue.",
     errorEmpty: "Your cart is empty.",
     errorGeneric: "Something went wrong. Try again.",
+  },
+
+  tracker: {
+    orderCode: "Order code",
+    greeting: "Thanks for your order, {name}!",
+    live: "Live",
+    polling: "Checking for updates",
+    countLabel: "Step {count} of 8",
+    pickup: "Pickup",
+    asap: "As soon as possible · about 10 minutes",
+    classAt: "Pickup at {time}",
+    choreographer: "Your barista",
+    items: "Your order",
+    total: "Total",
+    paid: "Paid (demo)",
+    payAtPickup: "Pay at pickup",
+    stageReadyAlert: "Ready for pickup! Your order is waiting at the counter.",
+    bowMessage: "Order complete. Thanks for visiting!",
+    cutMessage: "This order was cancelled. No charge was made.",
+    demoTitle: "Demo admin view",
+    demoBody:
+      "Open the staff queue and move your order through each step yourself.",
+    demoCta: "Open admin view",
+  },
+
+  queue: {
+    demoNotice:
+      "Demo admin view: you only see orders placed from this browser. Move them and watch the tracker update live.",
+    empty: "No orders yet.",
+    emptyCta: "Go to the menu",
+    moveTo: "Move to {status}",
+    cut: "Cancel order",
+    confirmCut: "Tap again to cancel",
+    classAt: "Pickup at {time}",
+    upcoming: "Upcoming pickup",
+    viewTracker: "Customer view",
+    refresh: "Refresh",
+    columnEmpty: "No orders",
   },
 
   placeholder: {

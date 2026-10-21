@@ -10,6 +10,7 @@ import {
 import { db } from "@/lib/db";
 import { getDrinksForCheckout, getSlotAvailability } from "@/lib/db/queries";
 import { orderItems, orders, timeSlots } from "@/lib/db/schema";
+import { rememberDemoOrder } from "@/lib/demo-orders";
 import { priceRemix, type PricedRemix } from "@/lib/pricing";
 import { isBookableDay, isBookableSlot, schedule } from "@/lib/schedule";
 
@@ -168,6 +169,7 @@ export async function createOrder(
         );
         return row;
       });
+      await rememberDemoOrder(order.id);
       return { ok: true, orderId: order.id, code: order.code };
     } catch (error) {
       if (error instanceof CheckoutError) return error.result;

@@ -56,61 +56,72 @@ function signature(item: NewPlaylistItem) {
 
 export const usePlaylist = create<PlaylistState>()(
   persist(
-    (set) => ({
-      items: [],
-      addItem: (item) =>
-        set((state) => {
-          const match = state.items.find(
-            (existing) => signature(existing) === signature(item),
-          );
-          if (match) {
+    (rawSet) => {
+      // Load the saved Playlist before any change. Otherwise a change made
+      // before <Providers> hydrates the store would overwrite the saved copy.
+      const set = ((...args: Parameters<typeof rawSet>) => {
+        if (!usePlaylist.persist.hasHydrated()) {
+          usePlaylist.persist.rehydrate();
+        }
+        rawSet(...args);
+      }) as typeof rawSet;
+
+      return {
+        items: [],
+        addItem: (item) =>
+          set((state) => {
+            const match = state.items.find(
+              (existing) => signature(existing) === signature(item),
+            );
+            if (match) {
+              return {
+                items: state.items.map((existing) =>
+                  existing === match
+                    ? {
+                        ...existing,
+                        unitPrice: item.unitPrice,
+                        quantity: clampQuantity(
+                          existing.quantity + item.quantity,
+                        ),
+                      }
+                    : existing,
+                ),
+              };
+            }
             return {
-              items: state.items.map((existing) =>
-                existing === match
-                  ? {
-                      ...existing,
-                      unitPrice: item.unitPrice,
-                      quantity: clampQuantity(
-                        existing.quantity + item.quantity,
-                      ),
-                    }
-                  : existing,
-              ),
+              items: [
+                ...state.items,
+                {
+                  ...item,
+                  id: crypto.randomUUID(),
+                  quantity: clampQuantity(item.quantity),
+                },
+              ],
             };
-          }
-          return {
-            items: [
-              ...state.items,
-              {
-                ...item,
-                id: crypto.randomUUID(),
-                quantity: clampQuantity(item.quantity),
-              },
-            ],
-          };
-        }),
-      updateItem: (id, item) =>
-        set((state) => ({
-          items: state.items.map((existing) =>
-            existing.id === id
-              ? { ...item, id, quantity: clampQuantity(item.quantity) }
-              : existing,
-          ),
-        })),
-      setQuantity: (id, quantity) =>
-        set((state) => ({
-          items: state.items.map((item) =>
-            item.id === id
-              ? { ...item, quantity: clampQuantity(quantity) }
-              : item,
-          ),
-        })),
-      removeItem: (id) =>
-        set((state) => ({
-          items: state.items.filter((item) => item.id !== id),
-        })),
-      clear: () => set({ items: [] }),
-    }),
+          }),
+        updateItem: (id, item) =>
+          set((state) => ({
+            items: state.items.map((existing) =>
+              existing.id === id
+                ? { ...item, id, quantity: clampQuantity(item.quantity) }
+                : existing,
+            ),
+          })),
+        setQuantity: (id, quantity) =>
+          set((state) => ({
+            items: state.items.map((item) =>
+              item.id === id
+                ? { ...item, quantity: clampQuantity(quantity) }
+                : item,
+            ),
+          })),
+        removeItem: (id) =>
+          set((state) => ({
+            items: state.items.filter((item) => item.id !== id),
+          })),
+        clear: () => set({ items: [] }),
+      };
+    },
     {
       name: "gg-playlist",
       version: 1,
