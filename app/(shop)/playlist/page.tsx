@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
+import { PlaylistView } from "@/components/playlist/PlaylistView";
 import { dance } from "@/lib/copy";
 
 export const metadata: Metadata = { title: dance.pages.playlist };
 
-export default function Page() {
-  return <PagePlaceholder page="playlist" />;
+export default function PlaylistPage() {
+  return <PlaylistView />;
 }

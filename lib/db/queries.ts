@@ -1,7 +1,8 @@
 import "server-only";
-import { asc, eq, inArray } from "drizzle-orm";
+import { and, asc, eq, gte, inArray, lte, type SQL } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import type { RemixGroup } from "@/lib/pricing";
+import { schedule, slotsForDay } from "@/lib/schedule";
 import { db } from "./index";
 import {
   drinkOptionGroups,
@@ -9,6 +10,7 @@ import {
   genres,
   optionGroups,
   options,
+  timeSlots,
 } from "./schema";
 
 // Cache tag for everything on the menu. Backstage edits call updateTag(MENU_TAG).
@@ -53,13 +55,9 @@ export async function getDrinkSlugs() {
   return rows.map((row) => row.slug);
 }
 
-// One drink with its Remix groups and their options, in menu order.
-export async function getDrinkBySlug(slug: string) {
-  "use cache";
-  cacheTag(MENU_TAG);
-  cacheLife("hours");
-
-  const [drink] = await db
+// Drinks with their Remix groups and options, in menu order.
+async function loadDrinks(where: SQL) {
+  const drinkRows = await db
     .select({
       id: drinks.id,
       slug: drinks.slug,
@@ -75,12 +73,12 @@ export async function getDrinkBySlug(slug: string) {
     })
     .from(drinks)
     .innerJoin(genres, eq(drinks.genreId, genres.id))
-    .where(eq(drinks.slug, slug))
-    .limit(1);
-  if (!drink) return null;
+    .where(where);
+  if (drinkRows.length === 0) return [];
 
   const groupRows = await db
     .select({
+      drinkId: drinkOptionGroups.drinkId,
       id: optionGroups.id,
       slug: optionGroups.slug,
       danceLabel: optionGroups.danceLabel,
@@ -92,10 +90,16 @@ export async function getDrinkBySlug(slug: string) {
     })
     .from(drinkOptionGroups)
     .innerJoin(optionGroups, eq(drinkOptionGroups.groupId, optionGroups.id))
-    .where(eq(drinkOptionGroups.drinkId, drink.id))
+    .where(
+      inArray(
+        drinkOptionGroups.drinkId,
+        drinkRows.map((drink) => drink.id),
+      ),
+    )
     .orderBy(asc(optionGroups.sortOrder));
 
-  const optionRows = groupRows.length
+  const groupIds = [...new Set(groupRows.map((group) => group.id))];
+  const optionRows = groupIds.length
     ? await db
         .select({
           id: options.id,
@@ -107,30 +111,81 @@ export async function getDrinkBySlug(slug: string) {
           isAvailable: options.isAvailable,
         })
         .from(options)
-        .where(
-          inArray(
-            options.groupId,
-            groupRows.map((group) => group.id),
-          ),
-        )
+        .where(inArray(options.groupId, groupIds))
         .orderBy(asc(options.sortOrder))
     : [];
 
-  const groups: RemixGroup[] = groupRows.map((group) => ({
-    ...group,
-    options: optionRows
-      .filter((option) => option.groupId === group.id)
-      .map((option) => ({
-        id: option.id,
-        slug: option.slug,
-        danceLabel: option.danceLabel,
-        plainLabel: option.plainLabel,
-        priceDelta: option.priceDelta,
-        isAvailable: option.isAvailable,
-      })),
-  }));
+  return drinkRows.map((drink) => {
+    const groups: RemixGroup[] = groupRows
+      .filter((group) => group.drinkId === drink.id)
+      .map((group) => ({
+        id: group.id,
+        slug: group.slug,
+        danceLabel: group.danceLabel,
+        plainLabel: group.plainLabel,
+        type: group.type,
+        required: group.required,
+        maxSelect: group.maxSelect,
+        defaultOptionId: group.defaultOptionId,
+        options: optionRows
+          .filter((option) => option.groupId === group.id)
+          .map((option) => ({
+            id: option.id,
+            slug: option.slug,
+            danceLabel: option.danceLabel,
+            plainLabel: option.plainLabel,
+            priceDelta: option.priceDelta,
+            isAvailable: option.isAvailable,
+          })),
+      }));
+    return { ...drink, groups };
+  });
+}
 
-  return { ...drink, groups };
+export async function getDrinkBySlug(slug: string) {
+  "use cache";
+  cacheTag(MENU_TAG);
+  cacheLife("hours");
+
+  const [drink] = await loadDrinks(eq(drinks.slug, slug));
+  return drink ?? null;
+}
+
+// Uncached: checkout always prices from the current menu.
+export async function getDrinksForCheckout(ids: string[]) {
+  if (ids.length === 0) return [];
+  return loadDrinks(inArray(drinks.id, ids));
+}
+
+// Spots left in each bookable slot on a Manila day.
+export async function getSlotAvailability(day: string, now: Date) {
+  const starts = slotsForDay(day, now);
+  if (starts.length === 0) return [];
+
+  const rows = await db
+    .select({
+      startsAt: timeSlots.startsAt,
+      capacity: timeSlots.capacity,
+      bookedCount: timeSlots.bookedCount,
+    })
+    .from(timeSlots)
+    .where(
+      and(
+        gte(timeSlots.startsAt, new Date(starts[0])),
+        lte(timeSlots.startsAt, new Date(starts[starts.length - 1])),
+      ),
+    );
+  const booked = new Map(
+    rows.map((row) => [
+      row.startsAt.toISOString(),
+      row.capacity - row.bookedCount,
+    ]),
+  );
+
+  return starts.map((startsAt) => ({
+    startsAt,
+    remaining: Math.max(0, booked.get(startsAt) ?? schedule.slotCapacity),
+  }));
 }
 
 export type Lineup = Awaited<ReturnType<typeof getLineup>>;
@@ -139,3 +194,6 @@ export type DrinkDetail = NonNullable<
 >;
 export type LineupGenre = Lineup["genres"][number];
 export type LineupDrink = Lineup["drinks"][number];
+export type SlotAvailability = Awaited<
+  ReturnType<typeof getSlotAvailability>
+>[number];

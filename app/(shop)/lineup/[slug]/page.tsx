@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DrinkHero } from "@/components/lineup/DrinkHero";
-import { RemixPanel } from "@/components/remix/RemixPanel";
+import { EditableRemixPanel } from "@/components/remix/EditableRemixPanel";
 import { getDrinkBySlug, getDrinkSlugs } from "@/lib/db/queries";
 
 // Every drink is prerendered; drinks added later render on first visit.
@@ -32,7 +32,7 @@ export default async function DrinkPage({
       <div className="lg:sticky lg:top-24 lg:self-start">
         <DrinkHero drink={drink} />
       </div>
-      <RemixPanel drink={drink} />
+      <EditableRemixPanel drink={drink} />
     </main>
   );
 }

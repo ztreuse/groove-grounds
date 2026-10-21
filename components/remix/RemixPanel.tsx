@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
+import { usePlaylistHydrated } from "@/hooks/use-playlist-hydrated";
+import { NOTES_LIMIT } from "@/lib/checkout";
 import { fill } from "@/lib/copy";
 import type { DrinkDetail } from "@/lib/db/queries";
 import { formatPeso } from "@/lib/format";
@@ -21,10 +24,13 @@ import {
   type RemixSelection,
 } from "@/lib/pricing";
 import { routes } from "@/lib/routes";
-import { MAX_QUANTITY, usePlaylist } from "@/stores/playlist";
+import {
+  MAX_QUANTITY,
+  usePlaylist,
+  type NewPlaylistItem,
+} from "@/stores/playlist";
 import { OptionGroup } from "./OptionGroup";
-
-const NOTES_LIMIT = 140;
+import { QuantityStepper } from "./QuantityStepper";
 
 const remixSchema = z.object({
   // Keyed by group slug: a radio gives a string, checkboxes give an array.
@@ -54,8 +60,10 @@ function toSelection(
   return selection;
 }
 
-function toFormOptions(drink: DrinkDetail) {
-  const selection = defaultSelection(drink);
+function toFormOptions(
+  drink: DrinkDetail,
+  selection: RemixSelection = defaultSelection(drink),
+) {
   const values: RemixFormValues["options"] = {};
   for (const group of drink.groups) {
     if (group.type === "text") continue;
@@ -65,12 +73,28 @@ function toFormOptions(drink: DrinkDetail) {
   return values;
 }
 
-export function RemixPanel({ drink }: { drink: DrinkDetail }) {
+type RemixPanelProps = {
+  drink: DrinkDetail;
+  // Playlist item being edited (from ?edit=), if any.
+  editItemId?: string | null;
+};
+
+export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
   const { t, plain, isPlain } = useCopy();
+  const router = useRouter();
   const addItem = usePlaylist((state) => state.addItem);
+  const updateItem = usePlaylist((state) => state.updateItem);
+  const hydrated = usePlaylistHydrated();
+  const editItem = usePlaylist((state) =>
+    editItemId
+      ? state.items.find(
+          (item) => item.id === editItemId && item.drinkId === drink.id,
+        )
+      : undefined,
+  );
   const [justAdded, setJustAdded] = useState(false);
 
-  const { register, handleSubmit, control, setValue } =
+  const { register, handleSubmit, control, setValue, reset } =
     useForm<RemixFormValues>({
       resolver: zodResolver(remixSchema),
       defaultValues: {
@@ -100,17 +124,30 @@ export function RemixPanel({ drink }: { drink: DrinkDetail }) {
     return () => clearTimeout(timer);
   }, [justAdded]);
 
+  // Load the item's choices once the Playlist is available.
+  const loadedEditId = useRef<string | null>(null);
+  useEffect(() => {
+    if (!hydrated || !editItem || loadedEditId.current === editItem.id) return;
+    loadedEditId.current = editItem.id;
+    reset({
+      options: toFormOptions(drink, editItem.selection),
+      notes: editItem.notes,
+      quantity: editItem.quantity,
+    });
+  }, [hydrated, editItem, drink, reset]);
+
   const onSubmit = handleSubmit((form) => {
     const result = priceRemix(
       drink,
       toSelection(drink.groups, form.options),
       form.notes,
     );
-    addItem({
+    const item: NewPlaylistItem = {
       drinkId: drink.id,
       slug: drink.slug,
       name: drink.name,
       plainDescription: drink.plainDescription,
+      isDrink: drink.tempsAllowed.length > 0,
       unitPrice: result.unitPrice,
       quantity: form.quantity,
       selection: Object.fromEntries(
@@ -130,16 +167,34 @@ export function RemixPanel({ drink }: { drink: DrinkDetail }) {
           plainLabel,
         })),
       })),
-    });
+    };
+    if (editItem) {
+      updateItem(editItem.id, item);
+      router.push(routes.playlist.href);
+      return;
+    }
+    addItem(item);
     setValue("quantity", 1);
     setJustAdded(true);
   });
 
-  const stepQuantity = (delta: number) =>
-    setValue("quantity", Math.min(MAX_QUANTITY, Math.max(1, quantity + delta)));
+  const submitLabel = editItem ? t.drink.update : t.drink.addToPlaylist;
+  const submitPlain = editItem ? plain.drink.update : plain.drink.addToPlaylist;
 
   return (
     <form onSubmit={onSubmit} noValidate>
+      {editItem && (
+        <div className="mb-4 rounded-xl border-2 border-primary bg-accent/40 p-3">
+          <p className="text-sm font-semibold">{t.drink.editing}</p>
+          <Link
+            href={routes.playlist.href}
+            className="mt-1 inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-semibold text-highlight outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
+          >
+            <ArrowLeft aria-hidden className="size-4" />
+            {t.drink.backToPlaylist}
+          </Link>
+        </div>
+      )}
       <div className="mb-2">
         <h2 className="text-4xl leading-none">{t.terms.remix}</h2>
         {!isPlain && (
@@ -197,36 +252,10 @@ export function RemixPanel({ drink }: { drink: DrinkDetail }) {
           <p className="mb-3 text-sm font-medium">{t.drink.unavailable}</p>
         )}
         <div className="flex items-center justify-between gap-3">
-          <div
-            role="group"
-            aria-label={plain.drink.quantity}
-            className="flex items-center rounded-full border-2 bg-card"
-          >
-            <button
-              type="button"
-              onClick={() => stepQuantity(-1)}
-              disabled={quantity <= 1}
-              aria-label={plain.drink.decrease}
-              className="flex size-11 items-center justify-center rounded-full outline-none hover:bg-accent focus-visible:ring-3 focus-visible:ring-ring disabled:opacity-40"
-            >
-              <Minus aria-hidden className="size-4" />
-            </button>
-            <span
-              aria-live="polite"
-              className="w-8 text-center font-heading text-xl"
-            >
-              {quantity}
-            </span>
-            <button
-              type="button"
-              onClick={() => stepQuantity(1)}
-              disabled={quantity >= MAX_QUANTITY}
-              aria-label={plain.drink.increase}
-              className="flex size-11 items-center justify-center rounded-full outline-none hover:bg-accent focus-visible:ring-3 focus-visible:ring-ring disabled:opacity-40"
-            >
-              <Plus aria-hidden className="size-4" />
-            </button>
-          </div>
+          <QuantityStepper
+            value={quantity}
+            onChange={(value) => setValue("quantity", value)}
+          />
           <div className="text-right">
             <p className="text-xs font-medium text-muted-foreground">
               {t.drink.total}
@@ -250,7 +279,7 @@ export function RemixPanel({ drink }: { drink: DrinkDetail }) {
           type="submit"
           size="lg"
           disabled={!drink.isAvailable}
-          aria-label={plain.drink.addToPlaylist}
+          aria-label={submitPlain}
           className="mt-3 h-auto min-h-14 w-full flex-col gap-0 rounded-xl py-2"
         >
           {justAdded ? (
@@ -260,13 +289,9 @@ export function RemixPanel({ drink }: { drink: DrinkDetail }) {
             </span>
           ) : (
             <>
-              <span className="text-base font-bold">
-                {t.drink.addToPlaylist}
-              </span>
+              <span className="text-base font-bold">{submitLabel}</span>
               {!isPlain && (
-                <span className="text-xs font-medium">
-                  {plain.drink.addToPlaylist}
-                </span>
+                <span className="text-xs font-medium">{submitPlain}</span>
               )}
             </>
           )}

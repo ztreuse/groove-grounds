@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { MAX_QUANTITY } from "@/lib/checkout";
 import type { RemixSelection } from "@/lib/pricing";
 
-export const MAX_QUANTITY = 20;
+export { MAX_QUANTITY };
 
 // Labels are copied in so the Playlist can show the Remix summary without
 // refetching the menu.
@@ -25,6 +26,8 @@ export type PlaylistItem = {
   selection: RemixSelection;
   notes: string;
   choices: PlaylistChoice[];
+  // Drinks count toward class capacity; Intermission snacks do not.
+  isDrink?: boolean;
 };
 
 export type NewPlaylistItem = Omit<PlaylistItem, "id">;
@@ -118,6 +121,10 @@ export const usePlaylist = create<PlaylistState>()(
     },
   ),
 );
+
+// Items saved before isDrink existed: snacks are the only items with no Remix choices.
+export const isDrinkItem = (item: PlaylistItem) =>
+  item.isDrink ?? item.choices.length > 0;
 
 export const selectItemCount = (state: PlaylistState) =>
   state.items.reduce((total, item) => total + item.quantity, 0);
