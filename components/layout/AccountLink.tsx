@@ -18,6 +18,8 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
   if (user === undefined) return null;
 
   const signedIn = !!user;
+  // The menu already lists Dancer Profile; only offer Sign in there.
+  if (signedIn && variant === "sheet") return null;
   const Icon = signedIn ? UserRound : LogIn;
   const label = signedIn ? t.header.account : t.header.signIn;
   const ariaLabel = signedIn ? plain.header.account : plain.header.signIn;
