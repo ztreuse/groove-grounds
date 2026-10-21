@@ -35,11 +35,20 @@ import {
   toSelection,
 } from "@/lib/remix-form";
 import { routes } from "@/lib/routes";
+import { useUser } from "@/hooks/use-user";
+import { saveChoreo } from "@/app/(shop)/freestyle/actions";
 import { usePlaylist } from "@/stores/playlist";
 
-const freestyleSchema = remixSchema.extend({
-  name: z.string().trim().max(CHOREO_NAME_LIMIT),
-});
+const freestyleSchema = remixSchema
+  .extend({
+    name: z.string().trim().max(CHOREO_NAME_LIMIT),
+    // Save to the member's Saved Choreo as well as the Playlist.
+    save: z.boolean(),
+  })
+  .refine((form) => !form.save || form.name.length > 0, {
+    path: ["name"],
+    message: "nameRequired",
+  });
 type FreestyleValues = z.infer<typeof freestyleSchema>;
 
 // Reads what the cup preview needs from the current choices.
@@ -93,13 +102,27 @@ export function FreestyleBuilder({
   const [stepState, setStep] = useState<number | null>(null);
   const step = stepState ?? (editBase ? Number.MAX_SAFE_INTEGER : 0);
   const [added, setAdded] = useState(false);
+  const [saveState, setSaveState] = useState<"saved" | "failed" | null>(null);
+  const user = useUser();
   const base = bases.find((b) => b.id === (baseId ?? editBase?.id)) ?? null;
 
-  const { register, handleSubmit, control, setValue, reset } =
-    useForm<FreestyleValues>({
-      resolver: zodResolver(freestyleSchema),
-      defaultValues: { options: {}, notes: "", quantity: 1, name: "" },
-    });
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<FreestyleValues>({
+    resolver: zodResolver(freestyleSchema),
+    defaultValues: {
+      options: {},
+      notes: "",
+      quantity: 1,
+      name: "",
+      save: false,
+    },
+  });
   const values = useWatch({ control });
   const selection = useMemo(
     () =>
@@ -130,6 +153,7 @@ export function FreestyleBuilder({
       notes: values.notes ?? "",
       quantity,
       name: values.name ?? "",
+      save: values.save ?? false,
     });
     setAdded(false);
     setStep(1);
@@ -145,10 +169,11 @@ export function FreestyleBuilder({
       notes: editItem.notes,
       quantity: editItem.quantity,
       name: editItem.choreoName ?? "",
+      save: false,
     });
   }, [editItem, editBase, reset]);
 
-  const onSubmit = handleSubmit((form) => {
+  const onSubmit = handleSubmit(async (form) => {
     if (!base) return;
     const result = priceRemix(
       base,
@@ -168,12 +193,23 @@ export function FreestyleBuilder({
     }
     addItem(item);
     setAdded(true);
+    setSaveState(null);
+    if (form.save && user && choreoName) {
+      const saved = await saveChoreo({
+        drinkId: base.id,
+        name: choreoName,
+        selection: item.selection,
+        notes: item.notes,
+      }).catch(() => ({ ok: false }));
+      setSaveState(saved.ok ? "saved" : "failed");
+    }
   });
 
   function startOver() {
     setBaseId(null);
-    reset({ options: {}, notes: "", quantity: 1, name: "" });
+    reset({ options: {}, notes: "", quantity: 1, name: "", save: false });
     setAdded(false);
+    setSaveState(null);
     setStep(0);
   }
 
@@ -383,8 +419,31 @@ export function FreestyleBuilder({
                   id="choreo-name-hint"
                   className="mt-1 text-sm text-muted-foreground"
                 >
-                  {t.freestyle.nameHint} {t.freestyle.saveSoon}
+                  {t.freestyle.nameHint}
                 </p>
+                {errors.name?.message === "nameRequired" && (
+                  <p role="alert" className="mt-1 text-sm text-destructive">
+                    {t.freestyle.nameRequired}
+                  </p>
+                )}
+                {user && !editItem && (
+                  <label className="mt-3 flex min-h-11 cursor-pointer items-center gap-3 text-sm font-semibold">
+                    <input
+                      type="checkbox"
+                      className="size-5 accent-[var(--color-purple)]"
+                      {...register("save")}
+                    />
+                    {t.freestyle.saveToProfile}
+                  </label>
+                )}
+                {user === null && (
+                  <Link
+                    href={`${routes.join.href}?next=${routes.freestyle.href}`}
+                    className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-highlight underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
+                  >
+                    {t.freestyle.joinToSave}
+                  </Link>
+                )}
               </div>
 
               <div>
@@ -428,6 +487,13 @@ export function FreestyleBuilder({
                     <Check aria-hidden className="size-5" />
                     {t.freestyle.added}
                   </p>
+                  {saveState && (
+                    <p className="mt-1 text-sm">
+                      {saveState === "saved"
+                        ? t.freestyle.savedNote
+                        : t.freestyle.saveFailed}
+                    </p>
+                  )}
                   <div className="mt-3 flex flex-wrap gap-2">
                     <Button asChild>
                       <Link

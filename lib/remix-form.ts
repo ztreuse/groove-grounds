@@ -95,3 +95,38 @@ export function toPlaylistItem(
     ...extra,
   };
 }
+
+// Remix choices by group and option slug: how order snapshots and Saved
+// Choreo store them, so they survive menu edits that change ids.
+export type RemixRecipe = {
+  choices: { group: string; options: { slug: string }[] }[];
+  notes: string;
+};
+
+export function recipeFromPriced(result: PricedRemix): RemixRecipe {
+  return {
+    choices: result.choices.map(({ group, options }) => ({
+      group: group.slug,
+      options: options.map((option) => ({ slug: option.slug })),
+    })),
+    notes: result.notes,
+  };
+}
+
+// Back to option ids for the current menu; unknown slugs are dropped and
+// priceRemix fills required defaults.
+export function selectionFromRecipe(
+  drink: PricedDrink,
+  recipe: RemixRecipe,
+): RemixSelection {
+  const selection: RemixSelection = {};
+  for (const choice of recipe.choices) {
+    const group = drink.groups.find((g) => g.slug === choice.group);
+    if (!group) continue;
+    selection[group.id] = choice.options.flatMap(
+      ({ slug }) =>
+        group.options.find((option) => option.slug === slug)?.id ?? [],
+    );
+  }
+  return selection;
+}

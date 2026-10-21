@@ -13,11 +13,14 @@ import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { profileSchema, type ProfileInput } from "@/lib/auth-schema";
 import { fill, type Copy } from "@/lib/copy";
+import type { SavedChoreoEntry } from "@/lib/db/choreo";
 import type { TrackedOrder } from "@/lib/db/orders";
 import type { Profile } from "@/lib/db/profiles";
 import { formatDay, formatPeso } from "@/lib/format";
 import { statusCopyKey } from "@/lib/orders";
 import { dayKey } from "@/lib/schedule";
+import { RunItBackButton } from "./RunItBackButton";
+import { SavedChoreo } from "./SavedChoreo";
 
 const levelKey: Record<Profile["level"], keyof Copy["levels"]> = {
   rookie: "rookie",
@@ -31,9 +34,15 @@ type ProfileViewProps = {
   email: string;
   profile: Profile;
   orders: TrackedOrder[];
+  choreo: SavedChoreoEntry[];
 };
 
-export function ProfileView({ email, profile, orders }: ProfileViewProps) {
+export function ProfileView({
+  email,
+  profile,
+  orders,
+  choreo,
+}: ProfileViewProps) {
   const { t, plain, isPlain } = useCopy();
   const router = useRouter();
   const [saved, setSaved] = useState(false);
@@ -148,6 +157,8 @@ export function ProfileView({ email, profile, orders }: ProfileViewProps) {
         </form>
       </section>
 
+      <SavedChoreo choreo={choreo} />
+
       <section aria-labelledby="past" className="mt-10">
         <h2 id="past" className="text-3xl leading-none">
           {t.profile.pastPerformances}
@@ -187,6 +198,9 @@ export function ProfileView({ email, profile, orders }: ProfileViewProps) {
                   <span className="font-heading text-2xl">
                     {formatPeso(order.total)}
                   </span>
+                </div>
+                <div className="mt-2 flex flex-wrap items-start justify-between gap-2">
+                  <RunItBackButton kind="order" id={order.id} />
                   <Link
                     href={`/track/${order.id}`}
                     className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-highlight underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"

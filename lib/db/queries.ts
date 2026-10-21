@@ -214,6 +214,12 @@ export async function getDrinksForCheckout(ids: string[]) {
   return loadDrinks(inArray(drinks.id, ids));
 }
 
+// Uncached, by slug: Saved Choreo re-prices from the current menu.
+export async function getDrinksBySlugs(slugs: string[]) {
+  if (slugs.length === 0) return [];
+  return loadDrinks(inArray(drinks.slug, slugs));
+}
+
 // Spots left in each bookable slot on a Manila day.
 export async function getSlotAvailability(day: string, now: Date) {
   const starts = slotsForDay(day, now);

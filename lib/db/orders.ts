@@ -93,6 +93,32 @@ export async function getOrdersForUser(userId: string, limit = 20) {
   return withItems(rows);
 }
 
+// The lines of a member's own order, for Run it back. Null if the order
+// isn't theirs.
+export async function getOrderItemsForUser(userId: string, orderId: string) {
+  if (!isUuid(userId) || !isUuid(orderId)) return null;
+  const [order] = await db
+    .select({ id: orders.id })
+    .from(orders)
+    .where(and(eq(orders.id, orderId), eq(orders.userId, userId)))
+    .limit(1);
+  if (!order) return null;
+  const rows = await db
+    .select({
+      drinkId: orderItems.drinkId,
+      name: orderItems.nameSnapshot,
+      quantity: orderItems.quantity,
+      options: orderItems.optionsSnapshot,
+    })
+    .from(orderItems)
+    .where(eq(orderItems.orderId, orderId))
+    .orderBy(asc(orderItems.id));
+  return rows.map(({ options, ...row }) => ({
+    ...row,
+    recipe: options as OptionsSnapshot,
+  }));
+}
+
 // Moves an order one step forward if it is still at `from`.
 export async function advanceOrder(id: string, from: OrderStatus) {
   const to = nextStatus(from);
