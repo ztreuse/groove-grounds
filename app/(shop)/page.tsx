@@ -1,15 +1,16 @@
 import { BackstagePromo } from "@/components/home/BackstagePromo";
 import { Cypher } from "@/components/home/Cypher";
+import { GenreTiles } from "@/components/home/GenreTiles";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { Spotlight } from "@/components/home/Spotlight";
+import { Marquee } from "@/components/home/Marquee";
 import { TrendingCarousel } from "@/components/home/TrendingCarousel";
 import { getLineup, getTrendingDrinkIds } from "@/lib/db/queries";
 
 const TRENDING_COUNT = 8;
 
 export default async function Home() {
-  const [{ drinks }, trendingIds] = await Promise.all([
+  const [{ genres, drinks }, trendingIds] = await Promise.all([
     getLineup(),
     getTrendingDrinkIds(),
   ]);
@@ -32,12 +33,17 @@ export default async function Home() {
     .slice(0, TRENDING_COUNT);
 
   return (
-    <main className="flex flex-1 flex-col gap-14 pb-16 sm:gap-20">
-      <Hero />
-      {spotlight && <Spotlight drink={spotlight} />}
-      <TrendingCarousel drinks={trending} />
+    <main className="flex flex-1 flex-col">
+      <Hero spotlight={spotlight} />
+      <Marquee />
+      <div className="flex flex-col gap-20 py-20 sm:gap-24 sm:py-24">
+        <GenreTiles genres={genres} drinks={drinks} />
+        <TrendingCarousel drinks={trending} />
+      </div>
       <HowItWorks />
-      <Cypher />
+      <div className="py-20 sm:py-24">
+        <Cypher />
+      </div>
       <BackstagePromo />
     </main>
   );

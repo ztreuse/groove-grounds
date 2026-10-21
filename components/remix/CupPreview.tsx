@@ -13,6 +13,8 @@ export type CupState = {
   flavors: number;
   toppings: string[];
   ice: string | null; // "light" | "regular" | "extra"
+  // Drink colour override (menu drinks); defaults to the base colour.
+  liquid?: string;
 };
 
 const BASE_COLORS: Record<string, string> = {
@@ -45,19 +47,22 @@ const CUP = "M30,50 L170,50 L152,248 L48,248 Z";
 const LIQUID_TOP = 78;
 const MILK_HEIGHT = 64;
 
-// The Freestyle live preview. Purely decorative for screen readers: the
-// wrapper carries a plain-language label instead.
+// Illustrated cup: the Freestyle live preview, and the stand-in for menu
+// drinks without a photo. Screen readers get the plain-language label.
+// `still` turns off steam and the fill animation (for grids of cards).
 export function CupPreview({
   state,
   label,
+  still = false,
 }: {
   state: CupState;
   label: string;
+  still?: boolean;
 }) {
   const clipId = useId();
   const scale = SIZE_SCALE[state.size ?? ""] ?? 0.9;
   const cold = state.temp !== "hot";
-  const color = baseColor(state.base);
+  const color = state.liquid ?? baseColor(state.base);
   const has = (topping: string) => state.toppings.includes(topping);
   const smooth = { transition: "fill 400ms ease" };
 
@@ -86,13 +91,17 @@ export function CupPreview({
                 strokeWidth={3}
                 strokeLinecap="round"
                 className="text-muted-foreground"
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: [0, 0.6, 0], y: [6, -6, -14] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: index * 0.5,
-                }}
+                initial={still ? false : { opacity: 0, y: 6 }}
+                animate={
+                  still
+                    ? { opacity: 0.45, y: 0 }
+                    : { opacity: [0, 0.6, 0], y: [6, -6, -14] }
+                }
+                transition={
+                  still
+                    ? undefined
+                    : { duration: 2, repeat: Infinity, delay: index * 0.5 }
+                }
               />
             ))}
 
@@ -113,7 +122,7 @@ export function CupPreview({
             {/* Fills up from the bottom whenever the base changes. */}
             <motion.g
               key={state.base}
-              initial={{ scaleY: 0 }}
+              initial={still ? false : { scaleY: 0 }}
               animate={{ scaleY: 1 }}
               transition={{ duration: 0.9, ease: "easeOut" }}
               style={{ originY: "100%" }}
@@ -201,7 +210,6 @@ export function CupPreview({
             stroke="currentColor"
             strokeWidth={4}
             strokeLinejoin="round"
-            className="text-foreground"
           />
 
           {has("whipped-cream") && (

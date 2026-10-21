@@ -136,7 +136,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
           size="lg"
           disabled={isSubmitting}
           aria-label={titlePlain}
-          className="h-auto min-h-14 w-full rounded-xl text-base font-bold"
+          className="h-auto min-h-14 w-full rounded-full text-base font-bold"
         >
           {isSubmitting ? t.auth.working : title}
         </Button>

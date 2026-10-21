@@ -58,16 +58,16 @@ function Chip({
         {...register}
       />
       <span
-        className={`flex min-h-11 flex-col justify-center rounded-xl border-2 px-3 py-1.5 text-left transition-colors peer-focus-visible:ring-3 peer-focus-visible:ring-ring ${
+        className={`flex min-h-11 flex-col justify-center rounded-2xl px-4 py-2 text-left transition-colors peer-focus-visible:ring-3 peer-focus-visible:ring-ring ${
           checked
-            ? "border-primary bg-primary text-primary-foreground"
-            : "bg-card hover:border-primary/60"
+            ? "bg-espresso text-cream dark:bg-cream dark:text-espresso"
+            : "bg-muted hover:bg-accent hover:text-accent-foreground"
         } ${disabled ? "opacity-50" : ""}`}
       >
         <span className="text-sm font-semibold">{main}</span>
         {sub && (
           <span
-            className={`text-xs ${checked ? "text-primary-foreground" : "text-muted-foreground"}`}
+            className={`text-xs ${checked ? "opacity-80" : "text-muted-foreground"}`}
           >
             {sub}
           </span>
@@ -108,7 +108,7 @@ export function OptionGroup({
       : t.drink.optional;
 
   return (
-    <fieldset className="border-t-2 border-dashed pt-5">
+    <fieldset className="border-t pt-6">
       <legend className="sr-only">{group.plainLabel}</legend>
       <div
         aria-hidden

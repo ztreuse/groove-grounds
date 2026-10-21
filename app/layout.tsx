@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anton, Inter } from "next/font/google";
+import { Anton, Archivo } from "next/font/google";
 import { DemoBanner } from "@/components/layout/DemoBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -8,8 +8,8 @@ import { WelcomeTour } from "@/components/layout/WelcomeTour";
 import { dance } from "@/lib/copy";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
 });
 
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${anton.variable} h-full antialiased`}
+      className={`${archivo.variable} ${anton.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Providers>
@@ -38,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <WelcomeTour />
         </Providers>
+        <div aria-hidden className="grain-overlay" />
       </body>
     </html>
   );

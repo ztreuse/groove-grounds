@@ -9,7 +9,7 @@ import type { LineupDrink } from "@/lib/db/queries";
 import { routes } from "@/lib/routes";
 
 const arrowClass =
-  "hidden size-11 items-center justify-center rounded-full border-2 bg-card outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring sm:flex";
+  "hidden size-12 items-center justify-center rounded-full bg-muted outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring active:scale-95 sm:flex";
 
 export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
   const { t, plain, isPlain } = useCopy();
@@ -35,7 +35,7 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
     >
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 id="trending" className="text-4xl leading-none">
+          <h2 id="trending" className="text-5xl leading-none sm:text-6xl">
             {t.home.trendingTitle}
           </h2>
           {!isPlain && (

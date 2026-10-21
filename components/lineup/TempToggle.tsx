@@ -39,7 +39,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
     <div
       role="group"
       aria-label={plain.lineup.tempFilter}
-      className="inline-flex h-11 shrink-0 rounded-full border-2 bg-card p-1"
+      className="inline-flex h-11 shrink-0 rounded-full bg-muted p-1"
     >
       {options.map(({ value: optionValue, label, ariaLabel, icon: Icon }) => {
         const active = optionValue === value;

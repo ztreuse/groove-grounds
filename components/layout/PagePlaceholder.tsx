@@ -19,7 +19,7 @@ export function PagePlaceholder({ page }: { page: PageKey }) {
         />
         {phase && (
           <p className="mb-6 inline-block -rotate-2 rounded-md bg-accent px-3 py-1 text-xs font-semibold tracking-wider text-accent-foreground uppercase">
-            {t.placeholder.phase} {phase} — {t.phases[phase]}
+            {t.placeholder.phase} {phase}: {t.phases[phase]}
           </p>
         )}
         <h1 className="text-5xl leading-none sm:text-7xl">{t.pages[page]}</h1>

@@ -5,9 +5,9 @@ import type { LineupGenre } from "@/lib/db/queries";
 import { genreTerms } from "@/lib/genres";
 
 const chipClass =
-  "inline-flex h-11 shrink-0 items-center rounded-full border-2 px-4 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring";
-const activeClass = "border-primary bg-primary text-primary-foreground";
-const idleClass = "bg-card hover:bg-accent hover:text-accent-foreground";
+  "inline-flex h-11 shrink-0 items-center rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring";
+const activeClass = "bg-espresso text-cream dark:bg-cream dark:text-espresso";
+const idleClass = "bg-muted hover:bg-accent hover:text-accent-foreground";
 
 type GenreFilterProps = {
   genres: LineupGenre[];
@@ -35,7 +35,7 @@ export function GenreFilter({ genres, value, onChange }: GenreFilterProps) {
     <div
       role="group"
       aria-label={plain.lineup.genreFilter}
-      className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
+      className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto px-4 md:mx-0 md:pr-8 md:pl-0 [&::-webkit-scrollbar]:hidden"
     >
       {chips.map((chip) => {
         const active = chip.slug === value;

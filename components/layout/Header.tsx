@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Disc3, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { useCopy } from "@/hooks/use-copy";
 import { AccountLink } from "./AccountLink";
+import { LogoMark } from "./LogoMark";
 import { MainNav } from "./MainNav";
 import { PlainModeToggle } from "./PlainModeToggle";
 import { PlaylistButton } from "./PlaylistButton";
@@ -26,9 +27,7 @@ function Logo() {
       aria-label={plain.header.logoHome}
       className="flex shrink-0 items-center gap-2 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring"
     >
-      <span className="flex size-9 items-center justify-center rounded-full bg-primary text-primary-foreground">
-        <Disc3 aria-hidden className="size-6" />
-      </span>
+      <LogoMark className="size-10 transition-transform duration-700 hover:rotate-180 motion-reduce:transition-none" />
       <span className="font-heading text-lg leading-[0.85] tracking-wide uppercase sm:text-xl">
         {t.brand.split(" ").map((word) => (
           <span key={word} className="block sm:inline sm:not-last:mr-1.5">

@@ -244,7 +244,7 @@ export function FreestyleBuilder({
       {/* Live preview: compact strip on phones, sticky card on desktop. */}
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <div className="flex items-center gap-4 rounded-3xl border-2 bg-card p-4 lg:flex-col lg:p-6">
-          <div className="h-36 w-28 shrink-0 lg:h-72 lg:w-full">
+          <div className="h-36 w-28 shrink-0 text-foreground lg:h-72 lg:w-full">
             {cup ? (
               <CupPreview state={cup} label={cupLabel} />
             ) : (
@@ -281,7 +281,7 @@ export function FreestyleBuilder({
                 transition={{ duration: 0.15 }}
                 className="font-heading text-4xl leading-none"
               >
-                {priced ? formatPeso(priced.unitPrice * quantity) : "—"}
+                {priced ? formatPeso(priced.unitPrice * quantity) : "-"}
               </motion.p>
             </AnimatePresence>
             {base && current > 0 && (
@@ -515,7 +515,7 @@ export function FreestyleBuilder({
                   aria-label={
                     editItem ? plain.drink.update : plain.drink.addToPlaylist
                   }
-                  className="h-auto min-h-14 w-full flex-col gap-0 rounded-xl py-2"
+                  className="h-auto min-h-14 w-full flex-col gap-0 rounded-full py-2"
                 >
                   <span className="text-base font-bold">
                     {editItem ? t.drink.update : t.drink.addToPlaylist}

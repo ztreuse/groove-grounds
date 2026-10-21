@@ -114,7 +114,7 @@ export function ShowtimeForm() {
   const pickupLabel = isClass
     ? slotStart
       ? `${formatDay(dayKey(new Date(slotStart)))}, ${formatTime(slotStart)}`
-      : "—"
+      : "-"
     : t.showtime.dropInHint;
 
   const errorText = (key?: string) =>
@@ -353,7 +353,7 @@ export function ShowtimeForm() {
           size="lg"
           disabled={processing || tooManyForClass}
           aria-label={`${plain.showtime.pay}, ${formatPeso(subtotal)}`}
-          className="mt-4 h-auto min-h-16 w-full flex-col gap-0 rounded-xl py-2"
+          className="mt-4 h-auto min-h-16 w-full flex-col gap-0 rounded-full py-2"
         >
           <span className="text-lg font-bold">
             {t.showtime.pay} · {formatPeso(subtotal)}

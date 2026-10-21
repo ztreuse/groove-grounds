@@ -12,6 +12,7 @@ import {
   type SQL,
 } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
+import { drinkImageSrc } from "@/lib/drink-images";
 import type { RemixGroup } from "@/lib/pricing";
 import { schedule, slotsForDay } from "@/lib/schedule";
 import { db } from "./index";
@@ -54,6 +55,7 @@ export async function getLineup() {
         tempsAllowed: drinks.tempsAllowed,
         isAvailable: drinks.isAvailable,
         isFeatured: drinks.isFeatured,
+        imageUrl: drinks.imageUrl,
         genreSlug: genres.slug,
       })
       .from(drinks)
@@ -62,7 +64,13 @@ export async function getLineup() {
       .orderBy(asc(genres.sortOrder), asc(drinks.sortOrder)),
   ]);
 
-  return { genres: genreRows, drinks: drinkRows };
+  return {
+    genres: genreRows,
+    drinks: drinkRows.map(({ imageUrl, ...drink }) => ({
+      ...drink,
+      imageSrc: drinkImageSrc(drink.slug, imageUrl),
+    })),
+  };
 }
 
 // Most-ordered drinks over the last 30 days, for Trending Choreo.
@@ -184,7 +192,11 @@ async function loadDrinks(where: SQL) {
             isAvailable: option.isAvailable,
           })),
       }));
-    return { ...drink, groups };
+    return {
+      ...drink,
+      imageSrc: drinkImageSrc(drink.slug, drink.imageUrl),
+      groups,
+    };
   });
 }
 

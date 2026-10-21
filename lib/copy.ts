@@ -7,7 +7,7 @@ type Widen<T> = { [K in keyof T]: T[K] extends string ? string : Widen<T[K]> };
 export const dance = {
   brand: "Groove Grounds",
   tagline: "Coffee with a beat. Order for pickup, your way.",
-  demoBanner: "Concept demo by ztreuse — no real orders or payments.",
+  demoBanner: "Concept demo by ztreuse: no real orders or payments.",
 
   // Glossary from docs/PROJECT.md.
   terms: {
@@ -113,7 +113,7 @@ export const dance = {
     faq: "FAQ",
     nav: "Footer",
     rights: "© Groove Grounds. A concept project.",
-    hours: "Open daily, {open} – {close}",
+    hours: "Open daily, {open} to {close}",
     demoBackstage: "Demo Backstage",
   },
 
@@ -236,6 +236,9 @@ export const dance = {
     step3Title: "Showtime",
     step3Body: "Drop in now or Book a Class, then grab it at the counter.",
     cypherIntro: "Specials, shout-outs and what's happening in the circle.",
+    genresTitle: "Pick your genre",
+    drinkOne: "1 on the Lineup",
+    drinks: "{count} on the Lineup",
     backstageTitle: "See the whole show",
     backstageBody:
       "Place a demo order, then play the choreographer in Demo Backstage and watch your tracker update live.",
@@ -426,7 +429,7 @@ export const dance = {
 export const plain: Widen<typeof dance> = {
   brand: "Groove Grounds",
   tagline: "Coffee with a beat. Order for pickup, your way.",
-  demoBanner: "Concept demo by ztreuse — no real orders or payments.",
+  demoBanner: "Concept demo by ztreuse: no real orders or payments.",
 
   terms: {
     centerStage: "Home",
@@ -531,7 +534,7 @@ export const plain: Widen<typeof dance> = {
     faq: "FAQ",
     nav: "Footer",
     rights: "© Groove Grounds. A concept project.",
-    hours: "Open daily, {open} – {close}",
+    hours: "Open daily, {open} to {close}",
     demoBackstage: "Demo Backstage",
   },
 
@@ -653,6 +656,9 @@ export const plain: Widen<typeof dance> = {
     step3Title: "Check out",
     step3Body: "Pick up now or schedule a time, then collect at the counter.",
     cypherIntro: "Specials and news from the café.",
+    genresTitle: "Browse by category",
+    drinkOne: "1 item",
+    drinks: "{count} items",
     backstageTitle: "Try the staff view",
     backstageBody:
       "Place a demo order, then move it through the staff queue and watch the tracker update live.",
