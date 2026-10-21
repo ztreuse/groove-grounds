@@ -117,6 +117,21 @@ export const dance = {
     notFoundBody: "That page fell off the beat. Let's get you back on count.",
   },
 
+  lineup: {
+    intro: "Every drink is named after a dance style. Pick your move.",
+    searchLabel: "Search the Lineup",
+    searchPlaceholder: "Search drinks or styles",
+    clearSearch: "Clear search",
+    genreFilter: "Filter by genre",
+    tempFilter: "Filter by temperature",
+    all: "All",
+    tempAny: "Any",
+    resultOne: "1 on the Lineup",
+    results: "{count} on the Lineup",
+    empty: "Nobody's on the floor with those moves.",
+    reset: "Reset filters",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -262,6 +277,21 @@ export const plain: Widen<typeof dance> = {
 
   errors: {
     notFoundBody: "We couldn't find that page.",
+  },
+
+  lineup: {
+    intro: "Every drink is named after a dance style.",
+    searchLabel: "Search the menu",
+    searchPlaceholder: "Search drinks",
+    clearSearch: "Clear search",
+    genreFilter: "Filter by category",
+    tempFilter: "Filter by temperature",
+    all: "All",
+    tempAny: "Any",
+    resultOne: "1 item",
+    results: "{count} items",
+    empty: "No drinks match your filters.",
+    reset: "Reset filters",
   },
 
   placeholder: {
