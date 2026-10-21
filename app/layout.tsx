@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Anton, Inter } from "next/font/google";
 import { DemoBanner } from "@/components/layout/DemoBanner";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { Providers } from "@/components/layout/Providers";
 import { dance } from "@/lib/copy";
 import "./globals.css";
 
@@ -27,8 +30,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${anton.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <DemoBanner />
-        {children}
+        <Providers>
+          <DemoBanner />
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

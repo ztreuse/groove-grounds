@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { dance, plain, type PageKey } from "@/lib/copy";
+import { useCopy } from "@/hooks/use-copy";
+import type { PageKey } from "@/lib/copy";
 import { routes } from "@/lib/routes";
 
 // Placeholder Center Stage: a map of every route until Step 8 builds the
@@ -9,6 +12,8 @@ const pageKeys = (Object.keys(routes) as PageKey[]).filter(
 );
 
 function RouteGrid({ area }: { area: "shop" | "backstage" }) {
+  const { t, plain, isPlain } = useCopy();
+
   return (
     <ul className="grid gap-3 sm:grid-cols-2">
       {pageKeys
@@ -24,15 +29,17 @@ function RouteGrid({ area }: { area: "shop" | "backstage" }) {
               >
                 <span>
                   <span className="block font-heading text-xl tracking-wide uppercase">
-                    {dance.pages[key]}
+                    {t.pages[key]}
                   </span>
-                  <span className="block text-sm text-muted-foreground">
-                    {plain.pages[key]}
-                  </span>
+                  {!isPlain && (
+                    <span className="block text-sm text-muted-foreground">
+                      {plain.pages[key]}
+                    </span>
+                  )}
                 </span>
                 {phase && (
                   <span className="shrink-0 rounded-md bg-secondary px-2 py-0.5 text-xs font-semibold text-secondary-foreground">
-                    {dance.placeholder.phase} {phase}
+                    {t.placeholder.phase} {phase}
                   </span>
                 )}
               </Link>
@@ -44,27 +51,28 @@ function RouteGrid({ area }: { area: "shop" | "backstage" }) {
 }
 
 export default function Home() {
+  const { t, plain, isPlain } = useCopy();
+
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-12 sm:py-20">
       <header className="mb-12">
         <p className="text-sm font-semibold tracking-widest text-highlight uppercase">
-          {dance.pages.home} · {plain.pages.home}
+          {t.pages.home}
+          {!isPlain && ` · ${plain.pages.home}`}
         </p>
-        <h1 className="mt-2 text-6xl leading-[0.9] sm:text-8xl">
-          {dance.brand}
-        </h1>
+        <h1 className="mt-2 text-6xl leading-[0.9] sm:text-8xl">{t.brand}</h1>
         <p className="mt-4 max-w-md text-lg text-muted-foreground">
-          {dance.tagline}
+          {t.tagline}
         </p>
       </header>
 
       <section className="mb-10">
-        <h2 className="mb-4 text-2xl">{dance.placeholder.customerPages}</h2>
+        <h2 className="mb-4 text-2xl">{t.placeholder.customerPages}</h2>
         <RouteGrid area="shop" />
       </section>
 
       <section>
-        <h2 className="mb-4 text-2xl">{dance.placeholder.backstagePages}</h2>
+        <h2 className="mb-4 text-2xl">{t.placeholder.backstagePages}</h2>
         <RouteGrid area="backstage" />
       </section>
     </main>

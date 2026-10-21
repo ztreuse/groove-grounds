@@ -1,5 +1,6 @@
 // All UI labels live here. `dance` and `plain` must have the same keys.
-// Step 2 adds the full glossary and the useCopy() hook.
+// Read them through useCopy() in components. aria-labels always use `plain`.
+// Templates use {name} placeholders; fill them with fill().
 
 type Widen<T> = { [K in keyof T]: T[K] extends string ? string : Widen<T[K]> };
 
@@ -7,6 +8,115 @@ export const dance = {
   brand: "Groove Grounds",
   tagline: "Coffee with a beat. Order for pickup, your way.",
   demoBanner: "Concept demo by ztreuse — no real orders or payments.",
+
+  // Glossary from docs/PROJECT.md.
+  terms: {
+    centerStage: "Center Stage",
+    lineup: "The Lineup",
+    genres: "Genres",
+    oldSchool: "Old School",
+    newSchool: "New School",
+    mashup: "Mashup",
+    offBeat: "Off-Beat",
+    intermission: "Intermission",
+    dropIn: "Drop-in",
+    bookAClass: "Book a Class",
+    crewOrder: "Crew Order",
+    freestyle: "Freestyle",
+    remix: "Remix",
+    choreo: "Choreo",
+    playlist: "Playlist",
+    showtime: "Showtime",
+    choreographers: "Choreographers",
+    dancerProfile: "Dancer Profile",
+    pastPerformances: "Past Performances",
+    reps: "Reps",
+    levels: "Levels",
+    props: "Props",
+    spotlight: "Spotlight",
+    cypher: "The Cypher",
+    backstage: "Backstage",
+    sittingOut: "Sitting out",
+    cutFromTheSet: "Cut from the set",
+    danceDictionary: "Dance Dictionary",
+    missedACount: "You missed a count",
+    loading: "5, 6, 7, 8…",
+  },
+
+  remix: {
+    counts: "Counts",
+    count8: "8-count",
+    count16: "16-count",
+    count32: "32-count",
+    temperature: "Warm-up / Cool-down",
+    warmUp: "Warm-up",
+    coolDown: "Cool-down",
+    blended: "Mashup",
+    energy: "Energy",
+    marking: "Marking",
+    halfOut: "Half-out",
+    fullOut: "Full out",
+    extraShots: "Double time / Triple time",
+    doubleTime: "Double time",
+    tripleTime: "Triple time",
+    foundation: "Foundation",
+    flavor: "Flavor",
+    sweetLevel: "Sweet level",
+    clean: "Clean",
+    smooth: "Smooth",
+    full: "Full",
+    extra: "Extra",
+    accents: "Accents",
+    freeze: "Freeze",
+    lightFreeze: "Light freeze",
+    regularFreeze: "Regular",
+    extraFreeze: "Extra freeze",
+    notes: "Notes to the choreographer",
+  },
+
+  status: {
+    warmUp: "Warm-up",
+    onDeck: "On deck",
+    fullOut: "Full out",
+    stageReady: "Stage ready",
+    bow: "Bow",
+    cut: "Cut from the set",
+  },
+
+  levels: {
+    rookie: "Rookie",
+    cypherRegular: "Cypher Regular",
+    battler: "Battler",
+    judge: "Judge",
+    legend: "Legend",
+  },
+
+  header: {
+    modeDance: "Dance terms",
+    modePlain: "Plain words",
+    mainNav: "Main navigation",
+    openNav: "Open navigation",
+    closeNav: "Close navigation",
+    logoHome: "Groove Grounds home",
+    cartItem: "1 item",
+    cartItems: "{count} items",
+  },
+
+  // The footer always uses plain words, so both dictionaries match here.
+  footer: {
+    home: "Home",
+    menu: "Menu",
+    about: "About",
+    contact: "Contact",
+    faq: "FAQ",
+    nav: "Footer",
+    rights: "© Groove Grounds. A concept project.",
+  },
+
+  errors: {
+    notFoundBody: "That page fell off the beat. Let's get you back on count.",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -46,6 +156,114 @@ export const plain: Widen<typeof dance> = {
   brand: "Groove Grounds",
   tagline: "Coffee with a beat. Order for pickup, your way.",
   demoBanner: "Concept demo by ztreuse — no real orders or payments.",
+
+  terms: {
+    centerStage: "Home",
+    lineup: "Menu",
+    genres: "Menu categories",
+    oldSchool: "Classic espresso",
+    newSchool: "Signature drinks",
+    mashup: "Blended drinks and frappes",
+    offBeat: "Non-coffee drinks",
+    intermission: "Pastries and snacks",
+    dropIn: "Order now, pick up ASAP",
+    bookAClass: "Scheduled pickup",
+    crewOrder: "Group order",
+    freestyle: "Build your own drink",
+    remix: "Customize",
+    choreo: "Saved recipe",
+    playlist: "Cart",
+    showtime: "Checkout",
+    choreographers: "Baristas",
+    dancerProfile: "Account",
+    pastPerformances: "Order history",
+    reps: "Loyalty points",
+    levels: "Loyalty tiers",
+    props: "Ratings & reviews",
+    spotlight: "Featured drink",
+    cypher: "Community board",
+    backstage: "Admin dashboard",
+    sittingOut: "Sold out",
+    cutFromTheSet: "Cancelled",
+    danceDictionary: "Glossary",
+    missedACount: "Page not found",
+    loading: "Loading…",
+  },
+
+  remix: {
+    counts: "Size",
+    count8: "Small (12 oz)",
+    count16: "Medium (16 oz)",
+    count32: "Large (22 oz)",
+    temperature: "Temperature",
+    warmUp: "Hot",
+    coolDown: "Iced",
+    blended: "Blended",
+    energy: "Caffeine",
+    marking: "Decaf",
+    halfOut: "Half-caf",
+    fullOut: "Regular caffeine",
+    extraShots: "Extra shots",
+    doubleTime: "+1 espresso shot",
+    tripleTime: "+2 espresso shots",
+    foundation: "Milk",
+    flavor: "Syrups and flavors",
+    sweetLevel: "Sweetness",
+    clean: "25% sweet",
+    smooth: "50% sweet",
+    full: "100% sweet",
+    extra: "125% sweet",
+    accents: "Toppings",
+    freeze: "Ice level",
+    lightFreeze: "Light ice",
+    regularFreeze: "Regular ice",
+    extraFreeze: "Extra ice",
+    notes: "Special instructions",
+  },
+
+  status: {
+    warmUp: "Order received",
+    onDeck: "Queued, you're next",
+    fullOut: "Being made now",
+    stageReady: "Ready for pickup",
+    bow: "Picked up",
+    cut: "Cancelled",
+  },
+
+  // Level names are part of the brand, so they stay the same.
+  levels: {
+    rookie: "Rookie",
+    cypherRegular: "Cypher Regular",
+    battler: "Battler",
+    judge: "Judge",
+    legend: "Legend",
+  },
+
+  header: {
+    modeDance: "Dance terms",
+    modePlain: "Plain words",
+    mainNav: "Main navigation",
+    openNav: "Open navigation",
+    closeNav: "Close navigation",
+    logoHome: "Groove Grounds home",
+    cartItem: "1 item",
+    cartItems: "{count} items",
+  },
+
+  footer: {
+    home: "Home",
+    menu: "Menu",
+    about: "About",
+    contact: "Contact",
+    faq: "FAQ",
+    nav: "Footer",
+    rights: "© Groove Grounds. A concept project.",
+  },
+
+  errors: {
+    notFoundBody: "We couldn't find that page.",
+  },
+
   placeholder: {
     comingSoon: "This page is coming soon.",
     phase: "Phase",
@@ -84,3 +302,10 @@ export const plain: Widen<typeof dance> = {
 export type Copy = Widen<typeof dance>;
 export type PageKey = keyof Copy["pages"];
 export type PhaseKey = keyof Copy["phases"];
+export type TermKey = keyof Copy["terms"];
+
+export function fill(template: string, vars: Record<string, string | number>) {
+  return template.replace(/\{(\w+)\}/g, (match, key: string) =>
+    key in vars ? String(vars[key]) : match,
+  );
+}
