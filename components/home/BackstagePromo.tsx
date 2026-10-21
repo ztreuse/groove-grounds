@@ -13,7 +13,7 @@ export function BackstagePromo() {
   return (
     <section className="bg-lilac text-espresso">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-14 sm:py-16 md:grid-cols-[auto_1fr_auto]">
-        <LogoMark className="hidden size-24 motion-safe:animate-spin-slow md:block" />
+        <LogoMark className="hidden size-24 md:block" />
         <div>
           <h2 className="text-5xl leading-none">{t.home.backstageTitle}</h2>
           <p className="mt-3 max-w-xl text-lg">{t.home.backstageBody}</p>

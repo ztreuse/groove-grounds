@@ -3,12 +3,11 @@
 import { useCopy } from "@/hooks/use-copy";
 import { cypherPosts } from "@/lib/cypher";
 
-// Flyers pinned to the community board: one big, two small, each its own
-// paper colour and tilt, with tape on top.
+// Community board: one featured post and two smaller ones.
 const flyerStyles = [
-  "md:col-span-3 md:row-span-2 bg-cream text-espresso -rotate-1",
-  "md:col-span-2 bg-lilac text-espresso rotate-2",
-  "md:col-span-2 bg-espresso text-cream -rotate-2 dark:bg-espresso-deep",
+  "md:col-span-3 md:row-span-2 bg-card text-card-foreground",
+  "md:col-span-2 bg-lilac text-espresso",
+  "md:col-span-2 bg-espresso text-cream dark:bg-espresso-deep",
 ];
 
 export function Cypher() {
@@ -30,12 +29,8 @@ export function Cypher() {
         {cypherPosts.map((post, index) => (
           <li
             key={post.id}
-            className={`relative flex flex-col p-6 shadow-[0_16px_30px_-18px_rgb(43_30_23_/_0.6)] ${flyerStyles[index % flyerStyles.length]}`}
+            className={`relative flex flex-col rounded-2xl p-6 shadow-[0_16px_30px_-18px_rgb(43_30_23_/_0.6)] ${flyerStyles[index % flyerStyles.length]}`}
           >
-            <span
-              aria-hidden
-              className="absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 rotate-2 bg-khaki/80"
-            />
             <span className="text-xs font-bold tracking-wide uppercase opacity-80">
               {pick(post.tag)}
             </span>

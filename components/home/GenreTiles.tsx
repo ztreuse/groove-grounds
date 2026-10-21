@@ -32,8 +32,11 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
         {genres.map((genre) => {
           const term = genreTerms[genre.slug];
           const inGenre = drinks.filter((d) => d.genreSlug === genre.slug);
-          const tall = genre.slug === "new-school";
-          const shown = inGenre.slice(0, tall ? 3 : 2);
+          // Tall and narrow tiles put the photo along the bottom; wide ones
+          // on the right, so the genre name never sits behind it.
+          const photoBelow =
+            genre.slug === "new-school" || genre.slug === "intermission";
+          const cover = inGenre.find((d) => d.imageSrc) ?? inGenre[0];
           return (
             <li
               key={genre.slug}
@@ -42,12 +45,8 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
               <Link
                 href={`${routes.lineup.href}?genre=${genre.slug}`}
                 aria-label={term ? plain.terms[term] : genre.name}
-                className={`group relative flex h-full min-h-56 flex-col overflow-hidden rounded-[1.75rem] p-6 text-espresso transition-transform duration-300 outline-none hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring ${genreBlockFor(genre.slug)}`}
+                className={`group relative flex h-full ${photoBelow ? "min-h-80" : "min-h-56"} flex-col overflow-hidden rounded-[1.75rem] p-6 text-espresso transition-transform duration-300 outline-none hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring ${genreBlockFor(genre.slug)}`}
               >
-                <span
-                  aria-hidden
-                  className="absolute inset-0 halftone [mask-image:linear-gradient(to_bottom_left,black,transparent_60%)] text-espresso/10"
-                />
                 <span className="relative font-heading text-4xl leading-none tracking-wide uppercase sm:text-5xl">
                   {term ? t.terms[term] : genre.name}
                 </span>
@@ -56,7 +55,7 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                     {plain.terms[term]}
                   </span>
                 )}
-                <span className="relative z-10 mt-auto flex items-center gap-1 self-start rounded-full bg-cream/90 px-3 py-1 text-sm font-semibold">
+                <span className="relative z-10 mt-auto flex items-center gap-1 self-start rounded-full bg-background/90 px-3 py-1 text-sm font-semibold text-foreground">
                   {inGenre.length === 1
                     ? t.home.drinkOne
                     : fill(t.home.drinks, { count: inGenre.length })}
@@ -65,24 +64,20 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                     className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </span>
-                <div
-                  aria-hidden
-                  className={`absolute right-2 bottom-2 flex items-end ${tall ? "h-[62%]" : "h-[72%]"}`}
-                >
-                  {shown.map((drink, index) => (
-                    <div
-                      key={drink.id}
-                      className={`-ml-10 h-full transition-transform duration-500 first:ml-0 ${
-                        index % 2
-                          ? "rotate-6 group-hover:rotate-3"
-                          : "-rotate-3 group-hover:rotate-0"
-                      }`}
-                      style={{ zIndex: shown.length - index }}
-                    >
-                      <DrinkVisual drink={drink} sizes="200px" />
+                {cover && (
+                  <div
+                    aria-hidden
+                    className={`absolute overflow-hidden rounded-2xl ${
+                      photoBelow
+                        ? "inset-x-4 top-[42%] bottom-16 lg:bottom-4 lg:left-auto lg:w-[55%]"
+                        : "top-4 right-4 bottom-4 w-[42%]"
+                    }`}
+                  >
+                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+                      <DrinkVisual drink={cover} sizes="400px" />
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
               </Link>
             </li>
           );

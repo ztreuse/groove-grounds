@@ -71,10 +71,6 @@ export function LineupBrowser({
   return (
     <main className="flex-1 pb-16">
       <header className="relative overflow-hidden bg-espresso text-cream dark:bg-espresso-deep">
-        <span
-          aria-hidden
-          className="absolute inset-y-0 right-0 w-2/3 halftone [mask-image:linear-gradient(to_left,black,transparent)] text-lilac/25"
-        />
         <div className="relative mx-auto w-full max-w-6xl px-4 pt-10 pb-12 sm:pt-14 sm:pb-16">
           <h1 className="text-6xl leading-[0.85] sm:text-8xl">
             {t.pages.lineup}

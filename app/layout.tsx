@@ -38,7 +38,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <WelcomeTour />
         </Providers>
-        <div aria-hidden className="grain-overlay" />
       </body>
     </html>
   );

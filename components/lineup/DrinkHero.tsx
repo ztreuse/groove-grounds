@@ -9,8 +9,8 @@ import { genreBlockFor, genreTerms } from "@/lib/genres";
 import { routes } from "@/lib/routes";
 import { DrinkVisual } from "./DrinkVisual";
 
-// Drink page poster: the drink floats on its genre's colour block, with the
-// dance style behind it, then name, description, the style note and price.
+// Drink page header: the product photo, then name, price, description and
+// the dance style note.
 export function DrinkHero({ drink }: { drink: DrinkDetail }) {
   const { t, plain } = useCopy();
   const term = genreTerms[drink.genreSlug];
@@ -27,39 +27,29 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
       </Link>
 
       <div
-        className={`relative mt-3 aspect-square overflow-hidden rounded-[1.75rem] sm:aspect-[4/3] lg:aspect-square ${genreBlockFor(drink.genreSlug)} ${
+        className={`relative mt-3 aspect-square overflow-hidden rounded-3xl sm:aspect-[4/3] lg:aspect-square ${genreBlockFor(drink.genreSlug)} ${
           drink.isAvailable ? "" : "grayscale"
         }`}
       >
-        <span
-          aria-hidden
-          className="absolute inset-0 halftone [mask-image:radial-gradient(circle_at_50%_60%,transparent_30%,black_80%)] text-espresso/15"
+        <DrinkVisual
+          drink={drink}
+          live
+          priority
+          sizes="(min-width: 1024px) 40vw, 90vw"
         />
-        <span
-          aria-hidden
-          className="absolute inset-x-0 bottom-[-0.12em] text-center font-heading text-[30vw] leading-none whitespace-nowrap text-espresso/10 uppercase sm:text-[11rem] lg:text-[9rem]"
-        >
-          {drink.danceStyle}
-        </span>
-        <div className="absolute inset-x-[8%] top-[10%] bottom-[6%]">
-          <DrinkVisual
-            drink={drink}
-            live
-            priority
-            sizes="(min-width: 1024px) 40vw, 90vw"
-          />
-        </div>
-        <span className="absolute top-5 left-5 -rotate-3 rounded-full bg-espresso px-4 py-1.5 text-sm font-bold tracking-wide text-cream uppercase">
-          {drink.danceStyle}
-        </span>
-        {term && (
-          <span className="absolute top-5 right-5 rotate-2 rounded-full bg-cream px-3 py-1 text-xs font-bold tracking-wide text-espresso uppercase">
-            <span aria-hidden>{t.terms[term]}</span>
-            <span className="sr-only">{plain.terms[term]}</span>
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+          <span className="rounded-full bg-background/90 px-3 py-1 text-sm font-semibold backdrop-blur">
+            {drink.danceStyle}
           </span>
-        )}
+          {term && (
+            <span className="rounded-full bg-background/90 px-3 py-1 text-sm font-medium backdrop-blur">
+              <span aria-hidden>{t.terms[term]}</span>
+              <span className="sr-only">{plain.terms[term]}</span>
+            </span>
+          )}
+        </div>
         {!drink.isAvailable && (
-          <span className="absolute bottom-5 left-5 -rotate-2 rounded-full bg-cream px-4 py-1.5 text-sm font-bold tracking-wide text-espresso uppercase">
+          <span className="absolute bottom-4 left-4 rounded-full bg-espresso px-4 py-1.5 text-sm font-semibold text-cream">
             <span aria-hidden>{t.terms.sittingOut}</span>
             <span className="sr-only">{plain.terms.sittingOut}</span>
           </span>
@@ -67,8 +57,8 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
       </div>
 
       <div className="mt-6 flex items-start justify-between gap-4">
-        <h1 className="text-5xl leading-[0.9] sm:text-6xl">{drink.name}</h1>
-        <p className="shrink-0 font-heading text-4xl text-highlight sm:text-5xl">
+        <h1 className="text-4xl leading-tight sm:text-5xl">{drink.name}</h1>
+        <p className="shrink-0 text-3xl font-semibold text-highlight sm:text-4xl">
           {formatPeso(drink.basePrice)}
         </p>
       </div>

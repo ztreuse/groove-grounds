@@ -13,14 +13,14 @@ type DrinkVisualProps = {
     plainDescription: string;
     imageSrc: string | null;
   };
-  // Animate steam and fill (hero, drink page); off in grids of cards.
+  // Animate steam and fill on the illustration (hero, drink page).
   live?: boolean;
   priority?: boolean;
   sizes?: string;
 };
 
-// The drink's product photo when it exists (public/drinks/<slug>.png), else
-// its illustrated cup or snack. Fills its parent's height.
+// The drink's product photo (public/drinks/<slug>.jpg), filling its frame.
+// Drinks without a photo fall back to an illustrated cup or snack.
 export function DrinkVisual({
   drink,
   live = false,
@@ -32,35 +32,31 @@ export function DrinkVisual({
 
   if (drink.imageSrc) {
     return (
-      <div className="relative h-full w-full">
-        <Image
-          src={drink.imageSrc}
-          alt={label}
-          fill
-          priority={priority}
-          sizes={sizes}
-          className="object-contain drop-shadow-[0_24px_24px_rgb(43_30_23_/_0.35)]"
-        />
-      </div>
+      <Image
+        src={drink.imageSrc}
+        alt={label}
+        fill
+        priority={priority}
+        sizes={sizes}
+        className="object-cover"
+      />
     );
   }
 
   const cup = cupStateFor(drink.slug);
-  if (cup) {
-    return (
-      <div className="h-full text-espresso">
-        <CupPreview state={cup} label={label} still={!live} />
-      </div>
-    );
-  }
-
   return (
-    <div
-      role="img"
-      aria-label={label || plain.terms.intermission}
-      className="flex h-full justify-center text-espresso"
-    >
-      <SnackArt slug={drink.slug} />
+    <div className="absolute inset-[10%] text-espresso">
+      {cup ? (
+        <CupPreview state={cup} label={label} still={!live} />
+      ) : (
+        <div
+          role="img"
+          aria-label={label || plain.terms.intermission}
+          className="flex h-full justify-center"
+        >
+          <SnackArt slug={drink.slug} />
+        </div>
+      )}
     </div>
   );
 }

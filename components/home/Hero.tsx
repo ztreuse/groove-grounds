@@ -30,7 +30,7 @@ const ctas = [
 }[];
 
 // Split poster hero: headline and the two order buttons on the left, the
-// Spotlight drink spinning on a record on the right.
+// Spotlight drink photo on the right.
 export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
   const { t, plain, isPlain } = useCopy();
   const words = t.home.heroTitle.split(" ");
@@ -41,10 +41,6 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
       <span
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(circle_at_78%_45%,var(--color-purple)_0%,transparent_45%)] opacity-60"
-      />
-      <span
-        aria-hidden
-        className="absolute bottom-0 left-0 h-1/2 w-1/2 halftone [mask-image:radial-gradient(circle_at_0%_100%,black,transparent_70%)] text-lilac/20"
       />
 
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-6 px-4 pt-10 pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pt-16 lg:pb-20">
@@ -81,34 +77,29 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
         </div>
 
         {spotlight && (
-          <div className="relative mx-auto aspect-square w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[480px]">
-            {/* The record the drink "plays" on. */}
-            <span
-              aria-hidden
-              className="absolute inset-[8%] rounded-full bg-[repeating-radial-gradient(circle,var(--color-espresso-deep)_0_3px,var(--color-espresso-soft)_3px_5px)] shadow-[0_30px_60px_-20px_rgb(0_0_0_/_0.6)] motion-safe:animate-spin-slow"
-            >
-              <span className="absolute inset-[38%] rounded-full bg-lilac" />
-            </span>
-            <div className="absolute inset-[2%] bottom-[10%]">
+          <div className="relative mx-auto w-full max-w-[360px] pb-8 sm:max-w-[420px] lg:max-w-[460px]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-espresso-soft shadow-[0_40px_80px_-30px_rgb(0_0_0_/_0.7)]">
               <DrinkVisual
                 drink={spotlight}
                 live
                 priority
-                sizes="(min-width: 1024px) 480px, 80vw"
+                sizes="(min-width: 1024px) 460px, 80vw"
               />
             </div>
             <Link
               href={`/lineup/${spotlight.slug}`}
               aria-label={`${plain.home.spotlightCta}: ${spotlight.name}, ${formatPeso(spotlight.basePrice)}`}
-              className="absolute bottom-0 left-0 flex -rotate-6 items-center gap-3 rounded-full bg-lilac py-2 pr-5 pl-2 text-espresso shadow-lg transition-transform outline-none hover:rotate-0 focus-visible:ring-3 focus-visible:ring-cream"
+              className="absolute bottom-0 -left-2 flex items-center gap-4 rounded-2xl bg-background py-3 pr-5 pl-4 text-foreground shadow-xl outline-none focus-visible:ring-3 focus-visible:ring-ring sm:-left-8"
             >
-              <span className="rounded-full bg-espresso px-3 py-1 text-xs font-bold tracking-wide text-cream uppercase">
-                {t.terms.spotlight}
+              <span>
+                <span className="block text-xs font-semibold text-highlight">
+                  {t.terms.spotlight}
+                </span>
+                <span className="block text-base font-semibold">
+                  {spotlight.name}
+                </span>
               </span>
-              <span className="font-heading text-lg leading-none tracking-wide uppercase">
-                {spotlight.danceStyle}
-              </span>
-              <span className="font-heading text-lg leading-none">
+              <span className="text-lg font-semibold">
                 {formatPeso(spotlight.basePrice)}
               </span>
             </Link>
