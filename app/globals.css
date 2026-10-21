@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Dark theme follows the device setting (espresso background). */
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+/* Brand palette from docs/PROJECT.md. Use these tokens, never inline hex. */
+@theme {
+  --color-espresso: #3b2a20;
+  --color-espresso-deep: #2b1e17;
+  --color-espresso-soft: #4d3a2d;
+  --color-khaki: #c3b091;
+  --color-cream: #f5efe3;
+  --color-cream-soft: #fbf8f1;
+  --color-roast: #6e5747;
+  --color-purple: #7b4fc9;
+  --color-lilac: #c9b6f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-highlight: var(--highlight);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-anton);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Light theme: cream background. */
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-espresso);
+  --card: var(--color-cream-soft);
+  --card-foreground: var(--color-espresso);
+  --popover: var(--color-cream-soft);
+  --popover-foreground: var(--color-espresso);
+  --primary: var(--color-purple);
+  --primary-foreground: var(--color-cream-soft);
+  --secondary: var(--color-khaki);
+  --secondary-foreground: var(--color-espresso);
+  --muted: color-mix(in oklch, var(--color-khaki) 30%, var(--color-cream));
+  --muted-foreground: var(--color-roast);
+  --accent: var(--color-lilac);
+  --accent-foreground: var(--color-espresso);
+  /* Accent-colored text that passes AA on the background. */
+  --highlight: var(--color-purple);
+  --destructive: oklch(0.52 0.2 27);
+  --border: color-mix(in oklch, var(--color-khaki) 70%, var(--color-cream));
+  --input: var(--color-khaki);
+  --ring: var(--color-purple);
+  --chart-1: var(--color-purple);
+  --chart-2: var(--color-khaki);
+  --chart-3: var(--color-lilac);
+  --chart-4: var(--color-roast);
+  --chart-5: var(--color-espresso);
+  --radius: 0.75rem;
+  --sidebar: var(--color-cream-soft);
+  --sidebar-foreground: var(--color-espresso);
+  --sidebar-primary: var(--color-purple);
+  --sidebar-primary-foreground: var(--color-cream-soft);
+  --sidebar-accent: var(--color-lilac);
+  --sidebar-accent-foreground: var(--color-espresso);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--color-purple);
+}
+
+/* Dark theme: espresso background, same accents. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-espresso);
+    --foreground: var(--color-cream);
+    --card: var(--color-espresso-soft);
+    --card-foreground: var(--color-cream);
+    --popover: var(--color-espresso-soft);
+    --popover-foreground: var(--color-cream);
+    --primary: var(--color-purple);
+    --primary-foreground: var(--color-cream-soft);
+    --secondary: var(--color-espresso-deep);
+    --secondary-foreground: var(--color-cream);
+    --muted: var(--color-espresso-deep);
+    --muted-foreground: var(--color-khaki);
+    --accent: var(--color-lilac);
+    --accent-foreground: var(--color-espresso);
+    /* Purple text is too dark on espresso, so accent text uses lilac. */
+    --highlight: var(--color-lilac);
+    --destructive: oklch(0.7 0.19 22);
+    --border: color-mix(in oklch, var(--color-cream) 15%, transparent);
+    --input: color-mix(in oklch, var(--color-cream) 20%, transparent);
+    --ring: var(--color-lilac);
+    --sidebar: var(--color-espresso-deep);
+    --sidebar-foreground: var(--color-cream);
+    --sidebar-primary: var(--color-purple);
+    --sidebar-primary-foreground: var(--color-cream-soft);
+    --sidebar-accent: var(--color-lilac);
+    --sidebar-accent-foreground: var(--color-espresso);
+    --sidebar-border: var(--border);
+    --sidebar-ring: var(--color-lilac);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: light dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading tracking-wide uppercase;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
