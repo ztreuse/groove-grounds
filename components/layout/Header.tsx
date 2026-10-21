@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useCopy } from "@/hooks/use-copy";
+import { AccountLink } from "./AccountLink";
 import { MainNav } from "./MainNav";
 import { PlainModeToggle } from "./PlainModeToggle";
 import { PlaylistButton } from "./PlaylistButton";
@@ -79,6 +80,9 @@ function MobileNav() {
         <nav aria-label={plain.header.mainNav}>
           <MainNav variant="sheet" onNavigate={() => setOpen(false)} />
         </nav>
+        <div className="mt-2 border-t-2 border-dashed pt-4">
+          <AccountLink variant="sheet" onNavigate={() => setOpen(false)} />
+        </div>
       </SheetContent>
     </Sheet>
   );
@@ -91,11 +95,12 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur supports-backdrop-filter:bg-background/75">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-4">
         <Logo />
-        <nav aria-label={plain.header.mainNav} className="ml-6 hidden xl:block">
+        <nav aria-label={plain.header.mainNav} className="ml-4 hidden xl:block">
           <MainNav variant="bar" />
         </nav>
         <div className="ml-auto flex items-center gap-1.5">
           <PlainModeToggle />
+          <AccountLink variant="bar" />
           <PlaylistButton />
           <MobileNav />
         </div>

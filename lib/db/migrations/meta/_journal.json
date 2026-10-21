@@ -15,6 +15,13 @@
       "when": 1792595068677,
       "tag": "0001_order_broadcasts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792598555837,
+      "tag": "0002_profile_on_signup",
+      "breakpoints": true
     }
   ]
 }

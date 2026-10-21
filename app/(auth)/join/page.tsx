@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
+import { AuthForm } from "@/components/auth/AuthForm";
 import { dance } from "@/lib/copy";
 
 export const metadata: Metadata = { title: dance.pages.join };
 
 export default function Page() {
-  return <PagePlaceholder page="join" />;
+  return <AuthForm mode="join" />;
 }

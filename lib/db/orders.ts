@@ -83,6 +83,16 @@ export async function getOrdersByIds(ids: string[]) {
   return withItems(rows.reverse());
 }
 
+// A member's orders, newest first (Past Performances).
+export async function getOrdersForUser(userId: string, limit = 20) {
+  if (!isUuid(userId)) return [];
+  const rows = await selectOrders()
+    .where(eq(orders.userId, userId))
+    .orderBy(desc(orders.createdAt))
+    .limit(limit);
+  return withItems(rows);
+}
+
 // Moves an order one step forward if it is still at `from`.
 export async function advanceOrder(id: string, from: OrderStatus) {
   const to = nextStatus(from);

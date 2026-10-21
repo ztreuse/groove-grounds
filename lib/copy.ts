@@ -100,6 +100,8 @@ export const dance = {
     logoHome: "Groove Grounds home",
     cartItem: "1 item",
     cartItems: "{count} items",
+    account: "Account",
+    signIn: "Sign in",
   },
 
   // The footer always uses plain words, so both dictionaries match here.
@@ -291,6 +293,53 @@ export const dance = {
     close: "Close",
   },
 
+  auth: {
+    joinIntro: "Save your choreo, track Past Performances and earn Reps.",
+    loginIntro: "Welcome back to the floor.",
+    name: "Name",
+    email: "Email",
+    password: "Password",
+    passwordHint: "At least 8 characters.",
+    phone: "Mobile number (optional)",
+    join: "Join the Crew",
+    login: "Sign in",
+    signOut: "Sign out",
+    haveAccount: "Already in the crew?",
+    noAccount: "New here?",
+    guestNote: "No account needed to order. Guest checkout stays open.",
+    checkEmail: "Check your email",
+    checkEmailBody:
+      "We sent a confirmation link to {email}. Tap it to finish joining the crew.",
+    signedInAs: "Signed in as {name}",
+    working: "5, 6, 7, 8…",
+    errorName: "Enter your name.",
+    errorEmail: "Enter a valid email.",
+    errorPassword: "Use at least 8 characters.",
+    errorPhone: "Enter a PH mobile number, like 0917 123 4567.",
+    errorInvalidLogin: "That email and password don't match.",
+    errorExists: "That email is already in the crew. Try signing in.",
+    errorNotConfirmed:
+      "Confirm your email first. Check your inbox for the link.",
+    errorRateLimit: "Too many tries. Take five and try again.",
+    errorEmailBlocked: "We can't send email to that address right now.",
+    errorGeneric: "Something went off-beat. Try again.",
+  },
+
+  profile: {
+    signedOutTitle: "Step into the crew",
+    signedOutBody:
+      "Join the Crew to keep your details, see your Past Performances and save your choreo.",
+    details: "Your details",
+    save: "Save",
+    saved: "Saved",
+    level: "Level",
+    reps: "Reps",
+    pastPerformances: "Past Performances",
+    noOrders: "No performances yet. Your first show is one Showtime away.",
+    viewOrder: "View",
+    ordered: "{date}",
+  },
+
   tracker: {
     orderCode: "Order code",
     greeting: "You're on the lineup, {name}!",
@@ -458,6 +507,8 @@ export const plain: Widen<typeof dance> = {
     logoHome: "Groove Grounds home",
     cartItem: "1 item",
     cartItems: "{count} items",
+    account: "Account",
+    signIn: "Sign in",
   },
 
   footer: {
@@ -645,6 +696,54 @@ export const plain: Widen<typeof dance> = {
     skip: "Skip",
     done: "Got it",
     close: "Close",
+  },
+
+  auth: {
+    joinIntro: "Create an account to save drinks and see your order history.",
+    loginIntro: "Log in to your account.",
+    name: "Name",
+    email: "Email",
+    password: "Password",
+    passwordHint: "At least 8 characters.",
+    phone: "Mobile number (optional)",
+    join: "Sign up",
+    login: "Log in",
+    signOut: "Log out",
+    haveAccount: "Already have an account?",
+    noAccount: "New here?",
+    guestNote: "You can still order without an account.",
+    checkEmail: "Check your email",
+    checkEmailBody:
+      "We sent a confirmation link to {email}. Open it to finish signing up.",
+    signedInAs: "Logged in as {name}",
+    working: "Loading…",
+    errorName: "Enter your name.",
+    errorEmail: "Enter a valid email.",
+    errorPassword: "Use at least 8 characters.",
+    errorPhone: "Enter a PH mobile number, like 0917 123 4567.",
+    errorInvalidLogin: "That email and password don't match.",
+    errorExists: "An account with that email already exists. Try logging in.",
+    errorNotConfirmed:
+      "Confirm your email first. Check your inbox for the link.",
+    errorRateLimit:
+      "Too many attempts. Please wait a few minutes and try again.",
+    errorEmailBlocked: "We can't send email to that address right now.",
+    errorGeneric: "Something went wrong. Try again.",
+  },
+
+  profile: {
+    signedOutTitle: "Your account",
+    signedOutBody:
+      "Sign up to keep your details, see your order history and save drinks.",
+    details: "Your details",
+    save: "Save",
+    saved: "Saved",
+    level: "Loyalty tier",
+    reps: "Loyalty points",
+    pastPerformances: "Order history",
+    noOrders: "No orders yet.",
+    viewOrder: "View",
+    ordered: "{date}",
   },
 
   tracker: {

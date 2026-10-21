@@ -15,9 +15,11 @@ import {
   getSlotAvailability,
 } from "@/lib/db/queries";
 import { orderItems, orders, timeSlots } from "@/lib/db/schema";
+import { getProfile } from "@/lib/db/profiles";
 import { rememberDemoOrder } from "@/lib/demo-orders";
 import { priceRemix, type PricedRemix } from "@/lib/pricing";
 import { isBookableDay, isBookableSlot, schedule } from "@/lib/schedule";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 type CheckoutFailure = Extract<CreateOrderResult, { ok: false }>;
 type CheckoutDrink = Awaited<ReturnType<typeof getDrinksForCheckout>>[number];
@@ -52,6 +54,14 @@ function isDuplicateCode(error: unknown) {
   return code === "23505" && constraint_name === "orders_code_unique";
 }
 
+// Name and number for a signed-in member, to fill in the form.
+export async function getCheckoutPrefill() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const profile = await getProfile(user.id);
+  return { name: profile?.name ?? "", phone: profile?.phone ?? "" };
+}
+
 export async function fetchSlots(day: string) {
   const now = new Date();
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !isBookableDay(day, now)) return [];
@@ -72,6 +82,8 @@ export async function createOrder(
   }
   const { form, items } = parsed.data;
   const now = new Date();
+  // Members get the order on their Dancer Profile; guests are fine too.
+  const user = await getCurrentUser();
   const isClass = form.orderType === "class";
 
   if (isClass && !isBookableSlot(form.slotStart, now)) {
@@ -142,6 +154,7 @@ export async function createOrder(
           .insert(orders)
           .values({
             code: orderCode(),
+            userId: user?.id ?? null,
             guestName: form.name,
             guestPhone: form.phone,
             type: form.orderType,

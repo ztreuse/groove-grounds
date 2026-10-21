@@ -45,7 +45,7 @@ function NavList({ variant, pathname, onNavigate }: NavListProps) {
               onClick={onNavigate}
               className={
                 variant === "bar"
-                  ? `flex min-h-11 flex-col justify-center rounded-lg px-3 py-1 whitespace-nowrap transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring ${
+                  ? `flex min-h-11 flex-col justify-center rounded-lg px-2 py-1 whitespace-nowrap transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring ${
                       active ? "text-highlight" : ""
                     }`
                   : `flex min-h-14 items-center gap-3 rounded-xl px-3 py-2 transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring ${

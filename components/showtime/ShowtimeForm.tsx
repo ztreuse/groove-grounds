@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarClock, Zap } from "lucide-react";
-import { createOrder } from "@/app/(shop)/showtime/actions";
+import { createOrder, getCheckoutPrefill } from "@/app/(shop)/showtime/actions";
 import { CountIn } from "@/components/layout/CountIn";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -87,6 +87,15 @@ export function ShowtimeForm() {
   useEffect(() => {
     if (getOrderIntent() === "class") setValue("orderType", "class");
   }, [setValue]);
+
+  // Signed-in members: fill in name and number if still empty.
+  useEffect(() => {
+    getCheckoutPrefill().then((prefill) => {
+      if (!prefill) return;
+      if (!getValues("name")) setValue("name", prefill.name);
+      if (!getValues("phone")) setValue("phone", prefill.phone);
+    });
+  }, [getValues, setValue]);
 
   const orderType = useWatch({ control, name: "orderType" });
   const slotStart = useWatch({ control, name: "slotStart" });
