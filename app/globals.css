@@ -17,6 +17,18 @@
   --color-purple: #7b4fc9;
   --color-lilac: #c9b6f0;
 
+  /* Hover bounce on the beat: one bounce per beat at ~120 BPM. */
+  --animate-beat: beat-bounce 0.5s ease-in-out infinite;
+  @keyframes beat-bounce {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -4px;
+    }
+  }
+
   /* One beat per number at ~120 BPM: 4 counts over 2 seconds. */
   --animate-count-in: count-in 2s ease-out infinite;
   @keyframes count-in {

@@ -111,6 +111,8 @@ export const dance = {
     faq: "FAQ",
     nav: "Footer",
     rights: "© Groove Grounds. A concept project.",
+    hours: "Open daily, {open} – {close}",
+    demoBackstage: "Demo Backstage",
   },
 
   errors: {
@@ -214,6 +216,29 @@ export const dance = {
     errorGeneric: "Something went off-beat. Try again.",
   },
 
+  home: {
+    heroEyebrow: "Now playing at Groove Grounds",
+    heroTitle: "Coffee with a beat.",
+    heroBody:
+      "18 drinks, each named after a dance style. Drop in now or book a class for later.",
+    spotlightCta: "Remix it",
+    trendingTitle: "Trending Choreo",
+    seeLineup: "See The Lineup",
+    previous: "Previous",
+    next: "Next",
+    howTitle: "How it works in 3 counts",
+    step1Title: "Pick your style",
+    step1Body: "Browse The Lineup and find your move.",
+    step2Title: "Remix it",
+    step2Body: "Counts, Foundation, Flavor: make it yours.",
+    step3Title: "Showtime",
+    step3Body: "Drop in now or Book a Class, then grab it at the counter.",
+    cypherIntro: "Specials, shout-outs and what's happening in the circle.",
+    backstageTitle: "See the whole show",
+    backstageBody:
+      "Place a demo order, then play the choreographer in Demo Backstage and watch your tracker update live.",
+  },
+
   tracker: {
     orderCode: "Order code",
     greeting: "You're on the lineup, {name}!",
@@ -255,8 +280,6 @@ export const dance = {
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
-    customerPages: "Customer pages",
-    backstagePages: "Backstage",
   },
   phases: {
     1: "Choreo",
@@ -393,6 +416,8 @@ export const plain: Widen<typeof dance> = {
     faq: "FAQ",
     nav: "Footer",
     rights: "© Groove Grounds. A concept project.",
+    hours: "Open daily, {open} – {close}",
+    demoBackstage: "Demo Backstage",
   },
 
   errors: {
@@ -495,6 +520,29 @@ export const plain: Widen<typeof dance> = {
     errorGeneric: "Something went wrong. Try again.",
   },
 
+  home: {
+    heroEyebrow: "Groove Grounds coffee bar",
+    heroTitle: "Coffee with a beat.",
+    heroBody:
+      "18 drinks named after dance styles. Order now for pickup, or schedule a pickup time.",
+    spotlightCta: "Customize and order",
+    trendingTitle: "Popular drinks",
+    seeLineup: "See full menu",
+    previous: "Previous drinks",
+    next: "Next drinks",
+    howTitle: "How it works",
+    step1Title: "Choose a drink",
+    step1Body: "Browse the menu.",
+    step2Title: "Customize it",
+    step2Body: "Pick the size, milk, syrups and more.",
+    step3Title: "Check out",
+    step3Body: "Pick up now or schedule a time, then collect at the counter.",
+    cypherIntro: "Specials and news from the café.",
+    backstageTitle: "Try the staff view",
+    backstageBody:
+      "Place a demo order, then move it through the staff queue and watch the tracker update live.",
+  },
+
   tracker: {
     orderCode: "Order code",
     greeting: "Thanks for your order, {name}!",
@@ -536,8 +584,6 @@ export const plain: Widen<typeof dance> = {
   placeholder: {
     comingSoon: "This page is coming soon.",
     phase: "Phase",
-    customerPages: "Customer pages",
-    backstagePages: "Admin pages",
   },
   phases: {
     1: "MVP",

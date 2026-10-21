@@ -1,80 +1,44 @@
-"use client";
+import { BackstagePromo } from "@/components/home/BackstagePromo";
+import { Cypher } from "@/components/home/Cypher";
+import { Hero } from "@/components/home/Hero";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { Spotlight } from "@/components/home/Spotlight";
+import { TrendingCarousel } from "@/components/home/TrendingCarousel";
+import { getLineup, getTrendingDrinkIds } from "@/lib/db/queries";
 
-import Link from "next/link";
-import { useCopy } from "@/hooks/use-copy";
-import type { PageKey } from "@/lib/copy";
-import { routes } from "@/lib/routes";
+const TRENDING_COUNT = 8;
 
-// Placeholder Center Stage: a map of every route until Step 8 builds the
-// real home page.
-const pageKeys = (Object.keys(routes) as PageKey[]).filter(
-  (key) => key !== "home",
-);
+export default async function Home() {
+  const [{ drinks }, trendingIds] = await Promise.all([
+    getLineup(),
+    getTrendingDrinkIds(),
+  ]);
 
-function RouteGrid({ area }: { area: "shop" | "backstage" }) {
-  const { t, plain, isPlain } = useCopy();
-
-  return (
-    <ul className="grid gap-3 sm:grid-cols-2">
-      {pageKeys
-        .filter((key) => routes[key].area === area)
-        .map((key) => {
-          const { href, phase } = routes[key];
-          return (
-            <li key={key}>
-              <Link
-                href={href}
-                aria-label={plain.pages[key]}
-                className="flex min-h-16 items-center justify-between gap-3 rounded-xl border-2 bg-card px-4 py-3 transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
-              >
-                <span>
-                  <span className="block font-heading text-xl tracking-wide uppercase">
-                    {t.pages[key]}
-                  </span>
-                  {!isPlain && (
-                    <span className="block text-sm text-muted-foreground">
-                      {plain.pages[key]}
-                    </span>
-                  )}
-                </span>
-                {phase && (
-                  <span className="shrink-0 rounded-md bg-secondary px-2 py-0.5 text-xs font-semibold text-secondary-foreground">
-                    {t.placeholder.phase} {phase}
-                  </span>
-                )}
-              </Link>
-            </li>
-          );
-        })}
-    </ul>
+  // Drinks only (no snacks), and nothing that's Sitting out.
+  const onStage = drinks.filter(
+    (drink) => drink.tempsAllowed.length > 0 && drink.isAvailable,
   );
-}
+  const spotlight = onStage.find((drink) => drink.isFeatured) ?? onStage[0];
 
-export default function Home() {
-  const { t, plain, isPlain } = useCopy();
+  // Most ordered first, then featured, then menu order to fill the row.
+  const byId = new Map(onStage.map((drink) => [drink.id, drink]));
+  const ranked = [
+    ...trendingIds.flatMap((id) => byId.get(id) ?? []),
+    ...onStage.filter((drink) => drink.isFeatured),
+    ...onStage,
+  ];
+  const trending = [...new Map(ranked.map((d) => [d.id, d])).values()]
+    .filter((drink) => drink.id !== spotlight?.id)
+    .slice(0, TRENDING_COUNT);
 
   return (
-    <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-12 sm:py-20">
-      <header className="mb-12">
-        <p className="text-sm font-semibold tracking-widest text-highlight uppercase">
-          {t.pages.home}
-          {!isPlain && ` · ${plain.pages.home}`}
-        </p>
-        <h1 className="mt-2 text-6xl leading-[0.9] sm:text-8xl">{t.brand}</h1>
-        <p className="mt-4 max-w-md text-lg text-muted-foreground">
-          {t.tagline}
-        </p>
-      </header>
-
-      <section className="mb-10">
-        <h2 className="mb-4 text-2xl">{t.placeholder.customerPages}</h2>
-        <RouteGrid area="shop" />
-      </section>
-
-      <section>
-        <h2 className="mb-4 text-2xl">{t.placeholder.backstagePages}</h2>
-        <RouteGrid area="backstage" />
-      </section>
+    <main className="flex flex-1 flex-col gap-14 pb-16 sm:gap-20">
+      <Hero />
+      {spotlight && <Spotlight drink={spotlight} />}
+      <TrendingCarousel drinks={trending} />
+      <HowItWorks />
+      <Cypher />
+      <BackstagePromo />
     </main>
   );
 }

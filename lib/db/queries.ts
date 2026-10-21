@@ -1,5 +1,16 @@
 import "server-only";
-import { and, asc, eq, gte, inArray, lte, type SQL } from "drizzle-orm";
+import {
+  and,
+  asc,
+  desc,
+  eq,
+  gte,
+  inArray,
+  lte,
+  ne,
+  sql,
+  type SQL,
+} from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 import type { RemixGroup } from "@/lib/pricing";
 import { schedule, slotsForDay } from "@/lib/schedule";
@@ -10,6 +21,8 @@ import {
   genres,
   optionGroups,
   options,
+  orderItems,
+  orders,
   timeSlots,
 } from "./schema";
 
@@ -36,6 +49,7 @@ export async function getLineup() {
         basePrice: drinks.basePrice,
         tempsAllowed: drinks.tempsAllowed,
         isAvailable: drinks.isAvailable,
+        isFeatured: drinks.isFeatured,
         genreSlug: genres.slug,
       })
       .from(drinks)
@@ -44,6 +58,29 @@ export async function getLineup() {
   ]);
 
   return { genres: genreRows, drinks: drinkRows };
+}
+
+// Most-ordered drinks over the last 30 days, for Trending Choreo.
+export async function getTrendingDrinkIds() {
+  "use cache";
+  cacheTag("trending");
+  cacheLife("hours");
+
+  const ordered = sql<number>`sum(${orderItems.quantity})::int`;
+  const rows = await db
+    .select({ drinkId: orderItems.drinkId, ordered })
+    .from(orderItems)
+    .innerJoin(orders, eq(orderItems.orderId, orders.id))
+    .where(
+      and(
+        ne(orders.status, "cut"),
+        gte(orders.createdAt, sql`now() - interval '30 days'`),
+      ),
+    )
+    .groupBy(orderItems.drinkId)
+    .orderBy(desc(ordered))
+    .limit(8);
+  return rows.flatMap((row) => (row.drinkId ? [row.drinkId] : []));
 }
 
 export async function getDrinkSlugs() {

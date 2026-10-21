@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useCopy } from "@/hooks/use-copy";
-import type { Copy } from "@/lib/copy";
+import { fill, type Copy } from "@/lib/copy";
+import { formatClock } from "@/lib/format";
 import { routes } from "@/lib/routes";
+import { schedule } from "@/lib/schedule";
 
 // The footer always uses plain words (the `footer` copy is the same in both
 // dictionaries), so it reads the same in Dance and Plain mode.
@@ -13,6 +15,7 @@ const footerLinks: { key: keyof Copy["footer"]; href: string }[] = [
   { key: "about", href: routes.about.href },
   { key: "contact", href: routes.studio.href },
   { key: "faq", href: routes.dictionary.href },
+  { key: "demoBackstage", href: routes.backstageQueue.href },
 ];
 
 export function Footer() {
@@ -26,6 +29,12 @@ export function Footer() {
             {t.brand}
           </p>
           <p className="mt-1 max-w-xs text-sm opacity-80">{t.tagline}</p>
+          <p className="mt-3 text-sm font-semibold">
+            {fill(t.footer.hours, {
+              open: formatClock(schedule.openMinute),
+              close: formatClock(schedule.closeMinute),
+            })}
+          </p>
         </div>
         <nav aria-label={plain.footer.nav}>
           <ul className="flex flex-wrap gap-x-2 gap-y-1">

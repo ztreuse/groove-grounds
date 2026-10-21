@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
@@ -20,6 +20,7 @@ import {
 } from "@/lib/checkout";
 import { fill, type Copy } from "@/lib/copy";
 import { formatDay, formatPeso, formatTime } from "@/lib/format";
+import { getOrderIntent } from "@/lib/order-intent";
 import { routes } from "@/lib/routes";
 import { dayKey, schedule } from "@/lib/schedule";
 import { isDrinkItem, usePlaylist } from "@/stores/playlist";
@@ -82,6 +83,11 @@ export function ShowtimeForm() {
       paymentMethod: "demo_gcash",
     },
   });
+  // Preselect Book a Class when the visitor came from that home button.
+  useEffect(() => {
+    if (getOrderIntent() === "class") setValue("orderType", "class");
+  }, [setValue]);
+
   const orderType = useWatch({ control, name: "orderType" });
   const slotStart = useWatch({ control, name: "slotStart" });
   const paymentMethod = useWatch({ control, name: "paymentMethod" });

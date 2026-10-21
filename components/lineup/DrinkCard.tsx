@@ -20,7 +20,7 @@ export function DrinkCard({ drink }: { drink: LineupDrink }) {
   return (
     <Link
       href={`/lineup/${drink.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border-2 bg-card transition duration-200 outline-none hover:-translate-y-0.5 hover:border-primary focus-visible:ring-3 focus-visible:ring-ring"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border-2 bg-card transition-colors outline-none hover:animate-beat hover:border-primary focus-visible:ring-3 focus-visible:ring-ring motion-reduce:hover:animate-none"
     >
       <div
         className={`relative h-20 overflow-hidden bg-espresso text-cream dark:bg-espresso-deep ${
