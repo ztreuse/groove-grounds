@@ -16,6 +16,21 @@
   --color-roast: #6e5747;
   --color-purple: #7b4fc9;
   --color-lilac: #c9b6f0;
+
+  /* One beat per number at ~120 BPM: 4 counts over 2 seconds. */
+  --animate-count-in: count-in 2s ease-out infinite;
+  @keyframes count-in {
+    0%,
+    30%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.9);
+    }
+    8% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
 }
 
 @theme inline {

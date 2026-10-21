@@ -132,6 +132,24 @@ export const dance = {
     reset: "Reset filters",
   },
 
+  drink: {
+    back: "Back to The Lineup",
+    pickOne: "Pick one",
+    optional: "Optional",
+    pickUpTo: "Pick up to {max}",
+    none: "None",
+    notesPlaceholder: "Less ice, extra hot, light on the drizzle…",
+    notesCount: "{count}/{max}",
+    quantity: "Quantity",
+    decrease: "One less",
+    increase: "One more",
+    total: "Total",
+    addToPlaylist: "Add to Playlist",
+    added: "Added to your Playlist",
+    viewPlaylist: "View Playlist",
+    unavailable: "This one's sitting out today. Check back soon.",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -292,6 +310,24 @@ export const plain: Widen<typeof dance> = {
     results: "{count} items",
     empty: "No drinks match your filters.",
     reset: "Reset filters",
+  },
+
+  drink: {
+    back: "Back to menu",
+    pickOne: "Pick one",
+    optional: "Optional",
+    pickUpTo: "Pick up to {max}",
+    none: "None",
+    notesPlaceholder: "Less ice, extra hot, light on the drizzle…",
+    notesCount: "{count}/{max}",
+    quantity: "Quantity",
+    decrease: "Decrease quantity",
+    increase: "Increase quantity",
+    total: "Total",
+    addToPlaylist: "Add to cart",
+    added: "Added to your cart",
+    viewPlaylist: "View cart",
+    unavailable: "This item is sold out today.",
   },
 
   placeholder: {
