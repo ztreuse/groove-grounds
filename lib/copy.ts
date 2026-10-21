@@ -258,6 +258,39 @@ export const dance = {
     added: "Choreo added to your Playlist",
   },
 
+  dictionary: {
+    intro: "Every term on the site, with what it means and why it fits.",
+    searchLabel: "Search the Dance Dictionary",
+    searchPlaceholder: "Search a term",
+    jumpTo: "Jump to",
+    whyItFits: "Why it fits",
+    stylesTitle: "The styles on The Lineup",
+    stylesIntro:
+      "Every drink is named after a dance style. Here's a little about each one.",
+    onTheLineup: "On The Lineup:",
+    snacksTitle: "Dance words on the menu",
+    empty: "No match. Try another move.",
+  },
+
+  welcome: {
+    title: "Learn the moves",
+    stepOf: "{step} of {total}",
+    step1Title: "This is The Lineup",
+    step1Body:
+      "Every drink is named after a dance style. Tap The Lineup to browse them.",
+    step2Title: "Your Playlist is your cart",
+    step2Body: "Add drinks to your Playlist, then hit Showtime to check out.",
+    step3Title: "Prefer plain words?",
+    step3Body:
+      "Switch to Plain words anytime with the toggle at the top of the page.",
+    switchNow: "Switch to Plain words",
+    switchBack: "Switch to Dance terms",
+    next: "Next",
+    skip: "Skip",
+    done: "Let's dance",
+    close: "Close",
+  },
+
   tracker: {
     orderCode: "Order code",
     greeting: "You're on the lineup, {name}!",
@@ -579,6 +612,39 @@ export const plain: Widen<typeof dance> = {
     preview: "Live preview",
     cupLabel: "Cup preview: {base}, {size}, {temp}",
     added: "Drink added to your cart",
+  },
+
+  dictionary: {
+    intro: "Every dance term on the site, explained in plain words.",
+    searchLabel: "Search the glossary",
+    searchPlaceholder: "Search a term",
+    jumpTo: "Jump to",
+    whyItFits: "Why it fits",
+    stylesTitle: "Dance styles behind the drinks",
+    stylesIntro:
+      "Every drink is named after a dance style. Here's a little about each one.",
+    onTheLineup: "Drink:",
+    snacksTitle: "Dance words on the menu",
+    empty: "No terms match your search.",
+  },
+
+  welcome: {
+    title: "Quick tour",
+    stepOf: "{step} of {total}",
+    step1Title: "This is the menu",
+    step1Body:
+      "Every drink is named after a dance style. Open the menu to browse them.",
+    step2Title: "Your cart",
+    step2Body: "Add drinks to your cart, then go to checkout.",
+    step3Title: "Prefer dance terms?",
+    step3Body:
+      "Switch between plain words and dance terms anytime with the toggle at the top of the page.",
+    switchNow: "Switch to Plain words",
+    switchBack: "Switch to Dance terms",
+    next: "Next",
+    skip: "Skip",
+    done: "Got it",
+    close: "Close",
   },
 
   tracker: {

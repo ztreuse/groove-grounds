@@ -4,6 +4,7 @@ import { DemoBanner } from "@/components/layout/DemoBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Providers } from "@/components/layout/Providers";
+import { WelcomeTour } from "@/components/layout/WelcomeTour";
 import { dance } from "@/lib/copy";
 import "./globals.css";
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header />
           {children}
           <Footer />
+          <WelcomeTour />
         </Providers>
       </body>
     </html>
