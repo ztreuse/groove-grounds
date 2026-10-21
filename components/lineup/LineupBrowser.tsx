@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -72,7 +73,7 @@ export function LineupBrowser({
     <main className="flex-1 pb-16">
       <header className="relative overflow-hidden bg-espresso text-cream dark:bg-espresso-deep">
         <div className="relative mx-auto w-full max-w-6xl px-4 pt-10 pb-12 sm:pt-14 sm:pb-16">
-          <h1 className="text-6xl leading-[0.85] sm:text-8xl">
+          <h1 className="text-5xl leading-[0.95] sm:text-7xl">
             {t.pages.lineup}
           </h1>
           {!isPlain && (
@@ -85,7 +86,7 @@ export function LineupBrowser({
       </header>
 
       <div className="mx-auto w-full max-w-6xl px-4">
-        <div className="sticky top-16 z-30 -mx-4 space-y-3 bg-background/95 px-4 py-3 shadow-[0_12px_24px_-20px_rgb(59_42_32_/_0.5)] backdrop-blur supports-backdrop-filter:bg-background/85">
+        <div className="fade-below sticky top-16 z-30 -mx-4 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
           <div className="relative">
             <Search
               aria-hidden
@@ -111,7 +112,7 @@ export function LineupBrowser({
             )}
           </div>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="min-w-0 md:flex-1 md:overflow-hidden md:[mask-image:linear-gradient(to_right,black_92%,transparent)]">
+            <div className="min-w-0 md:flex-1">
               <GenreFilter genres={genres} value={genre} onChange={setGenre} />
             </div>
             <TempToggle value={temp} onChange={setTemp} />
@@ -164,11 +165,25 @@ export function LineupBrowser({
                   </span>
                 </div>
                 <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {sectionDrinks.map((drink) => (
-                    <li key={drink.id}>
-                      <DrinkCard drink={drink} />
-                    </li>
-                  ))}
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    {sectionDrinks.map((drink, index) => (
+                      <motion.li
+                        key={drink.id}
+                        layout
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.96 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{
+                          duration: 0.5,
+                          delay: (index % 3) * 0.06,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
+                      >
+                        <DrinkCard drink={drink} />
+                      </motion.li>
+                    ))}
+                  </AnimatePresence>
                 </ul>
               </section>
             );

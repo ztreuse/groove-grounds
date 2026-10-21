@@ -7,7 +7,7 @@ export function ShowtimeIntro() {
 
   return (
     <header>
-      <h1 className="text-5xl leading-none sm:text-7xl">{t.pages.showtime}</h1>
+      <h1 className="text-4xl leading-tight sm:text-6xl">{t.pages.showtime}</h1>
       {!isPlain && (
         <p className="mt-1 text-lg text-muted-foreground">
           {plain.pages.showtime}

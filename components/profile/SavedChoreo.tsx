@@ -52,7 +52,7 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
         </p>
       )}
       {choreo.length === 0 ? (
-        <div className="mt-4 rounded-2xl border-2 border-dashed p-6 text-center">
+        <div className="mt-4 rounded-3xl bg-muted/60 p-6 text-center">
           <p className="text-muted-foreground">{t.profile.noChoreo}</p>
           <Link
             href={routes.freestyle.href}
@@ -64,13 +64,10 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
       ) : (
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {choreo.map((entry) => (
-            <li
-              key={entry.id}
-              className="flex flex-col rounded-2xl border-2 bg-card p-4"
-            >
+            <li key={entry.id} className="flex flex-col surface p-4">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="truncate font-heading text-2xl leading-tight tracking-wide uppercase">
+                  <p className="truncate font-heading text-2xl leading-tight tracking-tight">
                     {entry.name}
                   </p>
                   <p className="text-sm text-muted-foreground">

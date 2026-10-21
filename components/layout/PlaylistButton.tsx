@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import { motion } from "motion/react";
 import { useCopy } from "@/hooks/use-copy";
 import { fill } from "@/lib/copy";
 import { routes } from "@/lib/routes";
@@ -26,12 +27,16 @@ export function PlaylistButton() {
         {t.terms.playlist}
       </span>
       {count > 0 && (
-        <span
+        <motion.span
+          key={count}
           aria-hidden
+          initial={{ scale: 1.5 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 15 }}
           className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-primary text-[0.7rem] font-bold text-primary-foreground lg:static lg:size-6"
         >
           {count > 99 ? "99+" : count}
-        </span>
+        </motion.span>
       )}
     </Link>
   );

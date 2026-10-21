@@ -27,7 +27,7 @@ export function QuantityStepper({
       aria-label={
         label ? `${plain.drink.quantity}, ${label}` : plain.drink.quantity
       }
-      className="flex items-center rounded-full border-2 bg-card"
+      className="flex items-center rounded-full bg-muted"
     >
       <button
         type="button"

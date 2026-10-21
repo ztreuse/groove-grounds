@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Pencil, Trash2 } from "lucide-react";
+import { motion } from "motion/react";
 import { QuantityStepper } from "@/components/remix/QuantityStepper";
 import { useCopy } from "@/hooks/use-copy";
 import { fill } from "@/lib/copy";
@@ -18,7 +19,14 @@ export function PlaylistItem({ item }: { item: Item }) {
   const removeItem = usePlaylist((state) => state.removeItem);
 
   return (
-    <li className="rounded-2xl border-2 bg-card p-4">
+    <motion.li
+      layout
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -40, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="surface p-4"
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-2xl leading-tight">{item.name}</h2>
@@ -61,6 +69,6 @@ export function PlaylistItem({ item }: { item: Item }) {
           </button>
         </div>
       </div>
-    </li>
+    </motion.li>
   );
 }

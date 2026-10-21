@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
@@ -103,6 +104,13 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
       return;
     }
     addItem(item);
+    toast(t.drink.added, {
+      description: drink.name,
+      action: {
+        label: t.drink.viewPlaylist,
+        onClick: () => router.push(routes.playlist.href),
+      },
+    });
     setValue("quantity", 1);
     setJustAdded(true);
   });
@@ -113,7 +121,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
   return (
     <form onSubmit={onSubmit} noValidate>
       {editItem && (
-        <div className="mb-4 rounded-xl border-2 border-primary bg-accent/40 p-3">
+        <div className="mb-4 rounded-2xl bg-accent p-3 text-accent-foreground">
           <p className="text-sm font-semibold">{t.drink.editing}</p>
           <Link
             href={routes.playlist.href}
@@ -137,7 +145,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
             return (
               <div key={group.id} className="border-t pt-6">
                 <label htmlFor="remix-notes" className="block">
-                  <span className="block font-heading text-2xl leading-none tracking-wide uppercase">
+                  <span className="block font-heading text-2xl leading-none tracking-tight">
                     {isPlain ? group.plainLabel : group.danceLabel}
                   </span>
                   {!isPlain && (
@@ -151,7 +159,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
                   rows={2}
                   maxLength={notesLimit}
                   placeholder={t.drink.notesPlaceholder}
-                  className="mt-3 w-full resize-none rounded-xl border-2 border-input bg-card px-3 py-2 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40"
+                  className="mt-3 w-full resize-none field px-4 py-2 text-base focus-visible:ring-ring/40"
                   {...register("notes")}
                 />
                 <p className="mt-1 text-right text-xs text-muted-foreground">
@@ -176,7 +184,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
         })}
       </div>
 
-      <div className="sticky bottom-0 z-20 -mx-4 mt-8 rounded-t-[1.75rem] bg-card/95 px-4 pt-4 pb-4 shadow-[0_-16px_40px_-24px_rgb(59_42_32_/_0.55)] backdrop-blur supports-backdrop-filter:bg-card/85 sm:mx-0 sm:px-6">
+      <div className="fade-above sticky bottom-0 z-20 -mx-4 mt-8 rounded-t-[1.75rem] bg-card/95 px-4 pt-4 pb-4 shadow-[0_-16px_40px_-24px_rgb(59_42_32_/_0.55)] backdrop-blur supports-backdrop-filter:bg-card/85 sm:mx-0 sm:px-6">
         {!drink.isAvailable && (
           <p className="mb-3 text-sm font-medium">{t.drink.unavailable}</p>
         )}

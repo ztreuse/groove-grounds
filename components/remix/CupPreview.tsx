@@ -212,6 +212,13 @@ export function CupPreview({
             strokeLinejoin="round"
           />
 
+          {/* Glass highlight. */}
+          <path
+            d="M42,62 L54,62 L64,238 L57,238 Z"
+            fill="white"
+            opacity="0.14"
+          />
+
           {has("whipped-cream") && (
             <path
               d="M38,52 q10,-26 32,-18 q14,-22 34,-8 q20,-16 34,6 q20,-2 24,20 Z"

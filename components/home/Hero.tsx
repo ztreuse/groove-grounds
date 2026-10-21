@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CalendarClock, Zap } from "lucide-react";
+import { motion } from "motion/react";
 import { DrinkVisual } from "@/components/lineup/DrinkVisual";
 import { useCopy } from "@/hooks/use-copy";
 import type { LineupDrink } from "@/lib/db/queries";
@@ -29,7 +30,16 @@ const ctas = [
   className: string;
 }[];
 
-// Split poster hero: headline and the two order buttons on the left, the
+const rise = {
+  hidden: { opacity: 0, y: 24 },
+  shown: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
+
+// Split hero: headline and the two order buttons on the left, the
 // Spotlight drink photo on the right.
 export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
   const { t, plain, isPlain } = useCopy();
@@ -37,21 +47,34 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
   const lastWord = words.pop();
 
   return (
-    <section className="relative overflow-hidden bg-espresso text-cream dark:bg-espresso-deep">
+    <section className="relative mx-2 mt-2 overflow-hidden rounded-[2rem] bg-espresso text-cream sm:mx-4 sm:rounded-[2.5rem] dark:bg-espresso-deep">
       <span
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(circle_at_78%_45%,var(--color-purple)_0%,transparent_45%)] opacity-60"
       />
 
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-6 px-4 pt-10 pb-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pt-16 lg:pb-20">
-        <div>
-          <h1 className="text-6xl leading-[0.85] sm:text-7xl lg:text-8xl">
+        <motion.div
+          initial="hidden"
+          animate="shown"
+          transition={{ staggerChildren: 0.08 }}
+        >
+          <motion.h1
+            variants={rise}
+            className="text-5xl leading-[0.95] sm:text-6xl lg:text-7xl"
+          >
             {words.join(" ")} <span className="text-lilac">{lastWord}</span>
-          </h1>
-          <p className="mt-6 max-w-md text-lg text-cream/85">
+          </motion.h1>
+          <motion.p
+            variants={rise}
+            className="mt-6 max-w-md text-lg text-cream/85"
+          >
             {t.home.heroBody}
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          </motion.p>
+          <motion.div
+            variants={rise}
+            className="mt-8 flex flex-col gap-3 sm:flex-row"
+          >
             {ctas.map(({ intent, term, icon: Icon, className }) => (
               <Link
                 key={intent}
@@ -62,7 +85,7 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
               >
                 <Icon aria-hidden className="size-5 shrink-0" />
                 <span className="text-left">
-                  <span className="block font-heading text-xl leading-none tracking-wide uppercase">
+                  <span className="block font-heading text-xl leading-none tracking-tight">
                     {t.terms[term]}
                   </span>
                   {!isPlain && (
@@ -73,11 +96,16 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
                 </span>
               </Link>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {spotlight && (
-          <div className="relative mx-auto w-full max-w-[360px] pb-8 sm:max-w-[420px] lg:max-w-[460px]">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mx-auto w-full max-w-[360px] pb-8 sm:max-w-[420px] lg:max-w-[460px]"
+          >
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-espresso-soft shadow-[0_40px_80px_-30px_rgb(0_0_0_/_0.7)]">
               <DrinkVisual
                 drink={spotlight}
@@ -103,7 +131,7 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
                 {formatPeso(spotlight.basePrice)}
               </span>
             </Link>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

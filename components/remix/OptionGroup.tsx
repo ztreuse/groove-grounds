@@ -115,7 +115,7 @@ export function OptionGroup({
         className="mb-3 flex items-baseline justify-between gap-3"
       >
         <div>
-          <p className="font-heading text-2xl leading-none tracking-wide uppercase">
+          <p className="font-heading text-2xl leading-none tracking-tight">
             {main}
           </p>
           {sub && <p className="mt-1 text-sm text-muted-foreground">{sub}</p>}

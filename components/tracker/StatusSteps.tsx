@@ -34,8 +34,8 @@ export function StatusSteps({ status }: { status: OrderStatus }) {
           return (
             <div key={n} className="text-center">
               <div
-                className={`h-12 rounded-lg border-2 transition-colors duration-500 sm:h-16 ${
-                  filled ? "border-primary bg-primary" : "bg-card"
+                className={`h-12 rounded-xl transition-colors duration-500 sm:h-16 ${
+                  filled ? "bg-primary" : "bg-muted"
                 } ${current ? "motion-safe:animate-pulse" : ""}`}
               />
               <span
@@ -59,15 +59,13 @@ export function StatusSteps({ status }: { status: OrderStatus }) {
             <li
               key={step}
               aria-current={current ? "step" : undefined}
-              className={`flex items-center gap-3 rounded-xl border-2 px-3 py-2 ${
-                current ? "border-primary bg-card" : "border-transparent"
+              className={`flex items-center gap-3 rounded-2xl px-3 py-2 ${
+                current ? "surface" : ""
               } ${!done && !current ? "opacity-60" : ""}`}
             >
               <span
-                className={`flex size-8 shrink-0 items-center justify-center rounded-full border-2 font-heading ${
-                  done || current
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : ""
+                className={`flex size-8 shrink-0 items-center justify-center rounded-full bg-muted font-heading ${
+                  done || current ? "bg-primary text-primary-foreground" : ""
                 }`}
               >
                 {done ? <Check aria-hidden className="size-4" /> : index + 1}

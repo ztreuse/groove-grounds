@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Check, RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 import { runItBack } from "@/app/(shop)/profile/actions";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -21,6 +23,7 @@ export function RunItBackButton({
   id: string;
 }) {
   const { t, plain } = useCopy();
+  const router = useRouter();
   const addItem = usePlaylist((state) => state.addItem);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Result>(null);
@@ -34,6 +37,15 @@ export function RunItBackButton({
       return;
     }
     for (const item of response.items) addItem(item);
+    if (response.items.length > 0) {
+      toast(t.drink.added, {
+        description: response.items.map((item) => item.name).join(", "),
+        action: {
+          label: t.drink.viewPlaylist,
+          onClick: () => router.push(routes.playlist.href),
+        },
+      });
+    }
     setResult({ added: response.items.length, skipped: response.skipped });
   }
 

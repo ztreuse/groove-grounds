@@ -15,7 +15,7 @@ export function BackstagePromo() {
       <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-14 sm:py-16 md:grid-cols-[auto_1fr_auto]">
         <LogoMark className="hidden size-24 md:block" />
         <div>
-          <h2 className="text-5xl leading-none">{t.home.backstageTitle}</h2>
+          <h2 className="text-4xl leading-tight">{t.home.backstageTitle}</h2>
           <p className="mt-3 max-w-xl text-lg">{t.home.backstageBody}</p>
         </div>
         <Link

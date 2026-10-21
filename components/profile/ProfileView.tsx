@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, LogOut } from "lucide-react";
+import { toast } from "sonner";
 import { signOut } from "@/app/(auth)/actions";
 import { saveProfile } from "@/app/(shop)/profile/actions";
 import { AuthField } from "@/components/auth/AuthField";
@@ -21,6 +22,7 @@ import { statusCopyKey } from "@/lib/orders";
 import { dayKey } from "@/lib/schedule";
 import { RunItBackButton } from "./RunItBackButton";
 import { SavedChoreo } from "./SavedChoreo";
+import { Reveal } from "@/components/motion/Reveal";
 
 const levelKey: Record<Profile["level"], keyof Copy["levels"]> = {
   rookie: "rookie",
@@ -65,6 +67,7 @@ export function ProfileView({
     if (result.ok) {
       reset(values);
       setSaved(true);
+      toast(t.profile.saved);
     }
   });
 
@@ -78,7 +81,7 @@ export function ProfileView({
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <h1 className="text-5xl leading-none sm:text-6xl">
+          <h1 className="text-4xl leading-tight sm:text-5xl">
             {t.pages.profile}
           </h1>
           {!isPlain && (
@@ -106,11 +109,11 @@ export function ProfileView({
           <p className="text-xs font-semibold tracking-widest text-khaki uppercase">
             {t.profile.level}
           </p>
-          <p className="mt-1 font-heading text-3xl tracking-wide uppercase">
+          <p className="mt-1 font-heading text-3xl tracking-tight">
             {t.levels[levelKey[profile.level]]}
           </p>
         </div>
-        <div className="rounded-2xl border-2 bg-card p-4">
+        <div className="surface p-4">
           <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
             {t.profile.reps}
           </p>
@@ -169,16 +172,21 @@ export function ProfileView({
           </p>
         )}
         {orders.length === 0 ? (
-          <p className="mt-4 rounded-2xl border-2 border-dashed p-6 text-center text-muted-foreground">
+          <p className="mt-4 rounded-3xl bg-muted/60 p-6 text-center text-muted-foreground">
             {t.profile.noOrders}
           </p>
         ) : (
           <ul className="mt-4 space-y-3">
-            {orders.map((order) => (
-              <li key={order.id} className="rounded-2xl border-2 bg-card p-4">
+            {orders.map((order, index) => (
+              <Reveal
+                as="li"
+                key={order.id}
+                delay={Math.min(index, 4) * 0.05}
+                className="surface p-4"
+              >
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <p className="font-heading text-2xl leading-none tracking-wide">
+                    <p className="font-heading text-2xl leading-none tracking-tight">
                       {order.code}
                     </p>
                     <p className="mt-1 text-sm text-muted-foreground">
@@ -208,7 +216,7 @@ export function ProfileView({
                     {t.profile.viewOrder}
                   </Link>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ul>
         )}

@@ -60,7 +60,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
 
   if (confirmEmail) {
     return (
-      <div role="status" className="mt-8 rounded-2xl border-2 bg-card p-6">
+      <div role="status" className="mt-8 surface p-6">
         <MailCheck aria-hidden className="size-10 text-highlight" />
         <h2 className="mt-3 text-3xl leading-none">{t.auth.checkEmail}</h2>
         <p className="mt-2 text-muted-foreground">
@@ -75,7 +75,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
 
   return (
     <>
-      <h1 className="text-5xl leading-none sm:text-6xl">{title}</h1>
+      <h1 className="text-4xl leading-tight sm:text-5xl">{title}</h1>
       {!isPlain && (
         <p className="mt-1 text-lg text-muted-foreground">{titlePlain}</p>
       )}
@@ -125,7 +125,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
         {serverError && (
           <p
             role="alert"
-            className="rounded-xl border-2 border-destructive p-3 text-sm"
+            className="rounded-2xl bg-destructive/10 p-3 text-sm text-destructive"
           >
             {t.auth[serverError]}
           </p>

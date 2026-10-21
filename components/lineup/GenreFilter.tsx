@@ -1,6 +1,7 @@
 "use client";
 
 import { useCopy } from "@/hooks/use-copy";
+import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import type { LineupGenre } from "@/lib/db/queries";
 import { genreTerms } from "@/lib/genres";
 
@@ -18,6 +19,7 @@ type GenreFilterProps = {
 // Single-select chips; scroll sideways on small screens.
 export function GenreFilter({ genres, value, onChange }: GenreFilterProps) {
   const { t, plain } = useCopy();
+  const edges = useScrollEdges<HTMLDivElement>();
 
   const chips = [
     { slug: "all", label: t.lineup.all, ariaLabel: plain.lineup.all },
@@ -33,9 +35,10 @@ export function GenreFilter({ genres, value, onChange }: GenreFilterProps) {
 
   return (
     <div
+      ref={edges}
       role="group"
       aria-label={plain.lineup.genreFilter}
-      className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto px-4 md:mx-0 md:pr-8 md:pl-0 [&::-webkit-scrollbar]:hidden"
+      className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto scroll-edges px-4 md:mx-0 md:pr-8 md:pl-0 [&::-webkit-scrollbar]:hidden"
     >
       {chips.map((chip) => {
         const active = chip.slug === value;

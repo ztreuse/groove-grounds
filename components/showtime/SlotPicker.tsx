@@ -5,6 +5,7 @@ import { fetchSlots } from "@/app/(shop)/showtime/actions";
 import { CountIn } from "@/components/layout/CountIn";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
+import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import { fill } from "@/lib/copy";
 import type { SlotAvailability } from "@/lib/db/queries";
 import { formatDay, formatTime } from "@/lib/format";
@@ -30,6 +31,7 @@ export function SlotPicker({
   refreshToken,
 }: SlotPickerProps) {
   const { t, plain } = useCopy();
+  const edges = useScrollEdges<HTMLDivElement>();
   // Skip days with no times left (e.g. today after closing).
   const [days] = useState(() => {
     const now = new Date();
@@ -65,8 +67,9 @@ export function SlotPicker({
         <p className="mb-2 text-sm font-semibold">{t.showtime.pickDay}</p>
         <div
           role="group"
+          ref={edges}
           aria-label={plain.showtime.pickDay}
-          className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
+          className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto scroll-edges px-4 [&::-webkit-scrollbar]:hidden"
         >
           {days.map((d) => {
             const active = d === day;
@@ -79,10 +82,10 @@ export function SlotPicker({
                   setDay(d);
                   onChange("");
                 }}
-                className={`h-11 shrink-0 rounded-full border-2 px-4 text-sm font-semibold whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+                className={`h-11 shrink-0 rounded-full px-4 text-sm font-semibold whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-ring ${
                   active
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "bg-card hover:bg-accent hover:text-accent-foreground"
+                    ? "bg-espresso text-cream dark:bg-cream dark:text-espresso"
+                    : "bg-muted hover:bg-accent hover:text-accent-foreground"
                 }`}
               >
                 {dayLabel(d)}
@@ -97,7 +100,7 @@ export function SlotPicker({
         {loading ? (
           <CountIn />
         ) : state.error ? (
-          <div className="rounded-xl border-2 border-dashed p-4 text-sm">
+          <div className="rounded-2xl bg-muted/60 p-4 text-sm">
             <p>{t.showtime.slotsError}</p>
             <Button
               type="button"
@@ -109,7 +112,7 @@ export function SlotPicker({
             </Button>
           </div>
         ) : !state.slots?.length ? (
-          <p className="rounded-xl border-2 border-dashed p-4 text-sm">
+          <p className="rounded-2xl bg-muted/60 p-4 text-sm">
             {t.showtime.noSlots}
           </p>
         ) : (
@@ -129,12 +132,12 @@ export function SlotPicker({
                   aria-checked={active}
                   disabled={full}
                   onClick={() => onChange(slot.startsAt)}
-                  className={`flex min-h-12 flex-col items-center justify-center rounded-xl border-2 px-1 py-1 text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+                  className={`flex min-h-12 flex-col items-center justify-center rounded-2xl px-1 py-1 text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-ring ${
                     active
-                      ? "border-primary bg-primary text-primary-foreground"
+                      ? "bg-espresso text-cream dark:bg-cream dark:text-espresso"
                       : full
-                        ? "cursor-not-allowed border-dashed bg-muted text-muted-foreground"
-                        : "bg-card hover:bg-accent hover:text-accent-foreground"
+                        ? "cursor-not-allowed bg-muted/50 text-muted-foreground line-through decoration-1"
+                        : "bg-muted hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
                   <span>{formatTime(slot.startsAt)}</span>

@@ -31,20 +31,6 @@
   --color-brew-rose: #e7b3bd;
   --color-brew-spice: #a9663a;
 
-  /* Scrolling marquee strip. */
-  --animate-marquee: marquee 40s linear infinite;
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* Slow record spin behind the hero drink. */
-  --animate-spin-slow: spin 18s linear infinite;
-
   /* Freestyle cup preview: drink colors. */
   --color-brew-espresso: #5a3524;
   --color-brew-cold: #3a2117;
@@ -89,7 +75,7 @@
   --color-foreground: var(--foreground);
   --color-highlight: var(--highlight);
   --font-sans: var(--font-archivo);
-  --font-heading: var(--font-anton);
+  --font-heading: var(--font-bricolage);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -214,38 +200,91 @@
   h1,
   h2,
   h3 {
-    @apply font-heading tracking-wide uppercase;
+    @apply font-heading font-bold tracking-tight text-balance;
   }
 }
 
-/* Halftone dots in the current text colour (poster texture). */
-@utility halftone {
-  background-image: radial-gradient(currentColor 1.1px, transparent 1.6px);
-  background-size: 9px 9px;
+/* Shared card surface: warm soft shadow plus a hairline edge. */
+@utility surface {
+  border-radius: 1.5rem;
+  background-color: var(--card);
+  color: var(--card-foreground);
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--border) 70%, transparent),
+    0 18px 40px -28px rgb(59 42 32 / 0.45);
+}
+
+/* Filled form field (inputs, textareas). */
+@utility field {
+  border-radius: 1rem;
+  background-color: var(--muted);
+  color: var(--foreground);
+  outline: none;
+  transition:
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+  &::placeholder {
+    color: var(--muted-foreground);
+  }
+  &:focus-visible {
+    background-color: var(--card);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 45%, transparent);
+  }
+  &[aria-invalid="true"] {
+    box-shadow: 0 0 0 2px var(--destructive);
+  }
+}
+
+/* Horizontal scrollers fade at whichever edge has more to scroll
+   (data attributes set by useScrollEdges). */
+@utility scroll-edges {
+  --fade: 2.5rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--fade-start, 0),
+    black calc(100% - var(--fade-end, 0)),
+    transparent 100%
+  );
+  &[data-more-start] {
+    --fade-start: var(--fade);
+  }
+  &[data-more-end] {
+    --fade-end: var(--fade);
+  }
+}
+
+/* Sticky bottom bars: content fades out above them, a cue that there is
+   more to scroll. */
+@utility fade-above {
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 100%;
+    height: 3.5rem;
+    pointer-events: none;
+    background: linear-gradient(to top, var(--background), transparent);
+  }
+}
+
+/* Sticky top bars: content fades out as it scrolls underneath. */
+@utility fade-below {
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    height: 2.5rem;
+    pointer-events: none;
+    background: linear-gradient(to bottom, var(--background), transparent);
+  }
 }
 
 /* Outlined display type. */
 @utility text-outline {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 2px currentColor;
-}
-
-/* Film grain over the whole page. Fixed and non-interactive so it never
-   repaints while scrolling. */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-@media (prefers-color-scheme: dark) {
-  .grain-overlay {
-    mix-blend-mode: screen;
-    opacity: 0.05;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

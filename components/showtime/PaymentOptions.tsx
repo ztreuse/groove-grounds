@@ -45,7 +45,7 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
   ] as const;
 
   const readOnlyField =
-    "h-11 w-full rounded-lg border-2 border-input bg-muted px-3 font-mono text-sm text-muted-foreground";
+    "h-11 w-full field rounded-xl px-3 font-mono text-sm text-muted-foreground";
 
   return (
     <div className="space-y-2">
@@ -54,8 +54,8 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
         return (
           <div
             key={method}
-            className={`rounded-xl border-2 transition-colors ${
-              active ? "border-primary bg-card" : "bg-card"
+            className={`surface rounded-2xl transition-shadow ${
+              active ? "ring-2 ring-primary" : ""
             }`}
           >
             <label className="flex min-h-14 cursor-pointer items-center gap-3 px-4">

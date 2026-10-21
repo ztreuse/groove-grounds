@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { useCopy } from "@/hooks/use-copy";
+import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import {
   danceStyleNotes,
   dictionarySections,
@@ -18,6 +19,7 @@ const matches = (query: string, ...texts: string[]) =>
 export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
   const { t, plain, isPlain } = useCopy();
   const [search, setSearch] = useState("");
+  const edges = useScrollEdges<HTMLElement>();
   const query = search.trim().toLowerCase();
 
   const sections = dictionarySections
@@ -51,7 +53,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
 
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
-      <h1 className="text-5xl leading-none sm:text-7xl">
+      <h1 className="text-4xl leading-tight sm:text-6xl">
         {t.pages.dictionary}
       </h1>
       {!isPlain && (
@@ -61,7 +63,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
       )}
       <p className="mt-3 max-w-prose">{t.dictionary.intro}</p>
 
-      <div className="sticky top-16 z-30 -mx-4 mt-6 space-y-3 border-b bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/80">
+      <div className="fade-below sticky top-16 z-30 -mx-4 mt-6 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
         <div className="relative">
           <Search
             aria-hidden
@@ -73,7 +75,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
             onChange={(event) => setSearch(event.target.value)}
             placeholder={t.dictionary.searchPlaceholder}
             aria-label={plain.dictionary.searchLabel}
-            className="h-11 w-full rounded-full border-2 border-input bg-card pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40 [&::-webkit-search-cancel-button]:hidden"
+            className="h-11 w-full field rounded-full pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40 [&::-webkit-search-cancel-button]:hidden"
           />
           {search && (
             <button
@@ -88,14 +90,15 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
         </div>
         {!query && (
           <nav
+            ref={edges}
             aria-label={plain.dictionary.jumpTo}
-            className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
+            className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto scroll-edges px-4 [&::-webkit-scrollbar]:hidden"
           >
             {jumpLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
-                className="inline-flex h-11 shrink-0 items-center rounded-full border-2 bg-card px-4 text-sm font-semibold whitespace-nowrap outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
+                className="inline-flex h-11 shrink-0 items-center rounded-full bg-muted px-4 text-sm font-semibold whitespace-nowrap outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
               >
                 {link.label}
               </a>
@@ -105,7 +108,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
       </div>
 
       {nothing && (
-        <p className="mt-8 rounded-2xl border-2 border-dashed p-8 text-center text-lg">
+        <p className="mt-8 rounded-3xl bg-muted/60 p-8 text-center text-lg">
           {t.dictionary.empty}
         </p>
       )}
@@ -119,17 +122,14 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
         >
           <h2
             id={`${section.id}-title`}
-            className="mb-4 border-b-2 border-dashed pb-2 text-3xl leading-none"
+            className="mb-4 border-b pb-2 text-3xl leading-none"
           >
             {isPlain ? section.title.plain : section.title.dance}
           </h2>
           <dl className="grid gap-3 sm:grid-cols-2">
             {section.entries.map((entry) => (
-              <div
-                key={entry.term}
-                className="rounded-2xl border-2 bg-card p-4"
-              >
-                <dt className="font-heading text-2xl leading-tight tracking-wide uppercase">
+              <div key={entry.term} className="surface p-4">
+                <dt className="font-heading text-2xl leading-tight tracking-tight">
                   {entry.term}
                 </dt>
                 <dd className="mt-1 font-semibold text-highlight">
@@ -153,10 +153,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
           aria-labelledby="styles-title"
           className="mt-12 scroll-mt-44"
         >
-          <h2
-            id="styles-title"
-            className="border-b-2 border-dashed pb-2 text-3xl leading-none"
-          >
+          <h2 id="styles-title" className="border-b pb-2 text-3xl leading-none">
             {t.dictionary.stylesTitle}
           </h2>
           <p className="mt-3 mb-4 max-w-prose text-muted-foreground">
@@ -164,7 +161,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
           </p>
           <ul className="grid gap-3 sm:grid-cols-2">
             {styles.map((note) => (
-              <li key={note.style} className="rounded-2xl border-2 bg-card p-4">
+              <li key={note.style} className="surface p-4">
                 <span className="inline-block -rotate-2 rounded-md bg-lilac px-2.5 py-1 text-xs font-bold tracking-wider text-espresso uppercase">
                   {note.style}
                 </span>
@@ -192,14 +189,14 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
         <section aria-labelledby="snack-words" className="mt-12">
           <h2
             id="snack-words"
-            className="mb-4 border-b-2 border-dashed pb-2 text-3xl leading-none"
+            className="mb-4 border-b pb-2 text-3xl leading-none"
           >
             {t.dictionary.snacksTitle}
           </h2>
           <dl className="grid gap-3 sm:grid-cols-2">
             {snackWords.map((word) => (
-              <div key={word.term} className="rounded-2xl border-2 bg-card p-4">
-                <dt className="font-heading text-2xl leading-none tracking-wide uppercase">
+              <div key={word.term} className="surface p-4">
+                <dt className="font-heading text-2xl leading-none tracking-tight">
                   {word.term}
                 </dt>
                 <dd className="mt-2 text-sm text-muted-foreground">

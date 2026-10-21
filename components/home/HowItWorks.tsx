@@ -1,5 +1,6 @@
 "use client";
 
+import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
 
 const steps = [
@@ -8,37 +9,45 @@ const steps = [
   { title: "step3Title", body: "step3Body" },
 ] as const;
 
-// Purple band with three big outlined counts on a dashed floor line.
+// Three steps on a soft lilac wash: big numbers, short copy, a hairline
+// connecting them on wide screens.
 export function HowItWorks() {
   const { t } = useCopy();
 
   return (
     <section
       aria-labelledby="how"
-      className="bg-primary text-primary-foreground"
+      className="bg-gradient-to-b from-background via-accent/40 to-background"
     >
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-20">
-        <h2 id="how" className="max-w-xl text-5xl leading-none sm:text-6xl">
-          {t.home.howTitle}
-        </h2>
+      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:py-28">
+        <Reveal>
+          <h2 id="how" className="max-w-xl text-4xl leading-tight sm:text-5xl">
+            {t.home.howTitle}
+          </h2>
+        </Reveal>
         <ol className="relative mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
           <span
             aria-hidden
-            className="absolute top-14 right-0 left-0 hidden border-t-2 border-dashed border-primary-foreground/40 md:block"
+            className="absolute top-8 right-[16%] left-[16%] hidden h-px bg-border md:block"
           />
           {steps.map(({ title, body }, index) => (
-            <li key={title} className="relative">
+            <Reveal
+              as="li"
+              key={title}
+              delay={index * 0.08}
+              className="relative"
+            >
               <span
                 aria-hidden
-                className="block bg-primary pr-4 font-heading text-[7rem] leading-[0.8] text-outline md:inline-block"
+                className="relative flex size-16 items-center justify-center rounded-full bg-card font-heading text-2xl font-bold text-highlight shadow-[0_12px_30px_-16px_rgb(59_42_32_/_0.5)]"
               >
                 {index + 1}
               </span>
-              <h3 className="mt-4 text-3xl leading-none">{t.home[title]}</h3>
-              <p className="mt-2 max-w-xs text-primary-foreground/85">
+              <h3 className="mt-5 text-2xl leading-tight">{t.home[title]}</h3>
+              <p className="mt-2 max-w-xs text-muted-foreground">
                 {t.home[body]}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </div>

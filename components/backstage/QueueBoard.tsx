@@ -12,6 +12,7 @@ import { CountIn } from "@/components/layout/CountIn";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { useLiveUpdates } from "@/hooks/use-live-updates";
+import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import type { TrackedOrder } from "@/lib/db/orders";
 import {
   ORDER_FLOW,
@@ -50,6 +51,7 @@ export function QueueBoard() {
   const [queue, setQueue] = useState<QueueState | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const seenIds = useRef<Set<string> | null>(null);
+  const edges = useScrollEdges<HTMLDivElement>();
 
   const load = () =>
     getMyQueue().then((orders) => {
@@ -100,7 +102,7 @@ export function QueueBoard() {
   return (
     <>
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <p className="flex items-center gap-2 rounded-full border-2 px-3 py-1 text-sm font-semibold">
+        <p className="flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-semibold">
           <Radio
             aria-hidden
             className={`size-4 ${live ? "text-highlight motion-safe:animate-pulse" : "text-muted-foreground"}`}
@@ -119,7 +121,7 @@ export function QueueBoard() {
       </div>
 
       {queue.orders.length === 0 ? (
-        <div className="mt-8 rounded-3xl border-2 border-dashed px-6 py-12 text-center">
+        <div className="mt-8 rounded-3xl bg-muted/60 px-6 py-12 text-center">
           <p className="text-lg">{t.queue.empty}</p>
           <Button asChild size="lg" className="mt-6">
             <Link href={routes.lineup.href} aria-label={plain.queue.emptyCta}>
@@ -128,7 +130,10 @@ export function QueueBoard() {
           </Button>
         </div>
       ) : (
-        <div className="-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0">
+        <div
+          ref={edges}
+          className="-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-edges px-4 pb-4 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:[mask-image:none] lg:px-0"
+        >
           {ORDER_FLOW.map((status) => {
             const key = statusCopyKey[status];
             const column = queue.orders.filter(
@@ -159,7 +164,7 @@ export function QueueBoard() {
                   </span>
                 </div>
                 {column.length === 0 ? (
-                  <p className="rounded-xl border-2 border-dashed p-3 text-center text-sm text-muted-foreground">
+                  <p className="rounded-2xl bg-muted/60 p-3 text-center text-sm text-muted-foreground">
                     {t.queue.columnEmpty}
                   </p>
                 ) : (

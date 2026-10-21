@@ -11,7 +11,7 @@ export function QueueHeader() {
         {t.terms.backstage}
         {!isPlain && ` · ${plain.terms.backstage}`}
       </p>
-      <h1 className="mt-1 text-5xl leading-none sm:text-6xl">
+      <h1 className="mt-1 text-4xl leading-tight sm:text-5xl">
         {t.pages.backstageQueue}
       </h1>
       <p className="mt-3 max-w-prose rounded-xl bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">

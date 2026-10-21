@@ -4,6 +4,8 @@ import { useRef } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DrinkCard } from "@/components/lineup/DrinkCard";
+import { Reveal } from "@/components/motion/Reveal";
+import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import { useCopy } from "@/hooks/use-copy";
 import type { LineupDrink } from "@/lib/db/queries";
 import { routes } from "@/lib/routes";
@@ -14,6 +16,7 @@ const arrowClass =
 export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
   const { t, plain, isPlain } = useCopy();
   const track = useRef<HTMLUListElement>(null);
+  const edges = useScrollEdges<HTMLUListElement>();
 
   // Scroll by most of a screen; smooth unless the user prefers less motion.
   const scroll = (direction: 1 | -1) => {
@@ -33,9 +36,9 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
       aria-labelledby="trending"
       className="mx-auto w-full max-w-6xl px-4"
     >
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+      <Reveal className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 id="trending" className="text-5xl leading-none sm:text-6xl">
+          <h2 id="trending" className="text-4xl leading-tight sm:text-5xl">
             {t.home.trendingTitle}
           </h2>
           {!isPlain && (
@@ -68,10 +71,13 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
             <ChevronRight aria-hidden className="size-5" />
           </button>
         </div>
-      </div>
+      </Reveal>
       <ul
-        ref={track}
-        className="relative -mx-4 flex snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto px-4 pt-1 pb-4 [&::-webkit-scrollbar]:hidden"
+        ref={(el) => {
+          track.current = el;
+          edges(el);
+        }}
+        className="relative -mx-4 flex snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto scroll-edges px-4 pt-1 pb-4 [&::-webkit-scrollbar]:hidden"
       >
         {drinks.map((drink) => (
           <li

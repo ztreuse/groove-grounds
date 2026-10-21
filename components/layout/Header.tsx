@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ function Logo() {
       className="flex shrink-0 items-center gap-2 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring"
     >
       <LogoMark className="size-10 transition-transform duration-700 hover:rotate-180 motion-reduce:transition-none" />
-      <span className="font-heading text-lg leading-[0.85] tracking-wide uppercase sm:text-xl">
+      <span className="font-heading text-lg leading-[0.85] tracking-tight sm:text-xl">
         {t.brand.split(" ").map((word) => (
           <span key={word} className="block sm:inline sm:not-last:mr-1.5">
             {word}
@@ -62,7 +63,7 @@ function MobileNav() {
         className="w-[85%] gap-2 p-4"
       >
         <div className="flex items-center justify-between">
-          <SheetTitle className="font-heading text-2xl tracking-wide uppercase">
+          <SheetTitle className="font-heading text-2xl tracking-tight">
             {t.brand}
           </SheetTitle>
           <SheetClose asChild>
@@ -79,7 +80,7 @@ function MobileNav() {
         <nav aria-label={plain.header.mainNav}>
           <MainNav variant="sheet" onNavigate={() => setOpen(false)} />
         </nav>
-        <div className="mt-2 border-t-2 border-dashed pt-4">
+        <div className="mt-2 border-t pt-4">
           <AccountLink variant="sheet" onNavigate={() => setOpen(false)} />
         </div>
       </SheetContent>
@@ -89,9 +90,18 @@ function MobileNav() {
 
 export function Header() {
   const { plain } = useCopy();
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 8));
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur supports-backdrop-filter:bg-background/75">
+    <header
+      className={`sticky top-0 z-40 bg-background/85 backdrop-blur-md transition-shadow duration-300 supports-backdrop-filter:bg-background/70 ${
+        scrolled
+          ? "shadow-[0_10px_30px_-18px_rgb(59_42_32_/_0.45)]"
+          : "shadow-[0_1px_0_0_var(--border)]"
+      }`}
+    >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-4">
         <Logo />
         <nav aria-label={plain.header.mainNav} className="ml-4 hidden xl:block">

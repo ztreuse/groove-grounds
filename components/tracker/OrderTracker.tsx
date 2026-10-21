@@ -50,13 +50,15 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-5xl leading-none sm:text-6xl">{t.pages.track}</h1>
+          <h1 className="text-4xl leading-tight sm:text-5xl">
+            {t.pages.track}
+          </h1>
           {!isPlain && (
             <p className="mt-1 text-muted-foreground">{plain.pages.track}</p>
           )}
         </div>
         {open && (
-          <p className="flex items-center gap-2 rounded-full border-2 px-3 py-1 text-sm font-semibold">
+          <p className="flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-semibold">
             <Radio
               aria-hidden
               className={`size-4 ${live ? "text-highlight motion-safe:animate-pulse" : "text-muted-foreground"}`}
@@ -70,7 +72,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
         <p className="text-xs font-semibold tracking-widest text-khaki uppercase">
           {t.tracker.orderCode}
         </p>
-        <p className="font-heading text-5xl tracking-wide">{order.code}</p>
+        <p className="font-heading text-5xl tracking-tight">{order.code}</p>
         {order.guestName && (
           <p className="mt-2">
             {fill(t.tracker.greeting, { name: order.guestName })}
@@ -85,7 +87,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
       {order.status === "stage_ready" && (
         <div
           role="alert"
-          className="mt-6 flex items-center gap-3 rounded-2xl border-2 border-primary bg-accent p-4 font-semibold text-accent-foreground"
+          className="mt-6 flex items-center gap-3 rounded-2xl bg-accent p-4 font-semibold text-accent-foreground"
         >
           <PartyPopper aria-hidden className="size-6 shrink-0" />
           {t.tracker.stageReadyAlert}
@@ -99,7 +101,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
       {order.status === "cut" && (
         <p
           role="alert"
-          className="mt-6 rounded-2xl border-2 border-destructive p-4 font-semibold"
+          className="mt-6 rounded-2xl bg-destructive/10 p-4 font-semibold text-destructive"
         >
           <span className="block font-heading text-2xl uppercase">
             {t.status.cut}
@@ -112,7 +114,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
         <StatusSteps status={order.status} />
       </section>
 
-      <dl className="mt-8 grid gap-3 rounded-2xl border-2 bg-card p-4 sm:grid-cols-2">
+      <dl className="mt-8 grid gap-3 surface p-4 sm:grid-cols-2">
         <div>
           <dt className="text-sm text-muted-foreground">{t.tracker.pickup}</dt>
           <dd className="font-semibold">{pickup}</dd>
@@ -125,9 +127,9 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
         </div>
       </dl>
 
-      <section className="mt-6 rounded-2xl border-2 bg-card p-4">
+      <section className="mt-6 surface p-4">
         <h2 className="text-3xl leading-none">{t.tracker.items}</h2>
-        <ul className="mt-3 divide-y-2 divide-dashed">
+        <ul className="mt-3 divide-y">
           {order.items.map((item, index) => (
             <li key={index} className="py-3">
               <div className="flex justify-between gap-3">
@@ -170,7 +172,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
       </section>
 
       {open && (
-        <section className="mt-6 rounded-2xl border-2 border-dashed p-5">
+        <section className="mt-6 rounded-3xl bg-muted/60 p-5">
           <h2 className="text-3xl leading-none">{t.tracker.demoTitle}</h2>
           <p className="mt-2 text-muted-foreground">{t.tracker.demoBody}</p>
           <Button asChild size="lg" variant="outline" className="mt-4">

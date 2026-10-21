@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Disc3, Plus } from "lucide-react";
+import { AnimatePresence } from "motion/react";
 import { CountIn } from "@/components/layout/CountIn";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -26,7 +27,7 @@ export function PlaylistView() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
-      <h1 className="text-5xl leading-none sm:text-7xl">{t.pages.playlist}</h1>
+      <h1 className="text-4xl leading-tight sm:text-6xl">{t.pages.playlist}</h1>
       {!isPlain && (
         <p className="mt-1 text-lg text-muted-foreground">
           {plain.pages.playlist}
@@ -34,7 +35,7 @@ export function PlaylistView() {
       )}
 
       {items.length === 0 ? (
-        <div className="mt-10 flex flex-col items-center rounded-3xl border-2 border-dashed px-6 py-12 text-center">
+        <div className="mt-10 flex flex-col items-center rounded-3xl bg-muted/60 px-6 py-12 text-center">
           <Disc3 aria-hidden className="size-14 text-highlight" />
           <h2 className="mt-4 text-3xl">{t.playlist.emptyTitle}</h2>
           <p className="mt-2 max-w-sm text-muted-foreground">
@@ -54,9 +55,11 @@ export function PlaylistView() {
               : fill(t.header.cartItems, { count })}
           </p>
           <ul className="mt-3 space-y-3">
-            {items.map((item) => (
-              <PlaylistItem key={item.id} item={item} />
-            ))}
+            <AnimatePresence initial={false}>
+              {items.map((item) => (
+                <PlaylistItem key={item.id} item={item} />
+              ))}
+            </AnimatePresence>
           </ul>
           <Link
             href={routes.lineup.href}
@@ -66,7 +69,7 @@ export function PlaylistView() {
             {t.playlist.addMore}
           </Link>
 
-          <div className="mt-6 rounded-2xl border-2 bg-card p-4">
+          <div className="mt-6 surface p-4">
             <div className="flex items-baseline justify-between">
               <p className="font-semibold">{t.playlist.subtotal}</p>
               <p className="font-heading text-4xl">{formatPeso(subtotal)}</p>

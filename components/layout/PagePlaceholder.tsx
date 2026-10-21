@@ -12,7 +12,7 @@ export function PagePlaceholder({ page }: { page: PageKey }) {
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-12 sm:py-20">
-      <div className="relative rounded-2xl border-2 border-dashed bg-card p-6 sm:p-10">
+      <div className="relative rounded-3xl bg-card bg-muted/60 p-6 sm:p-10">
         <span
           aria-hidden
           className="absolute -top-3 left-8 h-6 w-20 -rotate-3 bg-khaki/70"
@@ -22,7 +22,7 @@ export function PagePlaceholder({ page }: { page: PageKey }) {
             {t.placeholder.phase} {phase}: {t.phases[phase]}
           </p>
         )}
-        <h1 className="text-5xl leading-none sm:text-7xl">{t.pages[page]}</h1>
+        <h1 className="text-4xl leading-tight sm:text-6xl">{t.pages[page]}</h1>
         {!isPlain && (
           <p className="mt-3 text-lg text-muted-foreground">
             {plain.pages[page]}

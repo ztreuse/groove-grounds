@@ -24,7 +24,7 @@ export function PlainModeToggle() {
       aria-label={plain.header.modePlain}
       title={isPlain ? t.header.modeDance : t.header.modePlain}
       onClick={togglePlainMode}
-      className="inline-flex h-11 shrink-0 items-center rounded-full border-2 border-primary/40 bg-card p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring"
+      className="inline-flex h-11 shrink-0 items-center rounded-full bg-muted p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring"
     >
       {options.map(({ isPlainOption, icon: Icon, label }) => {
         const active = isPlainOption === isPlain;

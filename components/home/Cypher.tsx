@@ -1,5 +1,6 @@
 "use client";
 
+import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
 import { cypherPosts } from "@/lib/cypher";
 
@@ -17,7 +18,7 @@ export function Cypher() {
 
   return (
     <section aria-labelledby="cypher" className="mx-auto w-full max-w-6xl px-4">
-      <h2 id="cypher" className="text-5xl leading-none sm:text-6xl">
+      <h2 id="cypher" className="text-4xl leading-tight sm:text-5xl">
         {t.terms.cypher}
       </h2>
       {!isPlain && (
@@ -27,7 +28,9 @@ export function Cypher() {
 
       <ul className="mt-8 grid gap-6 rounded-[1.75rem] bg-secondary p-6 sm:p-8 md:grid-cols-5 dark:bg-espresso-soft">
         {cypherPosts.map((post, index) => (
-          <li
+          <Reveal
+            as="li"
+            delay={index * 0.08}
             key={post.id}
             className={`relative flex flex-col rounded-2xl p-6 shadow-[0_16px_30px_-18px_rgb(43_30_23_/_0.6)] ${flyerStyles[index % flyerStyles.length]}`}
           >
@@ -35,13 +38,13 @@ export function Cypher() {
               {pick(post.tag)}
             </span>
             <h3
-              className={`mt-3 leading-[0.95] ${index === 0 ? "text-4xl sm:text-5xl" : "text-2xl"}`}
+              className={`mt-3 leading-[0.95] ${index === 0 ? "text-3xl sm:text-4xl" : "text-2xl"}`}
             >
               {pick(post.title)}
             </h3>
             <p className="mt-3 flex-1">{pick(post.body)}</p>
             <p className="mt-5 text-sm font-semibold">{post.author}</p>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </section>

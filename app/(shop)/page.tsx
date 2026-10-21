@@ -3,7 +3,6 @@ import { Cypher } from "@/components/home/Cypher";
 import { GenreTiles } from "@/components/home/GenreTiles";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { Marquee } from "@/components/home/Marquee";
 import { TrendingCarousel } from "@/components/home/TrendingCarousel";
 import { getLineup, getTrendingDrinkIds } from "@/lib/db/queries";
 
@@ -35,13 +34,12 @@ export default async function Home() {
   return (
     <main className="flex flex-1 flex-col">
       <Hero spotlight={spotlight} />
-      <Marquee />
-      <div className="flex flex-col gap-20 py-20 sm:gap-24 sm:py-24">
+      <div className="flex flex-col gap-24 py-20 sm:gap-28 sm:py-28">
         <GenreTiles genres={genres} drinks={drinks} />
         <TrendingCarousel drinks={trending} />
       </div>
       <HowItWorks />
-      <div className="py-20 sm:py-24">
+      <div className="pt-8 pb-20 sm:pb-28">
         <Cypher />
       </div>
       <BackstagePromo />

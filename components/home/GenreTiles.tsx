@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { DrinkVisual } from "@/components/lineup/DrinkVisual";
+import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
 import { fill } from "@/lib/copy";
 import type { LineupDrink, LineupGenre } from "@/lib/db/queries";
@@ -25,11 +26,11 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
 
   return (
     <section aria-labelledby="genres" className="mx-auto w-full max-w-6xl px-4">
-      <h2 id="genres" className="mb-6 text-5xl leading-none sm:text-6xl">
+      <h2 id="genres" className="mb-6 text-4xl leading-tight sm:text-5xl">
         {t.home.genresTitle}
       </h2>
       <ul className="grid gap-4 sm:grid-cols-2 lg:auto-rows-[15rem] lg:grid-cols-6">
-        {genres.map((genre) => {
+        {genres.map((genre, index) => {
           const term = genreTerms[genre.slug];
           const inGenre = drinks.filter((d) => d.genreSlug === genre.slug);
           // Tall and narrow tiles put the photo along the bottom; wide ones
@@ -38,8 +39,10 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
             genre.slug === "new-school" || genre.slug === "intermission";
           const cover = inGenre.find((d) => d.imageSrc) ?? inGenre[0];
           return (
-            <li
+            <Reveal
+              as="li"
               key={genre.slug}
+              delay={index * 0.06}
               className={tileLayout[genre.slug] ?? "lg:col-span-2"}
             >
               <Link
@@ -47,7 +50,7 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                 aria-label={term ? plain.terms[term] : genre.name}
                 className={`group relative flex h-full ${photoBelow ? "min-h-80" : "min-h-56"} flex-col overflow-hidden rounded-[1.75rem] p-6 text-espresso transition-transform duration-300 outline-none hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring ${genreBlockFor(genre.slug)}`}
               >
-                <span className="relative font-heading text-4xl leading-none tracking-wide uppercase sm:text-5xl">
+                <span className="relative font-heading text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
                   {term ? t.terms[term] : genre.name}
                 </span>
                 {!isPlain && term && (
@@ -79,7 +82,7 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                   </div>
                 )}
               </Link>
-            </li>
+            </Reveal>
           );
         })}
       </ul>

@@ -34,8 +34,7 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 type ErrorKey = Extract<CreateOrderResult, { ok: false }>["error"];
 
-const inputClass =
-  "h-12 w-full rounded-xl border-2 border-input bg-card px-3 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40 aria-invalid:border-destructive";
+const inputClass = "field h-12 w-full px-4 text-base";
 
 function Section({
   title,
@@ -45,7 +44,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t-2 border-dashed pt-6">
+    <section className="border-t pt-6">
       <h2 className="mb-4 text-3xl leading-none">{title}</h2>
       {children}
     </section>
@@ -155,7 +154,7 @@ export function ShowtimeForm() {
 
   if (items.length === 0) {
     return (
-      <div className="mt-10 rounded-3xl border-2 border-dashed px-6 py-12 text-center">
+      <div className="mt-10 rounded-3xl bg-muted/60 px-6 py-12 text-center">
         <h2 className="text-3xl">{t.playlist.emptyTitle}</h2>
         <p className="mt-2 text-muted-foreground">{t.playlist.emptyBody}</p>
         <Button asChild size="lg" className="mt-6">
@@ -190,10 +189,10 @@ export function ShowtimeForm() {
               return (
                 <label
                   key={value}
-                  className={`flex min-h-20 cursor-pointer items-center gap-3 rounded-2xl border-2 p-4 transition-colors has-focus-visible:ring-3 has-focus-visible:ring-ring ${
+                  className={`flex min-h-20 cursor-pointer items-center gap-3 rounded-3xl p-4 transition-colors has-focus-visible:ring-3 has-focus-visible:ring-ring ${
                     active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "bg-card hover:border-primary/60"
+                      ? "bg-espresso text-cream shadow-[0_18px_40px_-24px_rgb(59_42_32_/_0.7)] dark:bg-cream dark:text-espresso"
+                      : "surface hover:bg-accent/40"
                   }`}
                 >
                   <input
@@ -205,7 +204,7 @@ export function ShowtimeForm() {
                   />
                   <Icon aria-hidden className="size-6 shrink-0" />
                   <span>
-                    <span className="block font-heading text-2xl leading-none tracking-wide uppercase">
+                    <span className="block font-heading text-2xl leading-none tracking-tight">
                       {t.terms[term]}
                     </span>
                     {!isPlain && (
@@ -222,7 +221,7 @@ export function ShowtimeForm() {
           {isClass ? (
             <>
               {tooManyForClass ? (
-                <p className="mt-4 rounded-xl border-2 border-destructive p-4 text-sm">
+                <p className="mt-4 rounded-2xl bg-destructive/10 p-4 text-sm text-destructive">
                   {fill(t.showtime.tooManyDrinks, {
                     max: schedule.slotCapacity,
                   })}
@@ -340,7 +339,7 @@ export function ShowtimeForm() {
         {serverError && (
           <p
             role="alert"
-            className="mt-4 rounded-xl border-2 border-destructive p-3 text-sm"
+            className="mt-4 rounded-2xl bg-destructive/10 p-3 text-sm text-destructive"
           >
             {fill(t.showtime[serverError.key], {
               name: serverError.itemName ?? "",

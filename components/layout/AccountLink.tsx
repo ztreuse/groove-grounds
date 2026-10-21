@@ -34,7 +34,7 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
       className={
         variant === "bar"
           ? "hidden size-11 shrink-0 items-center justify-center rounded-full outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring xl:inline-flex"
-          : "flex min-h-14 items-center gap-3 rounded-xl border-2 px-3 py-2 font-semibold outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
+          : "flex min-h-14 items-center gap-3 rounded-xl bg-muted px-3 py-2 font-semibold outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
       }
     >
       <Icon aria-hidden className="size-5 shrink-0" />

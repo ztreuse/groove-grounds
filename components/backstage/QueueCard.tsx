@@ -38,11 +38,11 @@ export function QueueCard({
 
   return (
     <li
-      className={`rounded-xl border-2 bg-card p-3 ${upcoming ? "border-dashed" : ""}`}
+      className={`surface rounded-2xl p-3 ${upcoming ? "border-dashed" : ""}`}
     >
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="font-heading text-2xl leading-none tracking-wide">
+          <p className="font-heading text-2xl leading-none tracking-tight">
             {order.code}
           </p>
           {order.guestName && (

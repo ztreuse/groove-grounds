@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Anton, Archivo } from "next/font/google";
+import { Archivo, Bricolage_Grotesque } from "next/font/google";
 import { DemoBanner } from "@/components/layout/DemoBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Providers } from "@/components/layout/Providers";
+import { Toaster } from "@/components/layout/Toaster";
 import { WelcomeTour } from "@/components/layout/WelcomeTour";
 import { dance } from "@/lib/copy";
 import "./globals.css";
@@ -13,9 +14,8 @@ const archivo = Archivo({
   subsets: ["latin"],
 });
 
-const anton = Anton({
-  variable: "--font-anton",
-  weight: "400",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${anton.variable} h-full antialiased`}
+      className={`${archivo.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Providers>
@@ -37,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
           <Footer />
           <WelcomeTour />
+          <Toaster />
         </Providers>
       </body>
     </html>

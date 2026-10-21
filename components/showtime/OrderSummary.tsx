@@ -15,14 +15,11 @@ export function OrderSummary({ items, pickupLabel, total }: OrderSummaryProps) {
   const { t } = useCopy();
 
   return (
-    <section
-      aria-labelledby="order-summary"
-      className="rounded-2xl border-2 bg-card p-4"
-    >
+    <section aria-labelledby="order-summary" className="surface p-4">
       <h2 id="order-summary" className="text-3xl leading-none">
         {t.showtime.summary}
       </h2>
-      <ul className="mt-3 divide-y-2 divide-dashed">
+      <ul className="mt-3 divide-y">
         {items.map((item) => (
           <li key={item.id} className="py-3">
             <div className="flex items-start justify-between gap-3">

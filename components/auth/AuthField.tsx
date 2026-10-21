@@ -28,7 +28,7 @@ export function AuthField({
         id={id}
         aria-invalid={!!error}
         aria-describedby={describedBy}
-        className="h-12 w-full rounded-xl border-2 border-input bg-card px-3 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40 aria-invalid:border-destructive"
+        className="h-12 w-full field px-4 text-base aria-invalid:border-destructive"
         {...input}
         {...register}
       />
