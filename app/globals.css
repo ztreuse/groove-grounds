@@ -17,6 +17,17 @@
   --color-purple: #7b4fc9;
   --color-lilac: #c9b6f0;
 
+  /* Freestyle cup preview: drink colors. */
+  --color-brew-espresso: #5a3524;
+  --color-brew-cold: #3a2117;
+  --color-brew-matcha: #7d9b4b;
+  --color-brew-chocolate: #6b3f26;
+  --color-brew-tea: #b06e2e;
+  --color-milk: #f1e3cf;
+  --color-whip: #fffaf2;
+  --color-caramel: #c9852f;
+  --color-ice: #eaf5fb;
+
   /* Hover bounce on the beat: one bounce per beat at ~120 BPM. */
   --animate-beat: beat-bounce 0.5s ease-in-out infinite;
   @keyframes beat-bounce {

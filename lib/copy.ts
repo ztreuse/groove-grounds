@@ -239,6 +239,25 @@ export const dance = {
       "Place a demo order, then play the choreographer in Demo Backstage and watch your tracker update live.",
   },
 
+  freestyle: {
+    intro: "No set routine. Pick a base and make up your own moves.",
+    pickBase: "Pick your base",
+    stepOf: "Count {step} of {total}",
+    back: "Back",
+    next: "Next",
+    review: "Your choreo",
+    nameLabel: "Name your choreo",
+    namePlaceholder: "e.g. Midnight Matcha",
+    nameHint: "Optional. It shows on your Playlist and your order.",
+    saveSoon: "Saving choreo to your Dancer Profile arrives with accounts.",
+    defaultName: "Freestyle {base}",
+    changeBase: "Change base",
+    from: "from {price}",
+    preview: "Live preview",
+    cupLabel: "Cup preview: {base}, {size}, {temp}",
+    added: "Choreo added to your Playlist",
+  },
+
   tracker: {
     orderCode: "Order code",
     greeting: "You're on the lineup, {name}!",
@@ -541,6 +560,25 @@ export const plain: Widen<typeof dance> = {
     backstageTitle: "Try the staff view",
     backstageBody:
       "Place a demo order, then move it through the staff queue and watch the tracker update live.",
+  },
+
+  freestyle: {
+    intro: "Build your own drink, one step at a time.",
+    pickBase: "Choose a base",
+    stepOf: "Step {step} of {total}",
+    back: "Back",
+    next: "Next",
+    review: "Your drink",
+    nameLabel: "Name your drink",
+    namePlaceholder: "e.g. Midnight Matcha",
+    nameHint: "Optional. Shown in your cart and on your order.",
+    saveSoon: "Saving drinks to your account is coming soon.",
+    defaultName: "Custom {base}",
+    changeBase: "Change base",
+    from: "from {price}",
+    preview: "Live preview",
+    cupLabel: "Cup preview: {base}, {size}, {temp}",
+    added: "Drink added to your cart",
   },
 
   tracker: {

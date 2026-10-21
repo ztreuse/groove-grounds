@@ -5,6 +5,7 @@ import { z } from "zod";
 export const PH_MOBILE = /^(?:\+?63|0)9\d{9}$/;
 export const NOTES_LIMIT = 140;
 export const MAX_QUANTITY = 20;
+export const CHOREO_NAME_LIMIT = 40;
 
 export const normalizePhone = (phone: string) => phone.replace(/[\s-]/g, "");
 
@@ -41,6 +42,8 @@ export const orderItemSchema = z.object({
   quantity: z.number().int().min(1).max(MAX_QUANTITY),
   selection: z.record(z.uuid(), z.array(z.uuid()).max(10)),
   notes: z.string().max(NOTES_LIMIT),
+  // "Name your choreo" for Freestyle drinks; ignored for menu drinks.
+  name: z.string().trim().max(CHOREO_NAME_LIMIT).optional(),
 });
 
 export const orderPayloadSchema = z.object({

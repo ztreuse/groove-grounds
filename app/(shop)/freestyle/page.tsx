@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
+import { EditableFreestyleBuilder } from "@/components/freestyle/EditableFreestyleBuilder";
 import { dance } from "@/lib/copy";
+import { getFreestyleBases } from "@/lib/db/queries";
 
 export const metadata: Metadata = { title: dance.pages.freestyle };
 
-export default function Page() {
-  return <PagePlaceholder page="freestyle" />;
+export default async function FreestylePage() {
+  const bases = await getFreestyleBases();
+  return <EditableFreestyleBuilder bases={bases} />;
 }

@@ -123,6 +123,7 @@ export function ShowtimeForm() {
           quantity: item.quantity,
           selection: item.selection,
           notes: item.notes,
+          name: item.choreoName,
         })),
       }).catch((): CreateOrderResult => ({ ok: false, error: "errorGeneric" })),
       wait(DEMO_PAY_MS),

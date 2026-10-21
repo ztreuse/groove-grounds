@@ -28,6 +28,10 @@ export type PlaylistItem = {
   choices: PlaylistChoice[];
   // Drinks count toward class capacity; Intermission snacks do not.
   isDrink?: boolean;
+  // Built in Freestyle. `name` is what the Playlist shows; `choreoName` is
+  // only set when the customer named it ("Name your choreo").
+  kind?: "freestyle";
+  choreoName?: string;
 };
 
 export type NewPlaylistItem = Omit<PlaylistItem, "id">;
@@ -44,14 +48,16 @@ type PlaylistState = {
 const clampQuantity = (quantity: number) =>
   Math.min(MAX_QUANTITY, Math.max(1, Math.round(quantity)));
 
-// Same drink, same Remix and same notes count as one Playlist line.
+// Same drink, same Remix and same notes (and choreo name, for Freestyle)
+// count as one Playlist line.
 function signature(item: NewPlaylistItem) {
   const picks = Object.entries(item.selection)
     .filter(([, ids]) => ids.length > 0)
     .map(([groupId, ids]) => `${groupId}=${[...ids].sort().join(",")}`)
     .sort()
     .join("|");
-  return `${item.drinkId}|${picks}|${item.notes.trim()}`;
+  const choreo = item.choreoName ?? "";
+  return `${item.drinkId}|${picks}|${item.notes.trim()}|${choreo}`;
 }
 
 export const usePlaylist = create<PlaylistState>()(

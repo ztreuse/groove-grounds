@@ -26,6 +26,8 @@ const genreRows = [
   { slug: "mashup", name: dance.terms.mashup },
   { slug: "off-beat", name: dance.terms.offBeat },
   { slug: "intermission", name: dance.terms.intermission },
+  // Hidden from The Lineup: holds the Freestyle builder's bases.
+  { slug: "freestyle", name: dance.terms.freestyle },
 ];
 
 type GroupSeed = {
@@ -486,6 +488,72 @@ const snackSeeds: ItemSeed[] = [
   },
 ];
 
+// Freestyle bases (build your own). Prices are placeholders.
+const freestyleSeeds: ItemSeed[] = [
+  {
+    name: "Espresso",
+    slug: "freestyle-espresso",
+    genre: "freestyle",
+    danceStyle: "Freestyle",
+    blurb: "A clean start for your own routine.",
+    plainDescription: "Espresso base",
+    basePrice: 120,
+    temps: ["hot", "iced", "blended"],
+    coffee: "yes",
+    milk: "whole",
+    sweet: true,
+  },
+  {
+    name: "Cold Brew",
+    slug: "freestyle-cold-brew",
+    genre: "freestyle",
+    danceStyle: "Freestyle",
+    blurb: "Smooth and steady, ready for your moves.",
+    plainDescription: "Cold brew base",
+    basePrice: 140,
+    temps: ["iced", "blended"],
+    coffee: "yes",
+    sweet: true,
+  },
+  {
+    name: "Matcha",
+    slug: "freestyle-matcha",
+    genre: "freestyle",
+    danceStyle: "Freestyle",
+    blurb: "Soft and green, easy to build on.",
+    plainDescription: "Matcha base",
+    basePrice: 150,
+    temps: ["hot", "iced", "blended"],
+    coffee: "optional",
+    milk: "whole",
+    sweet: true,
+  },
+  {
+    name: "Chocolate",
+    slug: "freestyle-chocolate",
+    genre: "freestyle",
+    danceStyle: "Freestyle",
+    blurb: "Rich and bold, a crowd-pleaser.",
+    plainDescription: "Chocolate base",
+    basePrice: 130,
+    temps: ["hot", "iced", "blended"],
+    coffee: "optional",
+    milk: "whole",
+    sweet: true,
+  },
+  {
+    name: "Tea",
+    slug: "freestyle-tea",
+    genre: "freestyle",
+    danceStyle: "Freestyle",
+    blurb: "Light on its feet, any time of day.",
+    plainDescription: "Black tea base",
+    basePrice: 110,
+    temps: ["hot", "iced"],
+    sweet: true,
+  },
+];
+
 // Which Remix groups each item gets, with the default choice (null = none).
 function remixGroupsFor(
   item: ItemSeed,
@@ -566,7 +634,7 @@ async function main() {
       }
     }
 
-    const items = [...drinkSeeds, ...snackSeeds];
+    const items = [...drinkSeeds, ...snackSeeds, ...freestyleSeeds];
     const drinkIds: string[] = [];
     for (const [index, item] of items.entries()) {
       const values = {

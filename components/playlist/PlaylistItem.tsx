@@ -39,7 +39,11 @@ export function PlaylistItem({ item }: { item: Item }) {
         />
         <div className="flex items-center">
           <Link
-            href={`/lineup/${item.slug}?edit=${item.id}`}
+            href={
+              item.kind === "freestyle"
+                ? `/freestyle?edit=${item.id}`
+                : `/lineup/${item.slug}?edit=${item.id}`
+            }
             aria-label={fill(plain.playlist.editItem, { name: item.name })}
             className={actionClass}
           >

@@ -7,7 +7,6 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, Check } from "lucide-react";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { usePlaylistHydrated } from "@/hooks/use-playlist-hydrated";
@@ -15,63 +14,18 @@ import { NOTES_LIMIT } from "@/lib/checkout";
 import { fill } from "@/lib/copy";
 import type { DrinkDetail } from "@/lib/db/queries";
 import { formatPeso } from "@/lib/format";
+import { isGroupHidden, optionsFor, priceRemix } from "@/lib/pricing";
 import {
-  defaultSelection,
-  isGroupHidden,
-  optionsFor,
-  priceRemix,
-  type RemixGroup,
-  type RemixSelection,
-} from "@/lib/pricing";
+  remixSchema,
+  toFormOptions,
+  toPlaylistItem,
+  toSelection,
+  type RemixFormValues,
+} from "@/lib/remix-form";
 import { routes } from "@/lib/routes";
-import {
-  MAX_QUANTITY,
-  usePlaylist,
-  type NewPlaylistItem,
-} from "@/stores/playlist";
+import { usePlaylist } from "@/stores/playlist";
 import { OptionGroup } from "./OptionGroup";
 import { QuantityStepper } from "./QuantityStepper";
-
-const remixSchema = z.object({
-  // Keyed by group slug: a radio gives a string, checkboxes give an array.
-  options: z.record(
-    z.string(),
-    z.union([z.string(), z.array(z.string()), z.boolean()]),
-  ),
-  notes: z.string().max(NOTES_LIMIT),
-  quantity: z.number().int().min(1).max(MAX_QUANTITY),
-});
-
-type RemixFormValues = z.infer<typeof remixSchema>;
-
-function toSelection(
-  groups: RemixGroup[],
-  values: RemixFormValues["options"] = {},
-): RemixSelection {
-  const selection: RemixSelection = {};
-  for (const group of groups) {
-    const value = values[group.slug];
-    selection[group.id] = Array.isArray(value)
-      ? value
-      : typeof value === "string" && value
-        ? [value]
-        : [];
-  }
-  return selection;
-}
-
-function toFormOptions(
-  drink: DrinkDetail,
-  selection: RemixSelection = defaultSelection(drink),
-) {
-  const values: RemixFormValues["options"] = {};
-  for (const group of drink.groups) {
-    if (group.type === "text") continue;
-    const ids = selection[group.id] ?? [];
-    values[group.slug] = group.type === "multi" ? ids : (ids[0] ?? "");
-  }
-  return values;
-}
 
 type RemixPanelProps = {
   drink: DrinkDetail;
@@ -142,32 +96,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
       toSelection(drink.groups, form.options),
       form.notes,
     );
-    const item: NewPlaylistItem = {
-      drinkId: drink.id,
-      slug: drink.slug,
-      name: drink.name,
-      plainDescription: drink.plainDescription,
-      isDrink: drink.tempsAllowed.length > 0,
-      unitPrice: result.unitPrice,
-      quantity: form.quantity,
-      selection: Object.fromEntries(
-        result.choices.map(({ group, options }) => [
-          group.id,
-          options.map((option) => option.id),
-        ]),
-      ),
-      notes: result.notes,
-      choices: result.choices.map(({ group, options }) => ({
-        groupId: group.id,
-        danceLabel: group.danceLabel,
-        plainLabel: group.plainLabel,
-        options: options.map(({ id, danceLabel, plainLabel }) => ({
-          id,
-          danceLabel,
-          plainLabel,
-        })),
-      })),
-    };
+    const item = toPlaylistItem(drink, result, form.quantity);
     if (editItem) {
       updateItem(editItem.id, item);
       router.push(routes.playlist.href);

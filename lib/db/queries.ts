@@ -29,6 +29,9 @@ import {
 // Cache tag for everything on the menu. Backstage edits call updateTag(MENU_TAG).
 export const MENU_TAG = "menu";
 
+// Genre holding the Freestyle builder's bases; never shown on The Lineup.
+export const FREESTYLE_GENRE = "freestyle";
+
 export async function getLineup() {
   "use cache";
   cacheTag(MENU_TAG);
@@ -38,6 +41,7 @@ export async function getLineup() {
     db
       .select({ slug: genres.slug, name: genres.name })
       .from(genres)
+      .where(ne(genres.slug, FREESTYLE_GENRE))
       .orderBy(asc(genres.sortOrder)),
     db
       .select({
@@ -54,6 +58,7 @@ export async function getLineup() {
       })
       .from(drinks)
       .innerJoin(genres, eq(drinks.genreId, genres.id))
+      .where(ne(genres.slug, FREESTYLE_GENRE))
       .orderBy(asc(genres.sortOrder), asc(drinks.sortOrder)),
   ]);
 
@@ -88,7 +93,11 @@ export async function getDrinkSlugs() {
   cacheTag(MENU_TAG);
   cacheLife("hours");
 
-  const rows = await db.select({ slug: drinks.slug }).from(drinks);
+  const rows = await db
+    .select({ slug: drinks.slug })
+    .from(drinks)
+    .innerJoin(genres, eq(drinks.genreId, genres.id))
+    .where(ne(genres.slug, FREESTYLE_GENRE));
   return rows.map((row) => row.slug);
 }
 
@@ -184,8 +193,19 @@ export async function getDrinkBySlug(slug: string) {
   cacheTag(MENU_TAG);
   cacheLife("hours");
 
-  const [drink] = await loadDrinks(eq(drinks.slug, slug));
+  const [drink] = await loadDrinks(
+    and(eq(drinks.slug, slug), ne(genres.slug, FREESTYLE_GENRE))!,
+  );
   return drink ?? null;
+}
+
+export async function getFreestyleBases() {
+  "use cache";
+  cacheTag(MENU_TAG);
+  cacheLife("hours");
+
+  const bases = await loadDrinks(eq(genres.slug, FREESTYLE_GENRE));
+  return bases.sort((a, b) => a.basePrice - b.basePrice);
 }
 
 // Uncached: checkout always prices from the current menu.
@@ -229,6 +249,9 @@ export type Lineup = Awaited<ReturnType<typeof getLineup>>;
 export type DrinkDetail = NonNullable<
   Awaited<ReturnType<typeof getDrinkBySlug>>
 >;
+export type FreestyleBase = Awaited<
+  ReturnType<typeof getFreestyleBases>
+>[number];
 export type LineupGenre = Lineup["genres"][number];
 export type LineupDrink = Lineup["drinks"][number];
 export type SlotAvailability = Awaited<

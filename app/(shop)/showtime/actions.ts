@@ -8,7 +8,12 @@ import {
   type OrderPayload,
 } from "@/lib/checkout";
 import { db } from "@/lib/db";
-import { getDrinksForCheckout, getSlotAvailability } from "@/lib/db/queries";
+import { dance } from "@/lib/copy";
+import {
+  FREESTYLE_GENRE,
+  getDrinksForCheckout,
+  getSlotAvailability,
+} from "@/lib/db/queries";
 import { orderItems, orders, timeSlots } from "@/lib/db/schema";
 import { rememberDemoOrder } from "@/lib/demo-orders";
 import { priceRemix, type PricedRemix } from "@/lib/pricing";
@@ -20,6 +25,7 @@ type OrderLine = {
   drink: CheckoutDrink;
   priced: PricedRemix;
   quantity: number;
+  name: string;
 };
 
 class CheckoutError extends Error {
@@ -85,7 +91,15 @@ export async function createOrder(
       return { ok: false, error: "errorSittingOut", itemName: drink.name };
     }
     const priced = priceRemix(drink, item.selection, item.notes);
-    lines.push({ drink, priced, quantity: item.quantity });
+    // Freestyle: keep the base in the name so the choreographer knows it.
+    const base = `${dance.terms.freestyle} ${drink.name}`;
+    const name =
+      drink.genreSlug === FREESTYLE_GENRE
+        ? item.name
+          ? `${item.name} (${base})`
+          : base
+        : drink.name;
+    lines.push({ drink, priced, quantity: item.quantity, name });
   }
 
   const subtotal = lines.reduce(
@@ -143,10 +157,10 @@ export async function createOrder(
           .returning({ id: orders.id, code: orders.code });
 
         await tx.insert(orderItems).values(
-          lines.map(({ drink, priced, quantity }) => ({
+          lines.map(({ drink, priced, quantity, name }) => ({
             orderId: row.id,
             drinkId: drink.id,
-            nameSnapshot: drink.name,
+            nameSnapshot: name,
             baseSnapshot: drink.basePrice,
             optionsSnapshot: {
               choices: priced.choices.map(({ group, options }) => ({
