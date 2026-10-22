@@ -43,7 +43,7 @@ export function GenreFilter({
       ref={edges}
       role="group"
       aria-label={plain.lineup.genreFilter}
-      className="-mx-4 flex [scrollbar-width:none] gap-2 overflow-x-auto scroll-edges px-4 py-0.5 md:mx-0 md:flex-wrap md:overflow-visible md:[mask-image:none] md:px-0.5 [&::-webkit-scrollbar]:hidden"
+      className="-mx-4 flex [scrollbar-width:none] gap-1.5 overflow-x-auto scroll-edges px-4 py-0.5 md:mx-0 md:flex-wrap md:overflow-visible md:[mask-image:none] md:px-0.5 [&::-webkit-scrollbar]:hidden"
     >
       {chips.map((chip) => {
         const active = chip.slug === value;
@@ -55,7 +55,7 @@ export function GenreFilter({
             aria-pressed={active}
             aria-label={chip.ariaLabel}
             onClick={() => onChange(chip.slug)}
-            className={`group relative inline-flex min-h-13 shrink-0 items-center gap-2.5 rounded-md py-1.5 pr-2.5 pl-1.5 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+            className={`group relative inline-flex min-h-11 shrink-0 items-center gap-2 rounded-md py-1 pr-2 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
               active
                 ? "text-background"
                 : "bg-card ring-1 ring-border ring-inset hover:ring-foreground/40"
@@ -72,7 +72,7 @@ export function GenreFilter({
             {/* Genre icon on its colour tile (All: the takeaway cup). */}
             <span
               aria-hidden
-              className={`relative flex size-9 shrink-0 items-center justify-center rounded-sm ${
+              className={`relative flex size-8 shrink-0 items-center justify-center rounded-sm ${
                 chip.slug === "all"
                   ? active
                     ? "bg-background/15"
@@ -80,7 +80,7 @@ export function GenreFilter({
                   : `${genreBlockFor(chip.slug)} text-espresso`
               }`}
             >
-              <Icon className="size-5" />
+              <Icon className="size-4" />
             </span>
             {/* Plain meaning under the dance term, so nobody has to switch
                 modes to know what a genre holds. */}
@@ -93,7 +93,7 @@ export function GenreFilter({
               )}
             </span>
             <span
-              className={`relative min-w-6 rounded-sm px-1.5 py-0.5 text-center text-xs tabular-nums ${
+              className={`relative min-w-5 rounded-sm px-1 py-px text-center text-[11px] tabular-nums ${
                 active ? "bg-background/15" : "bg-muted text-muted-foreground"
               }`}
             >

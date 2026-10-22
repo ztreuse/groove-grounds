@@ -44,7 +44,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
     <div
       role="group"
       aria-label={plain.lineup.tempFilter}
-      className="flex min-h-14 w-full shrink-0 gap-1 rounded-md bg-muted p-1.5 ring-1 ring-border ring-inset sm:min-h-16 md:inline-flex md:w-auto md:self-start"
+      className="flex min-h-12 w-full shrink-0 gap-1 rounded-md bg-muted p-1 ring-1 ring-border ring-inset md:inline-flex md:w-auto md:self-start"
     >
       {options.map(({ value: optionValue, label, ariaLabel, temp }) => {
         const sub = !isPlain && ariaLabel !== label ? ariaLabel : null;
@@ -56,7 +56,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
             aria-pressed={active}
             aria-label={ariaLabel}
             onClick={() => onChange(optionValue)}
-            className={`relative flex min-w-0 flex-auto items-center justify-center gap-1.5 rounded-sm py-1.5 pr-2.5 pl-1.5 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring sm:pr-4 sm:pl-2 md:flex-none md:justify-start ${
+            className={`relative flex min-w-0 flex-auto items-center justify-center gap-1.5 rounded-sm py-1 pr-2.5 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring sm:pr-3.5 md:flex-none md:justify-start ${
               active
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -76,13 +76,13 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
                   icon={tempStyles[temp].icon}
                   tone="custom"
                   className={tempStyles[temp].accent}
-                  size="fluid"
+                  size="sm"
                 />
               ) : (
                 <IconTile
                   icon={CupIcon}
                   tone="neutral"
-                  size="fluid"
+                  size="sm"
                   className="max-sm:hidden"
                 />
               )}
