@@ -121,7 +121,7 @@ export function QueueBoard() {
       </div>
 
       {queue.orders.length === 0 ? (
-        <div className="mt-8 rounded-3xl bg-muted/60 px-6 py-12 text-center">
+        <div className="mt-8 rounded-md bg-muted/60 px-6 py-12 text-center">
           <p className="text-lg">{t.queue.empty}</p>
           <Button asChild size="lg" className="mt-6">
             <Link href={routes.lineup.href} aria-label={plain.queue.emptyCta}>
@@ -132,7 +132,7 @@ export function QueueBoard() {
       ) : (
         <div
           ref={edges}
-          className="-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-edges px-4 pb-4 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:[mask-image:none] lg:px-0"
+          className="-mx-4 mt-6 flex snap-x snap-mandatory scroll-pl-4 [scrollbar-width:none] gap-3 overflow-x-auto scroll-edges px-4 pb-4 md:mx-0 md:scroll-pl-0 md:px-0 [&::-webkit-scrollbar]:hidden"
         >
           {ORDER_FLOW.map((status) => {
             const key = statusCopyKey[status];
@@ -143,7 +143,7 @@ export function QueueBoard() {
               <section
                 key={status}
                 aria-labelledby={`column-${status}`}
-                className="w-[85%] shrink-0 snap-start rounded-2xl bg-muted p-3 sm:w-72 lg:w-auto"
+                className="w-[85%] shrink-0 snap-start rounded-md bg-muted p-3 sm:w-72"
               >
                 <div className="mb-3 flex items-baseline justify-between gap-2">
                   <div>
@@ -164,7 +164,7 @@ export function QueueBoard() {
                   </span>
                 </div>
                 {column.length === 0 ? (
-                  <p className="rounded-2xl bg-muted/60 p-3 text-center text-sm text-muted-foreground">
+                  <p className="rounded-md bg-muted/60 p-3 text-center text-sm text-muted-foreground">
                     {t.queue.columnEmpty}
                   </p>
                 ) : (

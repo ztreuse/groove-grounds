@@ -12,7 +12,7 @@ export function QueueHeader() {
         {!isPlain && ` · ${plain.terms.backstage}`}
       </p>
       <h1 className="mt-3 text-6xl sm:text-8xl">{t.pages.backstageQueue}</h1>
-      <p className="mt-3 max-w-prose rounded-xl bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">
+      <p className="mt-4 max-w-prose rounded-md bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">
         {t.queue.demoNotice}
       </p>
     </header>

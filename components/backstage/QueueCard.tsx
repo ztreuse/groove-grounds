@@ -37,11 +37,9 @@ export function QueueCard({
   }, [confirmCut]);
 
   return (
-    <li
-      className={`surface rounded-2xl p-3 ${upcoming ? "border-dashed" : ""}`}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <div>
+    <li className={`surface rounded-md p-3 ${upcoming ? "border-dashed" : ""}`}>
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div className="min-w-0">
           <p className="label-display text-2xl leading-none">{order.code}</p>
           {order.guestName && (
             <p className="mt-1 text-sm font-semibold">{order.guestName}</p>
@@ -76,17 +74,19 @@ export function QueueCard({
             aria-label={fill(plain.queue.moveTo, {
               status: plain.status[statusCopyKey[next]],
             })}
-            className="w-full justify-between"
+            className="w-full justify-between gap-2 [&>span]:truncate"
           >
-            {fill(t.queue.moveTo, { status: t.status[statusCopyKey[next]] })}
+            <span>
+              {fill(t.queue.moveTo, { status: t.status[statusCopyKey[next]] })}
+            </span>
             <ArrowRight aria-hidden />
           </Button>
         )}
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-2">
           <Link
             href={`/track/${order.id}`}
             target="_blank"
-            className="inline-flex min-h-11 items-center gap-1 rounded-lg px-1 text-xs font-semibold text-highlight outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
+            className="inline-flex min-h-11 items-center gap-1 rounded-md px-1 text-xs font-semibold whitespace-nowrap text-highlight outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
           >
             {t.queue.viewTracker}
             <ExternalLink aria-hidden className="size-3.5" />
@@ -100,7 +100,7 @@ export function QueueCard({
                 else setConfirmCut(true);
               }}
               aria-label={confirmCut ? plain.queue.confirmCut : plain.queue.cut}
-              className="inline-flex min-h-11 items-center rounded-lg px-2 text-xs font-semibold text-destructive outline-none hover:bg-destructive/10 focus-visible:ring-3 focus-visible:ring-ring"
+              className="inline-flex min-h-11 items-center rounded-md px-1 text-xs font-semibold whitespace-nowrap text-destructive outline-none hover:bg-destructive/10 focus-visible:ring-3 focus-visible:ring-ring"
             >
               {confirmCut ? t.queue.confirmCut : t.queue.cut}
             </button>

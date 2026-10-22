@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function QueuePage() {
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
       <QueueHeader />
       <QueueBoard />
     </main>
