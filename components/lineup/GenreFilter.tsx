@@ -24,7 +24,7 @@ export function GenreFilter({
   value,
   onChange,
 }: GenreFilterProps) {
-  const { t, plain } = useCopy();
+  const { t, plain, isPlain } = useCopy();
   const edges = useScrollEdges<HTMLDivElement>();
 
   const chips = [
@@ -55,7 +55,7 @@ export function GenreFilter({
             aria-pressed={active}
             aria-label={chip.ariaLabel}
             onClick={() => onChange(chip.slug)}
-            className={`group relative inline-flex h-11 shrink-0 items-center gap-2 rounded-md py-1 pr-2 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+            className={`group relative inline-flex h-12 shrink-0 items-center gap-2 rounded-md py-1 pr-2 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
               active
                 ? "text-background"
                 : "bg-card ring-1 ring-border ring-inset hover:ring-foreground/40"
@@ -85,7 +85,16 @@ export function GenreFilter({
                 <span className="size-2.5 rounded-full bg-espresso/70" />
               )}
             </span>
-            <span className="relative">{chip.label}</span>
+            {/* Plain meaning under the dance term, so nobody has to switch
+                modes to know what a genre holds. */}
+            <span className="relative text-left leading-tight">
+              <span className="block">{chip.label}</span>
+              {!isPlain && chip.ariaLabel !== chip.label && (
+                <span className="block text-[11px] font-medium opacity-70">
+                  {chip.ariaLabel}
+                </span>
+              )}
+            </span>
             <span
               className={`relative min-w-6 rounded-sm px-1.5 py-0.5 text-center text-xs tabular-nums ${
                 active ? "bg-background/15" : "bg-muted text-muted-foreground"

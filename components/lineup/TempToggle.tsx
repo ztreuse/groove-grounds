@@ -17,7 +17,7 @@ type TempToggleProps = {
 // control; each option shows its logo-style tile, the selected one lifts
 // onto the card colour with a sliding highlight.
 export function TempToggle({ value, onChange }: TempToggleProps) {
-  const { t, plain } = useCopy();
+  const { t, plain, isPlain } = useCopy();
 
   const options = [
     {
@@ -44,9 +44,10 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
     <div
       role="group"
       aria-label={plain.lineup.tempFilter}
-      className="inline-flex h-12 shrink-0 gap-0.5 self-start rounded-md bg-muted p-1 ring-1 ring-border ring-inset"
+      className="inline-flex h-14 shrink-0 gap-0.5 self-start rounded-md bg-muted p-1 ring-1 ring-border ring-inset"
     >
       {options.map(({ value: optionValue, label, ariaLabel, temp }) => {
+        const sub = !isPlain && ariaLabel !== label ? ariaLabel : null;
         const active = optionValue === value;
         return (
           <button
@@ -80,7 +81,14 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
               ) : (
                 <IconTile icon={CupIcon} tone="neutral" size="sm" />
               )}
-              {label}
+              <span className="text-left leading-tight">
+                <span className="block">{label}</span>
+                {sub && (
+                  <span className="block text-[11px] font-medium opacity-70">
+                    {sub}
+                  </span>
+                )}
+              </span>
             </span>
           </button>
         );
