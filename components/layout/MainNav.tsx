@@ -2,6 +2,8 @@
 
 import { Suspense, useState } from "react";
 import { motion } from "motion/react";
+import { DropdownMenu } from "radix-ui";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -25,6 +27,10 @@ const navItems: { page: PageKey; term: TermKey; icon: GrooveIcon }[] = [
   { page: "crew", term: "crewOrder", icon: CrewIcon },
 ];
 
+// Secondary pages: a "More" dropdown in the bar, a smaller second group in
+// the menu.
+const moreItems: PageKey[] = ["about", "studio", "dictionary"];
+
 type NavListProps = {
   variant: "bar" | "sheet";
   pathname: string | null;
@@ -39,7 +45,7 @@ function isActive(href: string, pathname: string | null) {
 function NavList({ variant, pathname, onNavigate }: NavListProps) {
   const { t, plain, isPlain } = useCopy();
   // Bar only: a soft pill glides to whichever link is hovered.
-  const [hovered, setHovered] = useState<PageKey | null>(null);
+  const [hovered, setHovered] = useState<PageKey | "more" | null>(null);
 
   return (
     <ul
@@ -99,7 +105,83 @@ function NavList({ variant, pathname, onNavigate }: NavListProps) {
           </li>
         );
       })}
+      {variant === "bar" && (
+        <li className="relative" onMouseEnter={() => setHovered("more")}>
+          {hovered === "more" && (
+            <motion.span
+              aria-hidden
+              layoutId="nav-hover"
+              transition={{ type: "spring", stiffness: 500, damping: 40 }}
+              className="absolute inset-x-3 bottom-1 h-0.5 bg-highlight"
+            />
+          )}
+          <MoreDropdown pathname={pathname} />
+        </li>
+      )}
     </ul>
+  );
+}
+
+function MoreDropdown({ pathname }: { pathname: string | null }) {
+  const { t, plain, isPlain } = useCopy();
+  const active = moreItems.some((page) =>
+    isActive(routes[page].href, pathname),
+  );
+
+  return (
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger
+        aria-label={plain.header.more}
+        className={`relative flex min-h-11 items-center gap-1 rounded-full px-3 py-1 text-left whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+          active ? "text-highlight" : ""
+        }`}
+      >
+        <span>
+          <span className="block text-sm font-semibold">{t.header.more}</span>
+          {!isPlain && (
+            <span className="block text-xs text-muted-foreground">
+              {plain.header.more}
+            </span>
+          )}
+        </span>
+        <ChevronDown
+          aria-hidden
+          className="size-4 opacity-70 transition-transform duration-200 in-data-[state=open]:rotate-180"
+        />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          align="start"
+          sideOffset={8}
+          className="z-50 min-w-56 rounded-md bg-popover p-1.5 text-popover-foreground shadow-[0_0_0_1px_var(--border),0_18px_40px_-18px_rgb(43_30_23_/_0.5)] data-[state=open]:animate-in data-[state=open]:zoom-in-95 data-[state=open]:fade-in"
+        >
+          {moreItems.map((page) => {
+            const current = isActive(routes[page].href, pathname);
+            return (
+              <DropdownMenu.Item key={page} asChild>
+                <Link
+                  href={routes[page].href}
+                  aria-label={plain.pages[page]}
+                  aria-current={current ? "page" : undefined}
+                  className={`flex min-h-11 cursor-pointer flex-col justify-center rounded-sm px-2.5 py-1.5 outline-none data-[highlighted]:bg-muted ${
+                    current ? "text-highlight" : ""
+                  }`}
+                >
+                  <span className="label-display text-[15px] leading-tight">
+                    {t.pages[page]}
+                  </span>
+                  {!isPlain && plain.pages[page] !== t.pages[page] && (
+                    <span className="text-[11px] font-medium text-muted-foreground">
+                      {plain.pages[page]}
+                    </span>
+                  )}
+                </Link>
+              </DropdownMenu.Item>
+            );
+          })}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 }
 
@@ -117,10 +199,6 @@ export function MainNav(props: Omit<NavListProps, "pathname">) {
     </Suspense>
   );
 }
-
-// Menu only: the pages that live in the footer on wide screens (About,
-// Find the Studio, Dance Dictionary), as a smaller second group.
-const moreItems: PageKey[] = ["about", "studio", "dictionary"];
 
 function MoreList({
   pathname,
