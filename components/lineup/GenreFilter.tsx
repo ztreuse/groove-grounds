@@ -1,11 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
-import { CupIcon } from "@/components/icons/GrooveIcons";
 import { useCopy } from "@/hooks/use-copy";
 import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import type { LineupGenre } from "@/lib/db/queries";
-import { genreBlockFor, genreTerms } from "@/lib/genres";
+import { genreBlockFor, genreIconFor, genreTerms } from "@/lib/genres";
 
 type GenreFilterProps = {
   genres: LineupGenre[];
@@ -48,6 +47,7 @@ export function GenreFilter({
     >
       {chips.map((chip) => {
         const active = chip.slug === value;
+        const Icon = genreIconFor(chip.slug);
         return (
           <button
             key={chip.slug}
@@ -55,7 +55,7 @@ export function GenreFilter({
             aria-pressed={active}
             aria-label={chip.ariaLabel}
             onClick={() => onChange(chip.slug)}
-            className={`group relative inline-flex h-12 shrink-0 items-center gap-2 rounded-md py-1 pr-2 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+            className={`group relative inline-flex min-h-13 shrink-0 items-center gap-2.5 rounded-md py-1.5 pr-2.5 pl-1.5 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
               active
                 ? "text-background"
                 : "bg-card ring-1 ring-border ring-inset hover:ring-foreground/40"
@@ -69,21 +69,18 @@ export function GenreFilter({
                 className="absolute inset-0 rounded-md bg-foreground"
               />
             )}
+            {/* Genre icon on its colour tile (All: the takeaway cup). */}
             <span
               aria-hidden
-              className={`relative flex size-8 items-center justify-center rounded-sm ${
+              className={`relative flex size-9 shrink-0 items-center justify-center rounded-sm ${
                 chip.slug === "all"
                   ? active
                     ? "bg-background/15"
-                    : "bg-muted"
-                  : genreBlockFor(chip.slug)
+                    : "bg-muted text-foreground"
+                  : `${genreBlockFor(chip.slug)} text-espresso`
               }`}
             >
-              {chip.slug === "all" ? (
-                <CupIcon className="size-4" />
-              ) : (
-                <span className="size-2.5 rounded-full bg-espresso/70" />
-              )}
+              <Icon className="size-5" />
             </span>
             {/* Plain meaning under the dance term, so nobody has to switch
                 modes to know what a genre holds. */}

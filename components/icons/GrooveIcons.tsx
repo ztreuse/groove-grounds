@@ -62,6 +62,42 @@ export const BlendedIcon = icon(
   </>,
 );
 
+// Genres ------------------------------------------------------------------
+
+// Old School: an espresso shot glass, crema band cut out.
+export const EspressoIcon = icon(
+  <path
+    d={`M6.5 4.5h11l-1.4 15.3a1.3 1.3 0 0 1-1.3 1.2H9.2a1.3 1.3 0 0 1-1.3-1.2z
+        M7.2 8.6h9.6l-.13 1.5H7.33z`}
+  />,
+);
+
+// New School: a latte with a heart poured in the foam.
+export const LatteIcon = icon(
+  <>
+    <path
+      d={`M3 7.5h15v4a7.5 7.5 0 0 1-15 0z
+          M10.5 15.4 8 13a1.55 1.55 0 0 1 2.5-1.8A1.55 1.55 0 0 1 13 13z`}
+    />
+    <path d="M18 9h.6a3 3 0 0 1 0 6h-1.2v-1.9h1.2a1.1 1.1 0 0 0 0-2.2H18z" />
+    <rect x="2" y="20" width="17" height="2" rx="1" />
+  </>,
+);
+
+// Off-Beat: a leaf (matcha, non-coffee), vein cut out.
+export const LeafIcon = icon(
+  <path
+    d={`M20.5 3.5C11 3.5 4.5 7.6 4.5 14.6c0 2.2.7 4 1.9 5.4h0C8 15 11.5 11.6 16 9.6c-4 2.6-6.8 6.1-8.1 11 1 .4 2 .6 3.1.6 6.3 0 9.5-6.4 9.5-17.7z`}
+  />,
+);
+
+// Intermission: a cookie with its chips cut out.
+export const CookieIcon = icon(
+  <path
+    d={`${c(12, 12, 9.5)} ${c(8.6, 8.4, 1.5)} ${c(14.6, 7.6, 1.2)} ${c(9.6, 14.8, 1.6)} ${c(15.4, 13.8, 1.3)} ${c(12.4, 11, 0.9)}`}
+  />,
+);
+
 // Navigation -------------------------------------------------------------
 
 // Center Stage: a spotlight beam over the stage floor.

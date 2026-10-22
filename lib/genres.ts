@@ -1,3 +1,12 @@
+import {
+  BlendedIcon,
+  CookieIcon,
+  CupIcon,
+  EspressoIcon,
+  LatteIcon,
+  LeafIcon,
+  type GrooveIcon,
+} from "@/components/icons/GrooveIcons";
 import type { TermKey } from "@/lib/copy";
 
 // Genre slugs from the database mapped to their glossary terms in lib/copy.ts.
@@ -20,3 +29,15 @@ export const genreBlock: Record<string, string> = {
 
 export const genreBlockFor = (slug: string) =>
   genreBlock[slug] ?? "bg-genre-new";
+
+// Genre icons for filters and swatches; "all" is the whole Lineup.
+export const genreIcon: Record<string, GrooveIcon> = {
+  all: CupIcon,
+  "old-school": EspressoIcon,
+  "new-school": LatteIcon,
+  mashup: BlendedIcon,
+  "off-beat": LeafIcon,
+  intermission: CookieIcon,
+};
+
+export const genreIconFor = (slug: string) => genreIcon[slug] ?? CupIcon;

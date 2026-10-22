@@ -44,7 +44,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
     <div
       role="group"
       aria-label={plain.lineup.tempFilter}
-      className="flex h-14 w-full shrink-0 gap-0.5 rounded-md bg-muted p-1 ring-1 ring-border ring-inset md:inline-flex md:w-auto md:self-start"
+      className="flex min-h-14 w-full shrink-0 gap-1 rounded-md bg-muted p-1.5 ring-1 ring-border ring-inset sm:min-h-16 md:inline-flex md:w-auto md:self-start"
     >
       {options.map(({ value: optionValue, label, ariaLabel, temp }) => {
         const sub = !isPlain && ariaLabel !== label ? ariaLabel : null;
@@ -56,7 +56,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
             aria-pressed={active}
             aria-label={ariaLabel}
             onClick={() => onChange(optionValue)}
-            className={`relative flex min-w-0 flex-auto items-center justify-center gap-1.5 rounded-sm py-1 pr-2 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring md:flex-none md:justify-start md:gap-2 md:pr-3 ${
+            className={`relative flex min-w-0 flex-auto items-center justify-center gap-1.5 rounded-sm py-1.5 pr-2.5 pl-1.5 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring sm:pr-4 sm:pl-2 md:flex-none md:justify-start ${
               active
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -70,19 +70,19 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
                 className="absolute inset-0 rounded-sm bg-card shadow-[0_0_0_1px_var(--border),0_6px_14px_-8px_rgb(43_30_23_/_0.45)]"
               />
             )}
-            <span className="relative flex items-center gap-2">
+            <span className="relative flex items-center gap-2 sm:gap-2.5">
               {temp ? (
                 <IconTile
                   icon={tempStyles[temp].icon}
                   tone="custom"
                   className={tempStyles[temp].accent}
-                  size="sm"
+                  size="fluid"
                 />
               ) : (
                 <IconTile
                   icon={CupIcon}
                   tone="neutral"
-                  size="sm"
+                  size="fluid"
                   className="max-sm:hidden"
                 />
               )}

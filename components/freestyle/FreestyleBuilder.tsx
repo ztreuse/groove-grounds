@@ -723,26 +723,31 @@ export function FreestyleBuilder({
             </motion.div>
           </AnimatePresence>
 
-          {/* Controls at the foot of the column (not sticky): Back and Next,
-              or Add to cart on the last step, side by side on the right.
-              Phones also show the running total on the left. */}
+          {/* Controls at the foot of the column: an outlined Back and a
+              solid Next (Add to cart on the last step), same height and
+              corner, icons inline. Phones show the running total on the
+              left. */}
           {base && current > 0 && (
             <div className="mt-10 border-t border-border pt-6">
-              <div className="flex items-center justify-end gap-2">
-                <span className="mr-auto rounded-md bg-espresso-soft px-3 py-2 font-heading text-xl leading-none font-black [font-stretch:70%] tabular-nums lg:hidden">
-                  {total}
-                </span>
+              <div className="flex items-center justify-end gap-2.5">
+                <p className="mr-auto leading-none lg:hidden">
+                  <span className="block text-xs font-medium text-muted-foreground">
+                    {t.drink.total}
+                  </span>
+                  <span className="mt-1 block font-heading text-2xl font-black [font-stretch:70%] tabular-nums">
+                    {total}
+                  </span>
+                </p>
                 <button
                   type="button"
                   onClick={() => goTo(current - 1)}
-                  className="group flex h-14 shrink-0 items-center gap-2.5 rounded-md bg-espresso-soft pr-1.5 pl-1.5 text-sm font-semibold text-foreground ring-1 ring-border transition-colors ring-inset hover:bg-espresso-soft/80 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px sm:pr-4"
+                  aria-label={plain.freestyle.back}
+                  className="group inline-flex h-14 min-w-14 shrink-0 items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold text-foreground ring-1 ring-border transition-colors ring-inset hover:bg-muted hover:ring-foreground/30 focus-visible:ring-3 focus-visible:ring-ring focus-visible:outline-none active:translate-y-px sm:px-5"
                 >
-                  <span
+                  <ArrowLeft
                     aria-hidden
-                    className="flex size-11 items-center justify-center rounded-sm bg-foreground/10 transition-transform group-hover:-translate-x-0.5"
-                  >
-                    <ArrowLeft className="size-4" />
-                  </span>
+                    className="size-4 transition-transform group-hover:-translate-x-0.5"
+                  />
                   <span className="max-sm:sr-only">{t.freestyle.back}</span>
                 </button>
 
@@ -750,7 +755,7 @@ export function FreestyleBuilder({
                   <button
                     type="button"
                     onClick={() => goTo(current + 1)}
-                    className="group flex h-14 min-w-0 shrink items-center gap-3 rounded-md bg-primary pr-1.5 pl-4 text-left text-primary-foreground shadow-[0_12px_28px_-14px_var(--color-purple)] transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px"
+                    className="group inline-flex h-14 min-w-0 items-center gap-4 rounded-md bg-primary pr-4 pl-5 text-left text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring focus-visible:outline-none active:translate-y-px"
                   >
                     <span className="min-w-0 leading-tight">
                       <span className="block text-sm font-bold">
@@ -760,12 +765,10 @@ export function FreestyleBuilder({
                         {nextLabel}
                       </span>
                     </span>
-                    <span
+                    <ArrowRight
                       aria-hidden
-                      className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-white/15 transition-transform group-hover:translate-x-0.5"
-                    >
-                      <ArrowRight className="size-4" />
-                    </span>
+                      className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5"
+                    />
                   </button>
                 )}
 
@@ -775,7 +778,7 @@ export function FreestyleBuilder({
                     aria-label={
                       editItem ? plain.drink.update : plain.drink.addToPlaylist
                     }
-                    className="group flex h-14 min-w-0 shrink items-center gap-3 rounded-md bg-primary pr-1.5 pl-4 text-left text-primary-foreground shadow-[0_12px_28px_-14px_var(--color-purple)] transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px"
+                    className="group inline-flex h-14 min-w-0 items-center gap-4 rounded-md bg-primary pr-4 pl-5 text-left text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring focus-visible:outline-none active:translate-y-px"
                   >
                     <span className="min-w-0 leading-tight">
                       <span className="block truncate text-sm font-bold">
@@ -789,12 +792,7 @@ export function FreestyleBuilder({
                         </span>
                       )}
                     </span>
-                    <span
-                      aria-hidden
-                      className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-white/15 transition-transform group-hover:translate-x-0.5"
-                    >
-                      <CartIcon className="size-5" />
-                    </span>
+                    <CartIcon className="size-5 shrink-0" />
                   </button>
                 )}
               </div>

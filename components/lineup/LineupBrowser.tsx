@@ -95,7 +95,7 @@ export function LineupBrowser({
           {/* Row 1: search (framed, icon on a tile, live count) and the
               temperature switch. Row 2: genre chips, wrapping on md+. */}
           <div className="flex flex-col gap-3 md:flex-row md:items-center">
-            <div className="group relative flex h-14 min-w-0 flex-1 items-center gap-3 rounded-md bg-card pr-2 pl-2 ring-1 ring-border transition-shadow ring-inset focus-within:ring-2 focus-within:ring-ring">
+            <div className="group relative flex h-14 min-w-0 flex-1 items-center gap-3 rounded-md bg-card pr-2 pl-2 ring-1 ring-border transition-shadow ring-inset focus-within:ring-2 focus-within:ring-ring sm:h-16">
               <span
                 aria-hidden
                 className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-muted text-muted-foreground transition-colors group-focus-within:bg-primary group-focus-within:text-primary-foreground"

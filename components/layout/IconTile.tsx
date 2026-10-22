@@ -6,7 +6,8 @@ type IconTileProps = {
   tone?: "accent" | "neutral" | "inherit" | "custom";
   // Tile colours for tone="custom" (e.g. a temperature from lib/temps).
   className?: string;
-  size?: "sm" | "md" | "lg";
+  // fluid: sm on phones, md from the sm breakpoint.
+  size?: "sm" | "md" | "lg" | "fluid";
 };
 
 const tones = {
@@ -20,6 +21,7 @@ const sizes = {
   sm: { tile: "size-6", icon: "size-3.5" },
   md: { tile: "size-9", icon: "size-5" },
   lg: { tile: "size-14", icon: "size-8" },
+  fluid: { tile: "size-7 sm:size-9", icon: "size-4 sm:size-5" },
 };
 
 // A solid Groove glyph on a small square tinted in its own colour, like a
