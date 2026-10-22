@@ -34,7 +34,6 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
     <section aria-labelledby="genres" className="mx-auto w-full max-w-6xl px-4">
       <SectionHeading
         id="genres"
-        index="01"
         title={t.home.genresTitle}
         plainTitle={plain.home.genresTitle}
       />
@@ -77,7 +76,7 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                   />
                   <span
                     aria-hidden
-                    className="absolute top-3 right-3 flex size-10 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-45"
+                    className="absolute top-3 right-3 flex size-10 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   >
                     <ArrowUpRight className="size-5" />
                   </span>
@@ -88,9 +87,6 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                     className={`size-2.5 shrink-0 ${genreBlockFor(genre.slug)}`}
                   />
                   <span className="eyebrow text-muted-foreground">
-                    0{index + 1}
-                  </span>
-                  <span className="ml-auto eyebrow text-muted-foreground">
                     {inGenre.length === 1
                       ? t.home.drinkOne
                       : fill(t.home.drinks, { count: inGenre.length })}

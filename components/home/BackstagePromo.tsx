@@ -14,13 +14,11 @@ export function BackstagePromo() {
   return (
     <section className="bg-gradient-to-b from-background via-lilac/60 to-lilac text-espresso">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pt-24 pb-28 text-center sm:pt-32 sm:pb-36">
-        <p className="eyebrow text-espresso/70">05</p>
         <KineticTitle
           as="h2"
           text={t.home.backstageTitle}
-          accentLast
           trigger="view"
-          className="mt-4 max-w-[12ch] text-[clamp(3.5rem,10vw,8rem)] leading-[0.88] font-black tracking-normal uppercase [font-stretch:64%] [&_em]:text-purple"
+          className="max-w-[12ch] text-[clamp(3.5rem,10vw,8rem)] leading-[0.88] font-black tracking-normal uppercase [font-stretch:64%] [&_em]:text-purple"
         />
         <p className="mt-6 max-w-md text-lg">{t.home.backstageBody}</p>
         <Link

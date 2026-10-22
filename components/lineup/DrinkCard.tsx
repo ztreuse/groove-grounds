@@ -14,15 +14,11 @@ const tempIcons = {
   blended: { key: "blended", icon: CupSoda },
 } as const;
 
-type DrinkCardProps = {
-  drink: LineupDrink;
-  // Shown as "01", "02"… in numbered rows (Trending).
-  index?: number;
-};
+type DrinkCardProps = { drink: LineupDrink };
 
 // Editorial product card: a tall photo on its genre colour, a hairline,
-// then number, temps and price, and the name in poster caps.
-export function DrinkCard({ drink, index }: DrinkCardProps) {
+// then temps and price, and the name in poster caps.
+export function DrinkCard({ drink }: DrinkCardProps) {
   const { t, plain } = useCopy();
 
   return (
@@ -52,18 +48,13 @@ export function DrinkCard({ drink, index }: DrinkCardProps) {
         )}
         <span
           aria-hidden
-          className="absolute right-3 bottom-3 flex size-11 translate-y-3 items-center justify-center rounded-full bg-foreground text-background opacity-0 transition-[opacity,translate,rotate] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:rotate-45 group-hover:opacity-100"
+          className="absolute right-3 bottom-3 flex size-11 translate-y-3 items-center justify-center rounded-full bg-foreground text-background opacity-0 transition-[opacity,translate,rotate] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:translate-y-0 group-hover:opacity-100"
         >
           <ArrowUpRight className="size-5" />
         </span>
       </div>
 
       <div className="mt-4 flex items-center gap-3 border-t border-foreground pt-3">
-        {index !== undefined && (
-          <span className="eyebrow text-muted-foreground">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        )}
         {drink.tempsAllowed.length > 0 && (
           <ul className="flex gap-2.5 text-xs font-medium text-muted-foreground">
             {drink.tempsAllowed.map((temp) => {

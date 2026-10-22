@@ -4,18 +4,18 @@ import { Suspense, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Coffee, House, Sparkles, User, Users } from "lucide-react";
+import { Coffee, House, Sparkles, Users } from "lucide-react";
 import { useCopy } from "@/hooks/use-copy";
 import type { PageKey, TermKey } from "@/lib/copy";
 import { routes } from "@/lib/routes";
 
-// Standard icons (house, cup, user) so the layout stays familiar.
+// Standard icons (house, cup) so the layout stays familiar. The account
+// lives on the user icon beside the cart, not in this list.
 const navItems: { page: PageKey; term: TermKey; icon: typeof House }[] = [
   { page: "home", term: "centerStage", icon: House },
   { page: "lineup", term: "lineup", icon: Coffee },
   { page: "freestyle", term: "freestyle", icon: Sparkles },
   { page: "crew", term: "crewOrder", icon: Users },
-  { page: "profile", term: "dancerProfile", icon: User },
 ];
 
 type NavListProps = {

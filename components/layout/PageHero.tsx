@@ -10,7 +10,6 @@ type PageHeroProps = {
   title: string;
   // Plain meaning shown under the title in Dance mode (golden rule).
   plainTitle?: string;
-  eyebrow?: string;
   body?: React.ReactNode;
   // Background photo from /public/scenes; the panel is plain dark without one.
   image?: string;
@@ -22,11 +21,10 @@ type PageHeroProps = {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 // Dark, inset page header: a photo drifting slower than the page (parallax),
-// a stage-light glow, film grain, and the page title in poster caps.
+// and the page title in poster caps.
 export function PageHero({
   title,
   plainTitle,
-  eyebrow,
   body,
   image,
   imagePosition = "center",
@@ -44,7 +42,7 @@ export function PageHero({
   return (
     <section
       ref={ref}
-      className="theme-dark grain relative overflow-hidden bg-background"
+      className="theme-dark relative overflow-hidden bg-background"
     >
       {image && (
         <motion.div
@@ -72,29 +70,14 @@ export function PageHero({
         aria-hidden
         className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-espresso-deep to-transparent"
       />
-      <span
-        aria-hidden
-        className="absolute -right-[10%] -bottom-[30%] size-[36rem] rounded-full bg-purple/35 blur-[120px]"
-      />
 
       <div
-        className={`relative mx-auto flex w-full max-w-6xl flex-col justify-end px-5 sm:px-8 ${
+        className={`relative mx-auto flex w-full max-w-6xl flex-col justify-end px-4 ${
           size === "lg"
             ? "min-h-[min(72dvh,44rem)] pt-24 pb-12 sm:pb-16"
             : "pt-14 pb-10 sm:pt-20 sm:pb-14"
         }`}
       >
-        {eyebrow && (
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
-            className="mb-4 flex items-center gap-3 eyebrow text-lilac"
-          >
-            <span aria-hidden className="h-px w-8 bg-lilac" />
-            {eyebrow}
-          </motion.p>
-        )}
         <KineticTitle
           text={title}
           className={
@@ -108,7 +91,7 @@ export function PageHero({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-4 eyebrow text-foreground/70"
+            className="mt-4 text-sm font-medium text-foreground/70 sm:text-base"
           >
             {plainTitle}
           </motion.p>

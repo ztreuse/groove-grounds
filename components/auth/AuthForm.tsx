@@ -166,7 +166,7 @@ function FormFromQuery({ mode }: { mode: Mode }) {
 function AuthPanel() {
   const { t } = useCopy();
   return (
-    <div className="theme-dark grain relative hidden overflow-hidden bg-background lg:block">
+    <div className="theme-dark relative hidden overflow-hidden bg-background lg:block">
       <Image
         src="/scenes/crew-color.webp"
         alt=""

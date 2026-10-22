@@ -33,7 +33,7 @@ export function HowItWorks() {
     <section
       ref={ref}
       aria-labelledby="how"
-      className="theme-dark grain relative flex min-h-[44rem] flex-col overflow-hidden bg-background lg:min-h-[52rem]"
+      className="theme-dark relative flex min-h-[44rem] flex-col overflow-hidden bg-background lg:min-h-[52rem]"
     >
       <motion.div
         aria-hidden
@@ -54,17 +54,18 @@ export function HowItWorks() {
       />
 
       <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-20">
-        <p className="eyebrow text-lilac">
-          03{!isPlain && ` — ${plain.home.howTitle}`}
-        </p>
         <KineticTitle
           as="h2"
           id="how"
           text={t.home.howTitle}
-          accentLast
           trigger="view"
-          className="mt-4 max-w-[10ch] text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.88] font-black tracking-normal uppercase [font-stretch:64%]"
+          className="max-w-[10ch] text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.88] font-black tracking-normal uppercase [font-stretch:64%]"
         />
+        {!isPlain && (
+          <p className="mt-3 text-sm font-medium text-foreground/70">
+            {plain.home.howTitle}
+          </p>
+        )}
         {/* Starts an order now, rather than repeating the menu links above. */}
         <Link
           href={routes.lineup.href}

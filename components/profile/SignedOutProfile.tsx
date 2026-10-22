@@ -18,16 +18,18 @@ export function SignedOutProfile() {
         image="/scenes/crew-smoke.webp"
         imagePosition="center 40%"
       />
-      <div className="mx-auto w-full max-w-xl px-4 pt-10">
-        <div className="surface p-8 text-center">
-          <UserRound aria-hidden className="mx-auto size-12 text-highlight" />
-          <h2 className="mt-3 text-3xl leading-none">
-            {t.profile.signedOutTitle}
-          </h2>
-          <p className="mt-2 text-muted-foreground">
-            {t.profile.signedOutBody}
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-10">
+        <div className="grid gap-6 surface p-8 md:grid-cols-[auto_1fr_auto] md:items-center">
+          <UserRound aria-hidden className="size-12 text-highlight" />
+          <div>
+            <h2 className="text-3xl leading-none">
+              {t.profile.signedOutTitle}
+            </h2>
+            <p className="mt-2 text-muted-foreground">
+              {t.profile.signedOutBody}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
             <Button asChild size="lg">
               <Link href={routes.join.href} aria-label={plain.auth.join}>
                 {t.auth.join}
@@ -39,7 +41,7 @@ export function SignedOutProfile() {
               </Link>
             </Button>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="border-t border-border pt-4 text-sm text-muted-foreground md:col-span-3">
             {t.auth.guestNote}
           </p>
         </div>

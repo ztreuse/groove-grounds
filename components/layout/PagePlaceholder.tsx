@@ -25,7 +25,7 @@ export function PagePlaceholder({ page }: { page: PageKey }) {
         plainTitle={plain.pages[page]}
         image={scenes[page]}
       />
-      <div className="mx-auto w-full max-w-3xl px-4 pt-10">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-10">
         <div className="flex flex-col gap-4 surface p-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
             {phase && (

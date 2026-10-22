@@ -98,124 +98,131 @@ export function ProfileView({
           {t.auth.signOut}
         </Button>
       </PageHero>
-      <div className="mx-auto w-full max-w-3xl px-4 pt-8">
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-espresso p-4 text-cream dark:bg-espresso-deep">
-            <p className="text-xs font-semibold tracking-widest text-khaki uppercase">
-              {t.profile.level}
-            </p>
-            <p className="mt-1 font-heading text-3xl tracking-tight">
-              {t.levels[levelKey[profile.level]]}
-            </p>
+      <div className="mx-auto grid w-full max-w-6xl gap-x-12 gap-y-10 px-4 pt-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        {/* Left: level, Reps and details. Right: choreo and history. */}
+        <div>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="rounded-2xl bg-espresso p-4 text-cream dark:bg-espresso-deep">
+              <p className="text-sm font-medium text-khaki">
+                {t.profile.level}
+              </p>
+              <p className="mt-1 font-heading text-3xl tracking-tight">
+                {t.levels[levelKey[profile.level]]}
+              </p>
+            </div>
+            <div className="surface p-4">
+              <p className="text-sm font-medium text-muted-foreground">
+                {t.profile.reps}
+              </p>
+              <p className="mt-1 font-heading text-3xl">{profile.reps}</p>
+            </div>
           </div>
-          <div className="surface p-4">
-            <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-              {t.profile.reps}
-            </p>
-            <p className="mt-1 font-heading text-3xl">{profile.reps}</p>
-          </div>
+
+          <section aria-labelledby="details" className="mt-8">
+            <h2 id="details" className="mb-4 text-3xl leading-none">
+              {t.profile.details}
+            </h2>
+            <form onSubmit={onSubmit} noValidate className="space-y-4">
+              <AuthField
+                id="name"
+                label={t.auth.name}
+                autoComplete="name"
+                error={message(errors.name?.message)}
+                register={register("name", { onChange: () => setSaved(false) })}
+              />
+              <AuthField
+                id="phone"
+                type="tel"
+                inputMode="tel"
+                label={t.auth.phone}
+                autoComplete="tel"
+                placeholder={t.showtime.phonePlaceholder}
+                error={message(errors.phone?.message)}
+                register={register("phone", {
+                  onChange: () => setSaved(false),
+                })}
+              />
+              <div className="flex items-center gap-3">
+                <Button type="submit" disabled={isSubmitting || !isDirty}>
+                  {t.profile.save}
+                </Button>
+                {saved && (
+                  <p
+                    role="status"
+                    className="flex items-center gap-1 text-sm font-semibold text-highlight"
+                  >
+                    <Check aria-hidden className="size-4" />
+                    {t.profile.saved}
+                  </p>
+                )}
+              </div>
+            </form>
+          </section>
         </div>
 
-        <section aria-labelledby="details" className="mt-8">
-          <h2 id="details" className="mb-4 text-3xl leading-none">
-            {t.profile.details}
-          </h2>
-          <form onSubmit={onSubmit} noValidate className="space-y-4">
-            <AuthField
-              id="name"
-              label={t.auth.name}
-              autoComplete="name"
-              error={message(errors.name?.message)}
-              register={register("name", { onChange: () => setSaved(false) })}
-            />
-            <AuthField
-              id="phone"
-              type="tel"
-              inputMode="tel"
-              label={t.auth.phone}
-              autoComplete="tel"
-              placeholder={t.showtime.phonePlaceholder}
-              error={message(errors.phone?.message)}
-              register={register("phone", { onChange: () => setSaved(false) })}
-            />
-            <div className="flex items-center gap-3">
-              <Button type="submit" disabled={isSubmitting || !isDirty}>
-                {t.profile.save}
-              </Button>
-              {saved && (
-                <p
-                  role="status"
-                  className="flex items-center gap-1 text-sm font-semibold text-highlight"
-                >
-                  <Check aria-hidden className="size-4" />
-                  {t.profile.saved}
-                </p>
-              )}
-            </div>
-          </form>
-        </section>
+        <div>
+          <SavedChoreo choreo={choreo} />
 
-        <SavedChoreo choreo={choreo} />
-
-        <section aria-labelledby="past" className="mt-10">
-          <h2 id="past" className="text-3xl leading-none">
-            {t.profile.pastPerformances}
-          </h2>
-          {!isPlain && (
-            <p className="mt-1 text-sm text-muted-foreground">
-              {plain.profile.pastPerformances}
-            </p>
-          )}
-          {orders.length === 0 ? (
-            <p className="mt-4 rounded-3xl bg-muted/60 p-6 text-center text-muted-foreground">
-              {t.profile.noOrders}
-            </p>
-          ) : (
-            <ul className="mt-4 space-y-3">
-              {orders.map((order, index) => (
-                <Reveal
-                  as="li"
-                  key={order.id}
-                  delay={Math.min(index, 4) * 0.05}
-                  className="surface p-4"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-2">
-                    <div>
-                      <p className="font-heading text-2xl leading-none tracking-tight">
-                        {order.code}
-                      </p>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {formatDay(dayKey(new Date(order.createdAt)))}
-                      </p>
+          <section aria-labelledby="past" className="mt-10">
+            <h2 id="past" className="text-3xl leading-none">
+              {t.profile.pastPerformances}
+            </h2>
+            {!isPlain && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {plain.profile.pastPerformances}
+              </p>
+            )}
+            {orders.length === 0 ? (
+              <p className="mt-4 rounded-3xl bg-muted/60 p-6 text-center text-muted-foreground">
+                {t.profile.noOrders}
+              </p>
+            ) : (
+              <ul className="mt-4 space-y-3">
+                {orders.map((order, index) => (
+                  <Reveal
+                    as="li"
+                    key={order.id}
+                    delay={Math.min(index, 4) * 0.05}
+                    className="surface p-4"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <div>
+                        <p className="font-heading text-2xl leading-none tracking-tight">
+                          {order.code}
+                        </p>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          {formatDay(dayKey(new Date(order.createdAt)))}
+                        </p>
+                      </div>
+                      <span className="rounded-md bg-accent px-2 py-0.5 text-xs font-bold text-accent-foreground">
+                        {t.status[statusCopyKey[order.status]]}
+                      </span>
                     </div>
-                    <span className="rounded-md bg-accent px-2 py-0.5 text-xs font-bold text-accent-foreground">
-                      {t.status[statusCopyKey[order.status]]}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm">
-                    {order.items
-                      .map((item) => `${item.quantity}× ${item.name}`)
-                      .join(", ")}
-                  </p>
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="font-heading text-2xl">
-                      {formatPeso(order.total)}
-                    </span>
-                  </div>
-                  <div className="mt-2 flex flex-wrap items-start justify-between gap-2">
-                    <RunItBackButton kind="order" id={order.id} />
-                    <Link
-                      href={`/track/${order.id}`}
-                      className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-highlight underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
-                    >
-                      {t.profile.viewOrder}
-                    </Link>
-                  </div>
-                </Reveal>
-              ))}
-            </ul>
-          )}
-        </section>
+                    <p className="mt-2 text-sm">
+                      {order.items
+                        .map((item) => `${item.quantity}× ${item.name}`)
+                        .join(", ")}
+                    </p>
+                    <div className="mt-2 flex items-center justify-between">
+                      <span className="font-heading text-2xl">
+                        {formatPeso(order.total)}
+                      </span>
+                    </div>
+                    <div className="mt-2 flex flex-wrap items-start justify-between gap-2">
+                      <RunItBackButton kind="order" id={order.id} />
+                      <Link
+                        href={`/track/${order.id}`}
+                        className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-highlight underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
+                      >
+                        {t.profile.viewOrder}
+                      </Link>
+                    </div>
+                  </Reveal>
+                ))}
+              </ul>
+            )}
+          </section>
+        </div>
       </div>
     </main>
   );

@@ -61,7 +61,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
         image="/scenes/studio-floor.webp"
         imagePosition="center 60%"
       />
-      <div className="mx-auto w-full max-w-5xl px-4">
+      <div className="mx-auto w-full max-w-6xl px-4">
         <div className="fade-below sticky top-16 z-30 -mx-4 mt-6 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
           <div className="relative">
             <Search
@@ -164,7 +164,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
             <ul className="grid gap-3 sm:grid-cols-2">
               {styles.map((note) => (
                 <li key={note.style} className="surface p-4">
-                  <span className="inline-block -rotate-2 rounded-md bg-lilac px-2.5 py-1 text-xs font-bold tracking-wider text-espresso uppercase">
+                  <span className="inline-block rounded-sm bg-lilac px-2.5 py-1 text-xs font-bold tracking-wider text-espresso uppercase">
                     {note.style}
                   </span>
                   <p className="mt-3">{note.note}</p>

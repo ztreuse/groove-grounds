@@ -219,7 +219,6 @@ export const dance = {
   },
 
   home: {
-    heroEyebrow: "Now playing at Groove Grounds",
     heroTitle: "Coffee with a beat.",
     heroBody:
       "18 drinks, each named after a dance style. Drop in now or book a class for later.",
@@ -639,7 +638,6 @@ export const plain: Widen<typeof dance> = {
   },
 
   home: {
-    heroEyebrow: "Groove Grounds coffee bar",
     heroTitle: "Coffee with a beat.",
     heroBody:
       "18 drinks named after dance styles. Order now for pickup, or schedule a pickup time.",

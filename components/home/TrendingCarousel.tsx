@@ -43,7 +43,6 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
       <div className="mx-auto w-full max-w-6xl px-4">
         <SectionHeading
           id="trending"
-          index="02"
           title={t.home.trendingTitle}
           plainTitle={plain.home.trendingTitle}
         />
@@ -55,12 +54,12 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
         }}
         className={`flex snap-x snap-mandatory [scrollbar-width:none] gap-5 overflow-x-auto scroll-edges py-2 pr-4 sm:gap-8 [&::-webkit-scrollbar]:hidden ${gutter}`}
       >
-        {drinks.map((drink, index) => (
+        {drinks.map((drink) => (
           <li
             key={drink.id}
             className="w-[72%] shrink-0 snap-start sm:w-[40%] lg:w-[22rem]"
           >
-            <DrinkCard drink={drink} index={index} />
+            <DrinkCard drink={drink} />
           </li>
         ))}
       </ul>

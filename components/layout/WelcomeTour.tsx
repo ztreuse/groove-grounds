@@ -52,10 +52,6 @@ function Tour() {
     <Dialog open={open} onOpenChange={(next) => !next && markWelcomeSeen()}>
       <DialogContent showCloseButton={false} className="gap-0 p-0 sm:max-w-md">
         <div className="relative overflow-hidden rounded-t-xl bg-espresso px-6 pt-6 pb-8 text-cream">
-          <span
-            aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,var(--color-purple)_0%,transparent_60%)] opacity-70"
-          />
           <button
             type="button"
             onClick={markWelcomeSeen}
@@ -64,7 +60,7 @@ function Tour() {
           >
             <X aria-hidden className="size-5" />
           </button>
-          <p className="relative text-xs font-semibold tracking-widest text-lilac uppercase">
+          <p className="relative text-sm font-medium text-lilac">
             {t.welcome.title} ·{" "}
             {fill(t.welcome.stepOf, { step: step + 1, total: steps.length })}
           </p>

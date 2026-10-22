@@ -9,7 +9,7 @@ export default function NotFound() {
   const { t, plain, isPlain } = useCopy();
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-start justify-center px-4 py-16">
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-start justify-center px-4 py-16">
       <p
         aria-hidden
         className="font-heading text-[clamp(8rem,30vw,16rem)] leading-[0.8] font-black text-highlight [font-stretch:62%]"

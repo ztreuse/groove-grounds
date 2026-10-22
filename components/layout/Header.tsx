@@ -101,7 +101,7 @@ export function Header() {
         scrolled ? "shadow-[0_12px_30px_-22px_rgb(43_30_23_/_0.5)]" : ""
       }`}
     >
-      <div className="mx-auto flex h-16 w-full max-w-[90rem] items-center gap-2 px-4 sm:px-8">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-4">
         <Logo />
         <nav aria-label={plain.header.mainNav} className="ml-4 hidden xl:block">
           <MainNav variant="bar" />

@@ -36,7 +36,6 @@ export function Cypher() {
       <div className="mx-auto w-full max-w-6xl px-4">
         <SectionHeading
           id="cypher"
-          index="04"
           title={t.terms.cypher}
           plainTitle={plain.terms.cypher}
           body={t.home.cypherIntro}

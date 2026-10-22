@@ -24,7 +24,7 @@ export function Footer() {
   const { t, plain } = useCopy();
 
   return (
-    <footer className="theme-dark grain relative mt-auto overflow-hidden border-t border-border bg-background">
+    <footer className="theme-dark relative mt-auto overflow-hidden border-t border-border bg-background">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-14 pb-6 md:grid-cols-[1fr_auto]">
         <div className="flex items-start gap-4">
           <LogoMark light className="size-14 shrink-0" />

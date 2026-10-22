@@ -42,7 +42,7 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
   const { t, plain, isPlain } = useCopy();
 
   return (
-    <section aria-labelledby="saved-choreo" className="mt-10">
+    <section aria-labelledby="saved-choreo" className="mt-6">
       <h2 id="saved-choreo" className="text-3xl leading-none">
         {t.profile.savedChoreo}
       </h2>

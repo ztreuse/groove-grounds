@@ -34,7 +34,7 @@ export function PlaylistView() {
         image="/scenes/barista.webp"
         imagePosition="center 35%"
       />
-      <div className="mx-auto w-full max-w-3xl px-4 pt-8">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-8">
         {items.length === 0 ? (
           <div className="mt-10 flex flex-col items-center rounded-3xl bg-muted/60 px-6 py-12 text-center">
             <Disc3 aria-hidden className="size-14 text-highlight" />
@@ -52,28 +52,31 @@ export function PlaylistView() {
             </Button>
           </div>
         ) : (
-          <>
-            <p className="mt-4 text-sm font-medium text-muted-foreground">
-              {count === 1
-                ? t.header.cartItem
-                : fill(t.header.cartItems, { count })}
-            </p>
-            <ul className="mt-3 space-y-3">
-              <AnimatePresence initial={false}>
-                {items.map((item) => (
-                  <PlaylistItem key={item.id} item={item} />
-                ))}
-              </AnimatePresence>
-            </ul>
-            <Link
-              href={routes.lineup.href}
-              className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-highlight outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
-            >
-              <Plus aria-hidden className="size-4" />
-              {t.playlist.addMore}
-            </Link>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
+            <div>
+              <p className="mt-4 text-sm font-medium text-muted-foreground">
+                {count === 1
+                  ? t.header.cartItem
+                  : fill(t.header.cartItems, { count })}
+              </p>
+              <ul className="mt-3 space-y-3">
+                <AnimatePresence initial={false}>
+                  {items.map((item) => (
+                    <PlaylistItem key={item.id} item={item} />
+                  ))}
+                </AnimatePresence>
+              </ul>
+              <Link
+                href={routes.lineup.href}
+                className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-highlight outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
+              >
+                <Plus aria-hidden className="size-4" />
+                {t.playlist.addMore}
+              </Link>
+            </div>
 
-            <div className="mt-6 surface p-4">
+            {/* Order summary: sticks beside the tracks on wide screens. */}
+            <div className="surface p-5 lg:sticky lg:top-24 lg:mt-12">
               <div className="flex items-baseline justify-between">
                 <p className="font-semibold">{t.playlist.subtotal}</p>
                 <p className="font-heading text-5xl leading-none font-black [font-stretch:70%]">
@@ -103,7 +106,7 @@ export function PlaylistView() {
                 </Link>
               </Button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </main>

@@ -279,7 +279,7 @@ export function FreestyleBuilder({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="theme-dark grain relative flex-1 overflow-clip bg-background"
+      className="theme-dark relative flex-1 overflow-clip bg-background"
     >
       {/* Ambient stage lights fading down into the floor. */}
       <div
@@ -295,12 +295,8 @@ export function FreestyleBuilder({
           className="object-cover opacity-30"
         />
       </div>
-      <span
-        aria-hidden
-        className="pointer-events-none absolute top-1/3 -right-40 size-[36rem] rounded-full bg-purple/25 blur-[140px]"
-      />
 
-      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-x-14 gap-y-8 px-4 pt-8 pb-6 sm:px-8 sm:pt-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr]">
+      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-x-14 gap-y-8 px-4 pt-8 pb-6 sm:pt-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[auto_1fr]">
         {/* Live preview: compact strip on phones, sticky stage on desktop. */}
         <aside
           className={`lg:sticky lg:top-20 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:self-start ${
@@ -327,7 +323,6 @@ export function FreestyleBuilder({
 
             <div className="relative mb-2 hidden items-center justify-between lg:flex">
               <p className="flex items-center gap-2 eyebrow text-lilac">
-                <span className="size-1.5 rounded-full bg-lilac" />
                 {t.freestyle.preview}
               </p>
               {base && current > 0 && (
