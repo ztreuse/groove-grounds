@@ -83,6 +83,21 @@ export async function getOrdersByIds(ids: string[]) {
   return withItems(rows.reverse());
 }
 
+// Staff queue: every open order, plus orders that took their Bow in the
+// last 12 hours. Oldest first.
+export async function getOpenOrders() {
+  const rows = await selectOrders()
+    .where(
+      and(
+        notInArray(orders.status, ["cut"]),
+        sql`(${orders.status} <> 'bow' or ${orders.createdAt} > now() - interval '12 hours')`,
+      ),
+    )
+    .orderBy(desc(orders.createdAt))
+    .limit(100);
+  return withItems(rows.reverse());
+}
+
 // A member's orders, newest first (Past Performances).
 export async function getOrdersForUser(userId: string, limit = 20) {
   if (!isUuid(userId)) return [];

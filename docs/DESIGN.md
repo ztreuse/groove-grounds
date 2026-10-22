@@ -106,6 +106,10 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `CountIn` | layout | Loader: "5, 6, 7, 8…". Errors: "You missed a count". Empty Playlist: "The floor's empty". |
 | `Header` / `MainNav` | layout | Logo, nav (Center Stage, The Lineup, Freestyle, Crew Order) with a thin underline that slides on hover, Plain toggle, account icon, Playlist icon. Account: a round icon in the bar on wide screens; on smaller screens it lives only in the menu (signed-in name, or Join the Crew + Sign in). |
 | `Footer` | layout | Plain words always; hours; giant fading wordmark with a drink photo blended in front. |
+| `BackstageNav` / `BackstageHeader` | backstage | Section tabs under the header on every Backstage page (underline on the active tab, scrolls on phones); title block with the Backstage label and poster-caps page title. |
+| `StaffGate` | backstage | Shown when a visitor may not use a Backstage page: sign in (signed out), not on the crew list, or owner only; always offers the Demo Backstage queue. |
+| `Switch` | backstage | Labelled on/off switch, 44px tap target, purple track when on. Spotlight and Sitting out in the menu manager. |
+| `MenuManager` | backstage | Owner-only editor: items by genre with Spotlight / On the floor switches and an inline `DrinkForm`; Remix options with add-on prices and availability. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
 

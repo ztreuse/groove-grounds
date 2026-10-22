@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { useLiveUpdates } from "@/hooks/use-live-updates";
 import { useScrollEdges } from "@/hooks/use-scroll-edges";
+import { fill } from "@/lib/copy";
 import type { TrackedOrder } from "@/lib/db/orders";
 import {
   ORDER_FLOW,
@@ -44,7 +45,12 @@ function chime() {
   } catch {}
 }
 
-type QueueState = { orders: TrackedOrder[]; loadedAt: number };
+type QueueState = {
+  orders: TrackedOrder[];
+  loadedAt: number;
+  // Staff role when signed in as crew; null in the Demo Backstage.
+  role: "owner" | "barista" | null;
+};
 
 export function QueueBoard() {
   const { t, plain, isPlain } = useCopy();
@@ -54,11 +60,11 @@ export function QueueBoard() {
   const edges = useScrollEdges<HTMLDivElement>();
 
   const load = () =>
-    getMyQueue().then((orders) => {
+    getMyQueue().then(({ orders, role }) => {
       const seen = seenIds.current;
       if (seen && orders.some((order) => !seen.has(order.id))) chime();
       seenIds.current = new Set(orders.map((order) => order.id));
-      setQueue({ orders, loadedAt: Date.now() });
+      setQueue({ orders, loadedAt: Date.now(), role });
     });
 
   useEffect(() => {
@@ -101,6 +107,27 @@ export function QueueBoard() {
 
   return (
     <>
+      {/* Staff see everything; visitors get the Demo Backstage notice with
+          a way in for the crew. */}
+      {queue.role ? (
+        <p className="mt-4 max-w-prose text-sm font-medium text-muted-foreground">
+          <span className="font-semibold text-foreground">
+            {fill(t.staff.signedInAs, { role: t.staff[queue.role] })}
+          </span>
+          {" · "}
+          {t.queue.staffNotice}
+        </p>
+      ) : (
+        <p className="mt-4 max-w-prose rounded-md bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">
+          {t.queue.demoNotice}{" "}
+          <Link
+            href={`${routes.login.href}?next=${routes.backstageQueue.href}`}
+            className="font-semibold underline underline-offset-4 outline-none focus-visible:ring-3 focus-visible:ring-ring"
+          >
+            {t.queue.staffSignIn}
+          </Link>
+        </p>
+      )}
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <p className="flex items-center gap-2 rounded-md bg-muted px-3 py-1 text-sm font-semibold">
           <Radio

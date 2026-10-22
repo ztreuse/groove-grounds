@@ -19,3 +19,18 @@ Open http://localhost:3000.
 - `npm run build`: production build
 - `npm run lint`: ESLint
 - `npm run format`: Prettier (with Tailwind class sorting)
+
+## Staff accounts (Backstage)
+
+Backstage works two ways:
+
+- **Demo Backstage** (anyone): the order queue shows only orders placed from your own browser.
+- **Staff** (signed in, role `owner` or `barista`): the queue shows every open order. Only the **owner** can open the menu manager at `/backstage/lineup`.
+
+Roles live in `profiles.role`. To make an account staff, run in the Supabase SQL editor:
+
+```sql
+update profiles set role = 'owner'   -- or 'barista'
+where id = (select id from auth.users where email = 'you@example.com');
+```
+
