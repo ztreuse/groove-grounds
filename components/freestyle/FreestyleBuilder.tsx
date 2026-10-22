@@ -745,16 +745,20 @@ export function FreestyleBuilder({
             </motion.div>
           </AnimatePresence>
 
-          {/* Control dock: a framed bar whose corners match the buttons
-              inside it (outer radius = button radius + padding). Back and
-              Next share one height; step and total sit between them. */}
+          {/* Controls: Back and Next side by side on the right, same
+              height, floating on their own (no frame). Phones also show the
+              running total on the left, since the preview panel scrolls
+              away there. */}
           {base && current > 0 && (
-            <div className="sticky bottom-3 z-20 mt-10">
-              <div className="flex items-stretch gap-1.5 rounded-[calc(var(--radius)+0.375rem)] bg-espresso-deep/85 p-1.5 shadow-[0_24px_50px_-20px_rgb(0_0_0_/_0.9)] ring-1 ring-border backdrop-blur-xl ring-inset">
+            <div className="fade-above sticky bottom-3 z-20 mt-10">
+              <div className="flex items-center justify-end gap-2">
+                <span className="mr-auto rounded-md bg-espresso-soft px-3 py-2 font-heading text-xl leading-none font-black [font-stretch:70%] tabular-nums shadow-[0_12px_28px_-14px_rgb(0_0_0_/_0.8)] lg:hidden">
+                  {total}
+                </span>
                 <button
                   type="button"
                   onClick={() => goTo(current - 1)}
-                  className="group flex h-14 shrink-0 items-center gap-2.5 rounded-md bg-muted pr-1.5 pl-1.5 sm:pr-4 text-sm font-semibold text-foreground ring-1 ring-border transition-colors ring-inset hover:bg-foreground/15 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px"
+                  className="group flex h-14 shrink-0 items-center gap-2.5 rounded-md bg-espresso-soft pr-1.5 pl-1.5 text-sm font-semibold text-foreground shadow-[0_12px_28px_-14px_rgb(0_0_0_/_0.8)] ring-1 ring-border transition-colors ring-inset hover:bg-espresso-soft/80 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px sm:pr-4"
                 >
                   <span
                     aria-hidden
@@ -764,15 +768,6 @@ export function FreestyleBuilder({
                   </span>
                   <span className="max-sm:sr-only">{t.freestyle.back}</span>
                 </button>
-
-                <div className="flex min-w-0 flex-1 flex-col items-center justify-center px-2 leading-none">
-                  <span className="text-xs font-semibold text-muted-foreground tabular-nums">
-                    {pad(current)} / {pad(reviewStep)}
-                  </span>
-                  <span className="mt-1 font-heading text-xl font-black [font-stretch:70%] tabular-nums lg:hidden">
-                    {total}
-                  </span>
-                </div>
 
                 {current < reviewStep && (
                   <button
