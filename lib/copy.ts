@@ -719,7 +719,8 @@ export const dance = {
     email: "Email",
     socials: "Socials",
     mapTitle: "Map to {address}",
-    mapPending: "The map shows here once the address is set.",
+    mapPending: "Concept location, so there's no map pin on this one.",
+    concept: "Concept address, not a real location.",
     crewNote:
       "Bringing the whole crew? Send a Crew Order a couple of days ahead.",
   },
@@ -1463,7 +1464,8 @@ export const plain: Widen<typeof dance> = {
     email: "Email",
     socials: "Social media",
     mapTitle: "Map to {address}",
-    mapPending: "The map shows here once the address is set.",
+    mapPending: "This is a concept project, so there's no real map pin.",
+    concept: "Concept address, not a real location.",
     crewNote:
       "Ordering for a group? Place a group order a couple of days ahead.",
   },

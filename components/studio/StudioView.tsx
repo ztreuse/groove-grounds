@@ -73,6 +73,9 @@ export function StudioView({ rules }: { rules: ScheduleRules }) {
           <dl className="border-t border-border">
             <Row icon={PinIcon} label={t.studio.address}>
               {studio.address}
+              <span className="mt-1 block text-sm text-muted-foreground">
+                {t.studio.concept}
+              </span>
             </Row>
             <Row icon={ClockIcon} label={t.studio.hours}>
               {fill(t.footer.hours, {
