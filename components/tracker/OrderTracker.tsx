@@ -56,7 +56,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
         imagePosition="center 35%"
       >
         {open && (
-          <p className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1.5 text-sm font-semibold">
+          <p className="inline-flex items-center gap-2 rounded-md bg-muted px-3 py-1.5 text-sm font-semibold">
             <Radio
               aria-hidden
               className={`size-4 ${live ? "text-highlight motion-safe:animate-pulse" : "text-muted-foreground"}`}

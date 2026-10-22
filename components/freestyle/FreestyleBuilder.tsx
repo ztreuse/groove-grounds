@@ -279,7 +279,7 @@ export function FreestyleBuilder({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="theme-dark grain relative mx-2 my-2 flex-1 overflow-clip rounded-[2rem] bg-background sm:mx-4 sm:rounded-[2.5rem]"
+      className="theme-dark grain relative flex-1 overflow-clip bg-background"
     >
       {/* Ambient stage lights fading down into the floor. */}
       <div
@@ -307,7 +307,7 @@ export function FreestyleBuilder({
             base ? "" : "hidden lg:block"
           }`}
         >
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-border bg-espresso-deep/70 p-4 backdrop-blur-sm lg:p-6">
+          <div className="relative overflow-hidden border border-border bg-espresso-deep/70 p-4 backdrop-blur-sm lg:p-6">
             {/* Spotlight cone from above, the drink's glow, the floor. */}
             <span
               aria-hidden
@@ -373,7 +373,7 @@ export function FreestyleBuilder({
                   <button
                     type="button"
                     onClick={() => goTo(0)}
-                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full text-sm font-semibold text-lilac outline-none hover:underline focus-visible:ring-3 focus-visible:ring-lilac"
+                    className="inline-flex min-h-11 items-center gap-1.5 rounded-md text-sm font-semibold text-lilac outline-none hover:underline focus-visible:ring-3 focus-visible:ring-lilac"
                   >
                     <RotateCcw aria-hidden className="size-4" />
                     {t.freestyle.changeBase}
@@ -394,7 +394,7 @@ export function FreestyleBuilder({
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.2 }}
-                      className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground/90"
+                      className="rounded-md bg-muted px-3 py-1 text-xs font-medium text-foreground/90"
                     >
                       {label}
                     </motion.li>
@@ -457,11 +457,11 @@ export function FreestyleBuilder({
                       aria-label={label}
                       aria-current={index + 1 === current ? "step" : undefined}
                       onClick={() => goTo(index + 1)}
-                      className="group flex h-11 flex-1 items-center rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring"
+                      className="group flex h-11 flex-1 items-center rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring"
                     >
                       <span className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted transition-[height] group-hover:h-2.5">
                         <span
-                          className={`absolute inset-0 origin-left rounded-full bg-lilac transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                          className={`absolute inset-0 origin-left rounded-md bg-lilac transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                             index < current ? "scale-x-100" : "scale-x-0"
                           }`}
                         />
@@ -511,7 +511,7 @@ export function FreestyleBuilder({
                             delay: 0.15 + index * 0.06,
                             ease: [0.16, 1, 0.3, 1],
                           }}
-                          className={`group relative aspect-[3/4] overflow-hidden rounded-[1.5rem] text-left outline-none focus-visible:ring-3 focus-visible:ring-ring active:scale-[0.98] ${
+                          className={`group relative aspect-[3/4] overflow-hidden text-left outline-none focus-visible:ring-3 focus-visible:ring-ring active:scale-[0.98] ${
                             active ? "ring-2 ring-lilac" : "ring-1 ring-border"
                           }`}
                         >
@@ -534,7 +534,7 @@ export function FreestyleBuilder({
                             aria-hidden
                             className="absolute inset-0 bg-gradient-to-t from-espresso-deep via-espresso-deep/45 to-transparent"
                           />
-                          <span className="absolute top-3 right-3 rounded-full bg-espresso-deep/70 px-2.5 py-1 text-xs font-semibold backdrop-blur">
+                          <span className="absolute top-3 right-3 rounded-md bg-espresso-deep/70 px-2.5 py-1 text-xs font-semibold backdrop-blur">
                             {fill(t.freestyle.from, {
                               price: formatPeso(option.basePrice),
                             })}
@@ -573,7 +573,7 @@ export function FreestyleBuilder({
                 <div className="space-y-6">
                   {/* Ticket stub: notches cut where the tear line sits. */}
                   <div
-                    className="rounded-[1.5rem] bg-cream text-espresso shadow-[0_30px_60px_-30px_rgb(0_0_0_/_0.8)]"
+                    className="bg-cream text-espresso shadow-[0_30px_60px_-30px_rgb(0_0_0_/_0.8)]"
                     style={{
                       mask: "radial-gradient(circle at 0 5.5rem, #0000 0.75rem, #000 calc(0.75rem + 0.5px)) left / 51% 100% no-repeat, radial-gradient(circle at 100% 5.5rem, #0000 0.75rem, #000 calc(0.75rem + 0.5px)) right / 51% 100% no-repeat",
                     }}
@@ -692,7 +692,7 @@ export function FreestyleBuilder({
                       role="status"
                       initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="rounded-[1.5rem] bg-lilac p-5 text-espresso"
+                      className="bg-lilac p-5 text-espresso"
                     >
                       <p className="flex items-center gap-2 font-semibold">
                         <Check aria-hidden className="size-5" />
@@ -709,14 +709,14 @@ export function FreestyleBuilder({
                         <Link
                           href={routes.playlist.href}
                           aria-label={plain.drink.viewPlaylist}
-                          className="inline-flex min-h-11 items-center rounded-full bg-espresso px-5 text-sm font-semibold text-cream outline-none focus-visible:ring-3 focus-visible:ring-ring"
+                          className="inline-flex min-h-11 items-center rounded-md bg-espresso px-5 text-sm font-semibold text-cream outline-none focus-visible:ring-3 focus-visible:ring-ring"
                         >
                           {t.drink.viewPlaylist}
                         </Link>
                         <button
                           type="button"
                           onClick={startOver}
-                          className="inline-flex min-h-11 items-center rounded-full px-5 text-sm font-semibold ring-1 ring-espresso/30 outline-none hover:bg-espresso/10 focus-visible:ring-3 focus-visible:ring-ring"
+                          className="inline-flex min-h-11 items-center rounded-md px-5 text-sm font-semibold ring-1 ring-espresso/30 outline-none hover:bg-espresso/10 focus-visible:ring-3 focus-visible:ring-ring"
                         >
                           {t.freestyle.changeBase}
                         </button>
@@ -731,7 +731,7 @@ export function FreestyleBuilder({
                           ? plain.drink.update
                           : plain.drink.addToPlaylist
                       }
-                      className="h-auto min-h-16 w-full flex-col gap-0 rounded-full py-2 shadow-[0_18px_40px_-14px_var(--color-purple)]"
+                      className="h-auto min-h-16 w-full flex-col gap-0 rounded-md py-2 shadow-[0_18px_40px_-14px_var(--color-purple)]"
                     >
                       <span className="text-base font-bold">
                         {editItem ? t.drink.update : t.drink.addToPlaylist}
@@ -759,7 +759,7 @@ export function FreestyleBuilder({
                   variant="ghost"
                   size="lg"
                   onClick={() => goTo(current - 1)}
-                  className="rounded-full text-foreground hover:bg-muted"
+                  className="rounded-md text-foreground hover:bg-muted"
                 >
                   <ArrowLeft aria-hidden />
                   {t.freestyle.back}
@@ -772,7 +772,7 @@ export function FreestyleBuilder({
                     type="button"
                     size="lg"
                     onClick={() => goTo(current + 1)}
-                    className="h-auto min-h-12 gap-3 rounded-full py-1.5 pr-4 pl-6 lg:ml-auto"
+                    className="h-auto min-h-12 gap-3 rounded-md py-1.5 pr-4 pl-6 lg:ml-auto"
                   >
                     <span className="text-left leading-tight">
                       <span className="block">{t.freestyle.next}</span>

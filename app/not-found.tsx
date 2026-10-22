@@ -23,7 +23,7 @@ export default function NotFound() {
         </p>
       )}
       <p className="mt-6 text-lg">{t.errors.notFoundBody}</p>
-      <Button asChild size="lg" className="mt-8 rounded-full">
+      <Button asChild size="lg" className="mt-8 rounded-md">
         <Link href={routes.home.href} aria-label={plain.terms.centerStage}>
           {t.terms.centerStage}
         </Link>

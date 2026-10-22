@@ -20,7 +20,7 @@ export function PlaylistButton() {
     <Link
       href={routes.playlist.href}
       aria-label={`${plain.terms.playlist}, ${countLabel}`}
-      className="relative inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-full px-2.5 transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
+      className="relative inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-md px-2.5 transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
     >
       <ShoppingCart aria-hidden className="size-5" />
       <span className="hidden text-sm font-semibold lg:inline xl:hidden">

@@ -53,7 +53,7 @@ function NavList({ variant, pathname, onNavigate }: NavListProps) {
                 aria-hidden
                 layoutId="nav-hover"
                 transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                className="absolute inset-0 rounded-full bg-muted"
+                className="absolute inset-x-3 bottom-1 h-0.5 bg-highlight"
               />
             )}
             <Link

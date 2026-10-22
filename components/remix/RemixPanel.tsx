@@ -186,7 +186,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
         })}
       </div>
 
-      <div className="fade-above sticky bottom-0 z-20 -mx-4 mt-8 rounded-t-[1.75rem] bg-card/95 px-4 pt-4 pb-4 shadow-[0_-16px_40px_-24px_rgb(59_42_32_/_0.55)] backdrop-blur supports-backdrop-filter:bg-card/85 sm:mx-0 sm:px-6">
+      <div className="fade-above sticky bottom-0 z-20 -mx-4 mt-8 bg-card/95 px-4 pt-4 pb-4 shadow-[0_-16px_40px_-24px_rgb(59_42_32_/_0.55)] backdrop-blur supports-backdrop-filter:bg-card/85 sm:mx-0 sm:px-6">
         {!drink.isAvailable && (
           <p className="mb-3 text-sm font-medium">{t.drink.unavailable}</p>
         )}
@@ -219,7 +219,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
           size="lg"
           disabled={!drink.isAvailable}
           aria-label={submitPlain}
-          className="mt-3 h-auto min-h-14 w-full flex-col gap-0 rounded-full py-2 shadow-[0_18px_40px_-16px_var(--color-purple)]"
+          className="mt-3 h-auto min-h-14 w-full flex-col gap-0 rounded-md py-2 shadow-[0_18px_40px_-16px_var(--color-purple)]"
         >
           {justAdded ? (
             <span className="flex items-center gap-2 text-base font-bold">

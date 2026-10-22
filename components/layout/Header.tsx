@@ -95,15 +95,13 @@ export function Header() {
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 8));
 
   return (
-    // Floating glass bar; it tightens and gains a shadow once the page scrolls.
-    <header className="sticky top-0 z-40 h-16 px-2 pt-2 sm:px-4">
-      <div
-        className={`mx-auto flex h-14 w-full items-center gap-2 rounded-full border border-border/60 bg-background/75 pr-2 pl-3 backdrop-blur-xl transition-[max-width,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] supports-backdrop-filter:bg-background/60 ${
-          scrolled
-            ? "max-w-6xl shadow-[0_18px_40px_-20px_rgb(43_30_23_/_0.45)]"
-            : "max-w-[90rem] shadow-none"
-        }`}
-      >
+    // Full-width glass bar on a hairline; gains a soft shadow once scrolled.
+    <header
+      className={`sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-xl transition-shadow duration-500 supports-backdrop-filter:bg-background/70 ${
+        scrolled ? "shadow-[0_12px_30px_-22px_rgb(43_30_23_/_0.5)]" : ""
+      }`}
+    >
+      <div className="mx-auto flex h-16 w-full max-w-[90rem] items-center gap-2 px-4 sm:px-8">
         <Logo />
         <nav aria-label={plain.header.mainNav} className="ml-4 hidden xl:block">
           <MainNav variant="bar" />

@@ -92,7 +92,7 @@ export function ProfileView({
           variant="outline"
           onClick={handleSignOut}
           aria-label={plain.auth.signOut}
-          className="rounded-full border-border bg-muted text-foreground hover:bg-muted/80"
+          className="rounded-md border-border bg-muted text-foreground hover:bg-muted/80"
         >
           <LogOut aria-hidden />
           {t.auth.signOut}

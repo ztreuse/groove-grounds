@@ -40,7 +40,8 @@ Backgrounds in `public/scenes/` (page headers, home, Freestyle stage), also from
 | --- | --- |
 | `hero-spotlight.webp` | [a man dancing on the dance floor](https://www.pexels.com/photo/a-man-dancing-on-the-dance-floor-8285998/) |
 | `hero-garage.webp` | [man kicking his leg up in the air in an empty car park](https://www.pexels.com/photo/man-kicking-his-leg-up-in-the-air-in-an-empty-car-park-8315882/) |
-| `crew-purple.webp` | [women dancing together](https://www.pexels.com/photo/women-dancing-together-7974892/) |
+| `studio-freeze.webp` | [dynamic breakdancer performing a handstand in berlin](https://www.pexels.com/photo/dynamic-breakdancer-performing-a-handstand-in-berlin-30662205/) |
+| `neon-dancer.webp` | [smiling black female dancing in room with neon lights](https://www.pexels.com/photo/smiling-black-female-dancing-in-room-with-neon-lights-7194017/) |
 | `crew-smoke.webp` | [a group of people in black clothing are dancing](https://www.pexels.com/photo/a-group-of-people-in-black-clothing-are-dancing-27658397/) |
 | `crew-color.webp` | [group of dancers in trendy clothing](https://www.pexels.com/photo/group-of-dancers-in-trendy-clothing-8973536/) |
 | `stage-blur.webp` | [blurred woman dancing](https://www.pexels.com/photo/blurred-woman-dancing-24408975/) |

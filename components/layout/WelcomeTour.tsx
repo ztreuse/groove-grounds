@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Coffee, Footprints, ShoppingCart, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -32,8 +32,16 @@ function Tour() {
   const markWelcomeSeen = usePreferences((state) => state.markWelcomeSeen);
   const togglePlainMode = usePreferences((state) => state.togglePlainMode);
   const [step, setStep] = useState(0);
+  // Wait for the page to hydrate and play its entrance before the dialog
+  // opens (an instant open hides the page from React mid-hydration).
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setReady(true), 1200);
+    return () => clearTimeout(id);
+  }, []);
 
   const open =
+    ready &&
     hydrated &&
     !seenWelcome &&
     !SKIP_PATHS.some((path) => pathname.startsWith(path));

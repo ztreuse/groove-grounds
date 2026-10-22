@@ -6,45 +6,59 @@ import { useCopy } from "@/hooks/use-copy";
 type SectionHeadingProps = {
   id: string;
   title: string;
-  // Plain meaning, shown in Dance mode beside the section number.
+  // Plain meaning, shown in Dance mode after the section number.
   plainTitle?: string;
   // Two-digit section number, e.g. "01".
   index?: string;
+  body?: React.ReactNode;
+  align?: "center" | "start";
   children?: React.ReactNode;
 };
 
-// Section opener: a mono index line, a big title that types itself in as
-// it scrolls into view (last word in the italic accent), and an optional
-// action on the right, all sitting on a hairline.
+// Section opener: "01 — plain meaning" in mono, a poster-caps title that
+// types itself in as it scrolls into view (last word in the italic
+// accent), an optional line of body copy and actions underneath.
 export function SectionHeading({
   id,
   title,
   plainTitle,
   index,
+  body,
+  align = "center",
   children,
 }: SectionHeadingProps) {
   const { isPlain } = useCopy();
   const plainLine = !isPlain && plainTitle ? plainTitle : null;
+  const center = align === "center";
 
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 border-b border-border pb-5">
-      <div className="min-w-0">
-        {(index || plainLine) && (
-          <p className="mb-3 eyebrow text-muted-foreground">
-            {index && <span className="text-highlight">({index})</span>}
-            {index && plainLine && " "}
-            {plainLine}
-          </p>
-        )}
-        <KineticTitle
-          as="h2"
-          id={id}
-          text={title}
-          accentLast
-          trigger="view"
-          className="text-[clamp(2.5rem,7vw,4.75rem)] leading-[0.95]"
-        />
-      </div>
+    <div
+      className={`mb-10 flex flex-col gap-4 sm:mb-14 ${
+        center ? "items-center text-center" : "items-start"
+      }`}
+    >
+      {(index || plainLine) && (
+        <p className="eyebrow text-muted-foreground">
+          {index && <span className="text-highlight">{index}</span>}
+          {index && plainLine && " — "}
+          {plainLine}
+        </p>
+      )}
+      <KineticTitle
+        as="h2"
+        id={id}
+        text={title}
+        accentLast
+        trigger="view"
+        className="max-w-[16ch] text-[clamp(3rem,8vw,6.5rem)] leading-[0.88] font-black tracking-normal uppercase [font-stretch:64%]"
+      />
+      {body && (
+        <div
+          className={`max-w-md text-muted-foreground ${center ? "mx-auto" : ""}`}
+        >
+          {body}
+        </div>
+      )}
       {children}
     </div>
   );

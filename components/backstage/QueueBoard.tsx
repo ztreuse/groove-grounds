@@ -102,7 +102,7 @@ export function QueueBoard() {
   return (
     <>
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <p className="flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-sm font-semibold">
+        <p className="flex items-center gap-2 rounded-md bg-muted px-3 py-1 text-sm font-semibold">
           <Radio
             aria-hidden
             className={`size-4 ${live ? "text-highlight motion-safe:animate-pulse" : "text-muted-foreground"}`}

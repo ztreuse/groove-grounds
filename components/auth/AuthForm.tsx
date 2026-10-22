@@ -137,7 +137,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
           size="lg"
           disabled={isSubmitting}
           aria-label={titlePlain}
-          className="h-auto min-h-14 w-full rounded-full text-base font-bold"
+          className="h-auto min-h-14 w-full rounded-md text-base font-bold"
         >
           {isSubmitting ? t.auth.working : title}
         </Button>
@@ -166,7 +166,7 @@ function FormFromQuery({ mode }: { mode: Mode }) {
 function AuthPanel() {
   const { t } = useCopy();
   return (
-    <div className="theme-dark grain relative hidden overflow-hidden rounded-[2rem] bg-background lg:block">
+    <div className="theme-dark grain relative hidden overflow-hidden bg-background lg:block">
       <Image
         src="/scenes/crew-color.webp"
         alt=""
@@ -189,7 +189,7 @@ function AuthPanel() {
 // The page is prerendered, so ?next= is read on the client.
 export function AuthForm({ mode }: { mode: Mode }) {
   return (
-    <main className="mx-2 grid flex-1 gap-6 pt-2 pb-16 sm:mx-4 lg:min-h-[calc(100dvh-6rem)] lg:grid-cols-2 lg:pb-2">
+    <main className="grid flex-1 gap-6 pb-16 lg:min-h-[calc(100dvh-6rem)] lg:grid-cols-2 lg:gap-0 lg:pb-0">
       <AuthPanel />
       <div className="mx-auto w-full max-w-md self-center px-2 pt-8 sm:pt-12 lg:py-12">
         <Suspense fallback={<Form mode={mode} next={routes.profile.href} />}>

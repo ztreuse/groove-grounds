@@ -24,14 +24,14 @@ export function PlainModeToggle() {
       aria-label={plain.header.modePlain}
       title={isPlain ? t.header.modeDance : t.header.modePlain}
       onClick={togglePlainMode}
-      className="inline-flex h-11 shrink-0 items-center rounded-full bg-muted p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring"
+      className="inline-flex h-11 shrink-0 items-center rounded-md bg-muted p-1 outline-none focus-visible:ring-3 focus-visible:ring-ring"
     >
       {options.map(({ isPlainOption, icon: Icon, label }) => {
         const active = isPlainOption === isPlain;
         return (
           <span
             key={label}
-            className={`relative flex h-full items-center gap-1.5 rounded-full px-2.5 text-xs font-semibold transition-colors ${
+            className={`relative flex h-full items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold transition-colors ${
               active ? "text-primary-foreground" : "text-muted-foreground"
             }`}
           >
@@ -39,7 +39,7 @@ export function PlainModeToggle() {
               <motion.span
                 layoutId="plain-mode-thumb"
                 aria-hidden
-                className="absolute inset-0 rounded-full bg-primary"
+                className="absolute inset-0 rounded-md bg-primary"
                 transition={{ type: "spring", stiffness: 500, damping: 35 }}
               />
             )}

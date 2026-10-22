@@ -86,7 +86,7 @@ export function PlaylistView() {
               <Button
                 asChild
                 size="lg"
-                className="mt-4 h-auto min-h-14 w-full flex-col gap-0 rounded-full py-2"
+                className="mt-4 h-auto min-h-14 w-full flex-col gap-0 rounded-md py-2"
               >
                 <Link
                   href={routes.showtime.href}

@@ -58,7 +58,7 @@ export function KineticTitle({
           const Word = accent ? "em" : "span";
           return (
             <span key={w}>
-              <Word className="inline-block overflow-hidden pt-[0.04em] pb-[0.1em] align-bottom">
+              <Word className="-mx-[0.06em] -mt-[0.16em] -mb-[0.04em] inline-block overflow-hidden px-[0.06em] pt-[0.18em] pb-[0.08em] align-bottom">
                 {[...word].map((letter, c) => (
                   <motion.span
                     key={c}

@@ -44,7 +44,7 @@ export function PageHero({
   return (
     <section
       ref={ref}
-      className="theme-dark grain relative mx-2 mt-2 overflow-hidden rounded-[2rem] bg-background sm:mx-4 sm:rounded-[2.5rem]"
+      className="theme-dark grain relative overflow-hidden bg-background"
     >
       {image && (
         <motion.div

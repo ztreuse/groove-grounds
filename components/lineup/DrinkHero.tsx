@@ -22,17 +22,17 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
       <Link
         href={routes.lineup.href}
         aria-label={plain.drink.back}
-        className="-ml-2 inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-semibold outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring"
+        className="-ml-2 inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-sm font-semibold outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring"
       >
         <ArrowLeft aria-hidden className="size-4" />
         {t.drink.back}
       </Link>
 
       <motion.div
-        initial={{ clipPath: "inset(6% 6% 6% 6% round 2rem)", opacity: 0 }}
-        animate={{ clipPath: "inset(0% 0% 0% 0% round 2rem)", opacity: 1 }}
+        initial={{ clipPath: "inset(6% 6% 6% 6% round 0rem)", opacity: 0 }}
+        animate={{ clipPath: "inset(0% 0% 0% 0% round 0rem)", opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative mt-3 aspect-square overflow-hidden rounded-[2rem] sm:aspect-[4/3] lg:aspect-square ${genreBlockFor(drink.genreSlug)} ${
+        className={`relative mt-3 aspect-square overflow-hidden sm:aspect-[4/3] lg:aspect-square ${genreBlockFor(drink.genreSlug)} ${
           drink.isAvailable ? "" : "grayscale"
         }`}
       >
@@ -50,18 +50,18 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
           />
         </motion.div>
         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-          <span className="rounded-full bg-background/90 px-3 py-1.5 eyebrow backdrop-blur">
+          <span className="rounded-md bg-background/90 px-3 py-1.5 eyebrow backdrop-blur">
             {drink.danceStyle}
           </span>
           {term && (
-            <span className="rounded-full bg-background/90 px-3 py-1 text-sm font-medium backdrop-blur">
+            <span className="rounded-md bg-background/90 px-3 py-1 text-sm font-medium backdrop-blur">
               <span aria-hidden>{t.terms[term]}</span>
               <span className="sr-only">{plain.terms[term]}</span>
             </span>
           )}
         </div>
         {!drink.isAvailable && (
-          <span className="absolute bottom-4 left-4 rounded-full bg-espresso px-4 py-1.5 text-sm font-semibold text-cream">
+          <span className="absolute bottom-4 left-4 rounded-md bg-espresso px-4 py-1.5 text-sm font-semibold text-cream">
             <span aria-hidden>{t.terms.sittingOut}</span>
             <span className="sr-only">{plain.terms.sittingOut}</span>
           </span>

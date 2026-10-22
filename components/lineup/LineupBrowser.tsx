@@ -93,7 +93,7 @@ export function LineupBrowser({
               onChange={(event) => setSearch(event.target.value)}
               placeholder={t.lineup.searchPlaceholder}
               aria-label={plain.lineup.searchLabel}
-              className="h-12 w-full rounded-full bg-muted pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring [&::-webkit-search-cancel-button]:hidden"
+              className="h-12 w-full rounded-md bg-muted pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring [&::-webkit-search-cancel-button]:hidden"
             />
             {search && (
               <button
@@ -122,7 +122,7 @@ export function LineupBrowser({
         </p>
 
         {sections.length === 0 ? (
-          <div className="mt-8 rounded-[1.75rem] bg-muted p-10 text-center">
+          <div className="mt-8 bg-muted p-10 text-center">
             <p className="text-lg">{t.lineup.empty}</p>
             <Button onClick={reset} variant="outline" className="mt-4">
               {t.lineup.reset}
@@ -157,7 +157,7 @@ export function LineupBrowser({
                     ({String(sectionDrinks.length).padStart(2, "0")})
                   </span>
                 </div>
-                <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <ul className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
                   <AnimatePresence mode="popLayout" initial={false}>
                     {sectionDrinks.map((drink, index) => (
                       <motion.li

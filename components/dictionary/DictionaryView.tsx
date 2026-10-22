@@ -74,7 +74,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
               onChange={(event) => setSearch(event.target.value)}
               placeholder={t.dictionary.searchPlaceholder}
               aria-label={plain.dictionary.searchLabel}
-              className="h-11 w-full field rounded-full pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40 [&::-webkit-search-cancel-button]:hidden"
+              className="h-11 w-full field rounded-md pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/40 [&::-webkit-search-cancel-button]:hidden"
             />
             {search && (
               <button
@@ -97,7 +97,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
                 <a
                   key={link.id}
                   href={`#${link.id}`}
-                  className="inline-flex h-11 shrink-0 items-center rounded-full bg-muted px-4 text-sm font-semibold whitespace-nowrap outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
+                  className="inline-flex h-11 shrink-0 items-center rounded-md bg-muted px-4 text-sm font-semibold whitespace-nowrap outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
                 >
                   {link.label}
                 </a>

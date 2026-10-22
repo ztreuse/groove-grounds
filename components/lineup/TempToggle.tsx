@@ -39,7 +39,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
     <div
       role="group"
       aria-label={plain.lineup.tempFilter}
-      className="inline-flex h-11 shrink-0 rounded-full bg-muted p-1"
+      className="inline-flex h-11 shrink-0 rounded-md bg-muted p-1"
     >
       {options.map(({ value: optionValue, label, ariaLabel, icon: Icon }) => {
         const active = optionValue === value;
@@ -50,7 +50,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
             aria-pressed={active}
             aria-label={ariaLabel}
             onClick={() => onChange(optionValue)}
-            className={`flex items-center gap-1.5 rounded-full px-3 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+            className={`flex items-center gap-1.5 rounded-md px-3 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
               active
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground"

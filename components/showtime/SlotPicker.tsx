@@ -82,7 +82,7 @@ export function SlotPicker({
                   setDay(d);
                   onChange("");
                 }}
-                className={`h-11 shrink-0 rounded-full px-4 text-sm font-semibold whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+                className={`h-11 shrink-0 rounded-md px-4 text-sm font-semibold whitespace-nowrap outline-none focus-visible:ring-3 focus-visible:ring-ring ${
                   active
                     ? "bg-espresso text-cream dark:bg-cream dark:text-espresso"
                     : "bg-muted hover:bg-accent hover:text-accent-foreground"

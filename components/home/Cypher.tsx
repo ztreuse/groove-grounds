@@ -1,75 +1,92 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "motion/react";
 import { SectionHeading } from "@/components/layout/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
 import { cypherPosts } from "@/lib/cypher";
 
-// Community board: one featured post on a dance photo, two smaller flyers.
-const flyerStyles = [
-  "theme-dark grain md:col-span-3 md:row-span-2 md:min-h-[28rem] bg-background",
-  "md:col-span-2 bg-lilac text-espresso",
-  "md:col-span-2 bg-espresso text-cream dark:bg-espresso-soft",
+// Photos from the floor, drifting sideways as the page scrolls.
+const floor = [
+  { src: "/scenes/bboy.webp", position: "70% center" },
+  { src: "/scenes/barista.webp", position: "center" },
+  { src: "/scenes/crew-color.webp", position: "center" },
+  { src: "/scenes/barista-pour.webp", position: "center" },
+  { src: "/scenes/crew-smoke.webp", position: "40% center" },
+  { src: "/scenes/sneakers.webp", position: "center" },
 ];
 
+// Community board: a scroll-drifting strip of photos, then the posts as
+// columns split by hairlines, each signed like a flyer.
 export function Cypher() {
   const { t, plain, isPlain } = useCopy();
+  const strip = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: strip,
+    offset: ["start end", "end start"],
+  });
+  const x = useTransform(scrollYProgress, [0, 1], ["4%", "-18%"]);
   const pick = (wording: { dance: string; plain: string }) =>
     isPlain ? wording.plain : wording.dance;
 
   return (
-    <section aria-labelledby="cypher" className="mx-auto w-full max-w-6xl px-4">
-      <SectionHeading
-        id="cypher"
-        index="04"
-        title={t.terms.cypher}
-        plainTitle={plain.terms.cypher}
-      >
-        <p className="max-w-xs text-muted-foreground">{t.home.cypherIntro}</p>
-      </SectionHeading>
+    <section aria-labelledby="cypher">
+      <div className="mx-auto w-full max-w-6xl px-4">
+        <SectionHeading
+          id="cypher"
+          index="05"
+          title={t.terms.cypher}
+          plainTitle={plain.terms.cypher}
+          body={t.home.cypherIntro}
+        />
+      </div>
 
-      <ul className="grid gap-4 md:grid-cols-5">
+      <div ref={strip} aria-hidden className="overflow-hidden">
+        <motion.div style={{ x }} className="flex w-max gap-4 sm:gap-6">
+          {floor.map((photo, index) => (
+            <div
+              key={photo.src}
+              className={`relative w-48 shrink-0 overflow-hidden sm:w-72 ${
+                index % 2 ? "mt-10 aspect-[3/4]" : "aspect-[4/5]"
+              }`}
+            >
+              <Image
+                src={photo.src}
+                alt=""
+                fill
+                sizes="288px"
+                className="object-cover"
+                style={{ objectPosition: photo.position }}
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <ul className="mx-auto mt-16 grid w-full max-w-6xl gap-10 px-4 md:grid-cols-3 md:gap-0">
         {cypherPosts.map((post, index) => (
           <Reveal
             as="li"
             delay={index * 0.08}
             key={post.id}
-            className={`group relative flex min-h-60 flex-col overflow-hidden rounded-[1.75rem] p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 ${flyerStyles[index % flyerStyles.length]}`}
+            className="flex flex-col border-border md:border-l md:px-8 md:first:border-l-0 md:first:pl-0"
           >
-            {index === 0 && (
-              <>
-                <Image
-                  src="/scenes/bboy.webp"
-                  alt=""
-                  fill
-                  sizes="(min-width: 768px) 60vw, 100vw"
-                  className="object-cover object-[70%_center] opacity-60 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
-                <span
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-espresso-deep via-espresso-deep/70 to-espresso-deep/10"
-                />
-              </>
-            )}
-            <span className="relative eyebrow opacity-80">
-              {pick(post.tag)}
-            </span>
-            <h3
-              className={`relative leading-[0.95] ${
-                index === 0
-                  ? "mt-auto pt-16 text-4xl sm:text-5xl"
-                  : "mt-4 text-2xl"
-              }`}
-            >
-              {pick(post.title)}
-            </h3>
-            <p
-              className={`relative mt-3 ${index === 0 ? "max-w-md text-foreground/80" : "flex-1"}`}
-            >
+            <span className="eyebrow text-highlight">{pick(post.tag)}</span>
+            <h3 className="mt-3 text-2xl leading-tight">{pick(post.title)}</h3>
+            <p className="mt-3 flex-1 text-muted-foreground">
               {pick(post.body)}
             </p>
-            <p className="relative mt-6 eyebrow opacity-80">{post.author}</p>
+            <p className="mt-6 flex items-center gap-3 text-sm font-semibold">
+              <span
+                aria-hidden
+                className="flex size-9 items-center justify-center rounded-full bg-lilac font-heading text-xs font-black text-espresso uppercase"
+              >
+                {post.author.replace("@", "").slice(0, 2)}
+              </span>
+              {post.author}
+            </p>
           </Reveal>
         ))}
       </ul>

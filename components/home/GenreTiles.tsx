@@ -11,13 +11,18 @@ import type { LineupDrink, LineupGenre } from "@/lib/db/queries";
 import { genreBlockFor, genreTerms } from "@/lib/genres";
 import { routes } from "@/lib/routes";
 
-// Bento of the five genres: one tile per genre, sized for rhythm.
-const tileLayout: Record<string, string> = {
-  "new-school": "lg:col-span-3 lg:row-span-2",
-  "old-school": "lg:col-span-3",
-  mashup: "lg:col-span-3",
-  "off-beat": "lg:col-span-4",
-  intermission: "lg:col-span-2",
+// Offset collage: photos of different shapes, staggered up and down on
+// wide screens. Labels sit under each photo, so long Plain-mode names
+// wrap freely instead of fighting the picture for space.
+const tileLayout: Record<string, { cell: string; photo: string }> = {
+  "old-school": { cell: "lg:col-span-4", photo: "aspect-[4/5]" },
+  "new-school": { cell: "lg:col-span-5 lg:mt-28", photo: "aspect-[4/5]" },
+  mashup: { cell: "lg:col-span-3", photo: "aspect-[3/4]" },
+  "off-beat": { cell: "lg:col-span-5 lg:col-start-2", photo: "aspect-[4/3]" },
+  intermission: {
+    cell: "lg:col-span-4 lg:col-start-8 lg:-mt-24",
+    photo: "aspect-[4/3]",
+  },
 };
 
 type GenreTilesProps = { genres: LineupGenre[]; drinks: LineupDrink[] };
@@ -33,65 +38,71 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
         title={t.home.genresTitle}
         plainTitle={plain.home.genresTitle}
       />
-      <ul className="grid gap-4 sm:grid-cols-2 lg:auto-rows-[15rem] lg:grid-cols-6">
+      <ul className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-16">
         {genres.map((genre, index) => {
           const term = genreTerms[genre.slug];
           const inGenre = drinks.filter((d) => d.genreSlug === genre.slug);
-          // Tall and narrow tiles put the photo along the bottom; wide ones
-          // on the right, so the genre name never sits behind it.
-          const photoBelow =
-            genre.slug === "new-school" || genre.slug === "intermission";
           const cover = inGenre.find((d) => d.imageSrc) ?? inGenre[0];
+          const layout = tileLayout[genre.slug] ?? {
+            cell: "lg:col-span-4",
+            photo: "aspect-[4/5]",
+          };
           return (
             <Reveal
               as="li"
               key={genre.slug}
-              delay={index * 0.06}
-              className={tileLayout[genre.slug] ?? "lg:col-span-2"}
+              delay={(index % 3) * 0.08}
+              className={`${layout.cell} ${index === 0 ? "col-span-2 sm:col-span-1" : ""}`}
             >
               <Link
                 href={`${routes.lineup.href}?genre=${genre.slug}`}
                 aria-label={term ? plain.terms[term] : genre.name}
-                className={`group relative flex h-full ${photoBelow ? "min-h-80" : "min-h-56"} flex-col overflow-hidden rounded-[1.75rem] p-6 text-espresso transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none hover:-translate-y-1.5 focus-visible:ring-3 focus-visible:ring-ring ${genreBlockFor(genre.slug)}`}
+                className="group block outline-none focus-visible:ring-3 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
               >
-                <span
-                  className={`relative font-heading text-5xl leading-[0.85] font-black uppercase [font-stretch:64%] sm:text-6xl ${
-                    photoBelow ? "" : "max-w-[52%]"
-                  }`}
+                <div
+                  className={`relative overflow-hidden ${layout.photo} ${genreBlockFor(genre.slug)}`}
                 >
-                  {term ? t.terms[term] : genre.name}
-                </span>
-                {!isPlain && term && (
-                  <span
-                    className={`relative mt-1 text-sm font-medium ${
-                      photoBelow ? "" : "max-w-[52%]"
-                    }`}
-                  >
-                    {plain.terms[term]}
-                  </span>
-                )}
-                <span className="relative z-10 mt-auto flex items-center gap-1 self-start rounded-full bg-background/90 px-3 py-1 text-sm font-semibold text-foreground">
-                  {inGenre.length === 1
-                    ? t.home.drinkOne
-                    : fill(t.home.drinks, { count: inGenre.length })}
-                  <ArrowUpRight
-                    aria-hidden
-                    className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
-                </span>
-                {cover && (
-                  <div
-                    aria-hidden
-                    className={`absolute overflow-hidden rounded-2xl ${
-                      photoBelow
-                        ? "inset-x-4 top-[42%] bottom-16 lg:bottom-4 lg:left-auto lg:w-[55%]"
-                        : "top-4 right-4 bottom-4 w-[42%]"
-                    }`}
-                  >
-                    <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:rotate-1">
-                      <DrinkVisual drink={cover} sizes="400px" />
+                  {cover && (
+                    <div className="absolute inset-0 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110">
+                      <DrinkVisual
+                        drink={cover}
+                        sizes="(min-width: 1024px) 480px, 50vw"
+                      />
                     </div>
-                  </div>
+                  )}
+                  {/* A colour wipe rises over the photo on hover. */}
+                  <span
+                    aria-hidden
+                    className={`absolute inset-x-0 bottom-0 h-0 opacity-70 mix-blend-multiply transition-[height] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:h-full ${genreBlockFor(genre.slug)}`}
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute top-3 right-3 flex size-10 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-45"
+                  >
+                    <ArrowUpRight className="size-5" />
+                  </span>
+                </div>
+                <div className="mt-4 flex items-center gap-2 border-t border-foreground pt-3">
+                  <span
+                    aria-hidden
+                    className={`size-2.5 shrink-0 ${genreBlockFor(genre.slug)}`}
+                  />
+                  <span className="eyebrow text-muted-foreground">
+                    0{index + 1}
+                  </span>
+                  <span className="ml-auto eyebrow text-muted-foreground">
+                    {inGenre.length === 1
+                      ? t.home.drinkOne
+                      : fill(t.home.drinks, { count: inGenre.length })}
+                  </span>
+                </div>
+                <p className="mt-2 font-heading text-3xl leading-[0.9] font-black break-words uppercase [font-stretch:64%] sm:text-4xl lg:text-5xl">
+                  {term ? t.terms[term] : genre.name}
+                </p>
+                {!isPlain && term && (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {plain.terms[term]}
+                  </p>
                 )}
               </Link>
             </Reveal>
