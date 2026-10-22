@@ -157,7 +157,7 @@ async function main() {
     await tx.insert(repsLedger).values({
       userId,
       points: 50,
-      reason: "Joined the crew",
+      reason: "join",
       createdAt: new Date(Date.now() - 30 * DAY),
     });
 
@@ -223,7 +223,7 @@ async function main() {
         userId,
         orderId: order.id,
         points,
-        reason: "Order",
+        reason: "order",
         createdAt,
       });
     }

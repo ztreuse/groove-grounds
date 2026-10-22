@@ -20,7 +20,9 @@ import type { TrackedOrder } from "@/lib/db/orders";
 import type { Profile } from "@/lib/db/profiles";
 import { formatDay, formatPeso } from "@/lib/format";
 import { statusCopyKey } from "@/lib/orders";
+import { routes } from "@/lib/routes";
 import { dayKey } from "@/lib/schedule";
+import { LevelProgress } from "@/components/reps/LevelProgress";
 import { RunItBackButton } from "./RunItBackButton";
 import { SavedChoreo } from "./SavedChoreo";
 import { Reveal } from "@/components/motion/Reveal";
@@ -105,7 +107,7 @@ export function ProfileView({
         {/* Left: level, Reps and details. Right: choreo and history. */}
         <div>
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <div className="rounded-2xl bg-espresso p-4 text-cream dark:bg-espresso-deep">
+            <div className="bg-espresso p-4 text-cream dark:bg-espresso-deep">
               <p className="text-sm font-medium text-khaki">
                 {t.profile.level}
               </p>
@@ -121,6 +123,15 @@ export function ProfileView({
                 {profile.reps}
               </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <LevelProgress reps={profile.reps} />
+            <Link
+              href={routes.reps.href}
+              className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-highlight underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
+            >
+              {t.reps.howItWorks}
+            </Link>
           </div>
 
           <section aria-labelledby="details" className="mt-8">

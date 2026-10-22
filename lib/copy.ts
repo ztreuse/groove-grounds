@@ -469,6 +469,46 @@ export const dance = {
     closeAfterOpen: "Closing time must be after opening time.",
   },
 
+
+  reps: {
+    intro: "Every show you play earns Reps. Stack them, level up, cash them in at the counter.",
+    earnTitle: "How you earn",
+    earnOrder: "1 Rep for every ₱10, added when your order takes its Bow.",
+    earnJoin: "50 Reps for joining the crew.",
+    earnNote: "Guest orders don't earn Reps. Sign in before Showtime.",
+    levelsTitle: "Levels",
+    from: "From {count} Reps",
+    current: "You're here",
+    perks: {
+      rookie: "Earn Reps on every order.",
+      cypherRegular: "Skip the line on Drop-in pickups.",
+      battler: "A free Accent on every order.",
+      judge: "First taste of every new Spotlight.",
+      legend: "Your Freestyle choreo on The Lineup for a week.",
+    },
+    rewardsTitle: "Rewards",
+    rewardsNote: "Show your Dancer Profile to the choreographer at pickup to cash in.",
+    rewards: {
+      accent: "A free Accent",
+      upsize: "Free upgrade to a 32-count",
+      snack: "Any Intermission snack",
+      drink: "Any drink on The Lineup",
+    },
+    cost: "{count} Reps",
+    balanceTitle: "Your Reps",
+    toNext: "{count} Reps to {level}",
+    topLevel: "Top of the ladder. Legend status.",
+    signedOut: "Join the Crew to start earning Reps.",
+    historyTitle: "Recent Reps",
+    noHistory: "No Reps yet. Your first order starts the count.",
+    reasons: {
+      join: "Joined the crew",
+      order: "Order {code}",
+      redeem: "Cashed in",
+    },
+    howItWorks: "How Reps work",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -964,6 +1004,46 @@ export const plain: Widen<typeof dance> = {
     saved: "Schedule saved.",
     saveFailed: "Couldn't save. Check the fields and try again.",
     closeAfterOpen: "Closing time must be after opening time.",
+  },
+
+
+  reps: {
+    intro: "Earn points on every order, move up tiers, and redeem rewards at the counter.",
+    earnTitle: "How to earn points",
+    earnOrder: "1 point for every ₱10, added when you pick up your order.",
+    earnJoin: "50 points when you sign up.",
+    earnNote: "Guest orders don't earn points. Log in before checkout.",
+    levelsTitle: "Tiers",
+    from: "From {count} points",
+    current: "Your tier",
+    perks: {
+      rookie: "Earn points on every order.",
+      cypherRegular: "Priority on order-now pickups.",
+      battler: "A free topping on every order.",
+      judge: "Early tastes of new featured drinks.",
+      legend: "Your custom drink on the menu for a week.",
+    },
+    rewardsTitle: "Rewards",
+    rewardsNote: "Show your account page to the barista at pickup to redeem.",
+    rewards: {
+      accent: "A free topping",
+      upsize: "Free upgrade to large",
+      snack: "Any pastry or snack",
+      drink: "Any drink on the menu",
+    },
+    cost: "{count} points",
+    balanceTitle: "Your points",
+    toNext: "{count} points to {level}",
+    topLevel: "You've reached the top tier.",
+    signedOut: "Sign up to start earning points.",
+    historyTitle: "Recent points",
+    noHistory: "No points yet. Your first order starts the count.",
+    reasons: {
+      join: "Signed up",
+      order: "Order {code}",
+      redeem: "Redeemed",
+    },
+    howItWorks: "How points work",
   },
 
   placeholder: {

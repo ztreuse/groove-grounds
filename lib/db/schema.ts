@@ -11,6 +11,7 @@ import {
   timestamp,
   unique,
   uuid,
+  uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
 import { anonRole, authenticatedRole, authUsers } from "drizzle-orm/supabase";
@@ -259,19 +260,29 @@ export const savedChoreo = pgTable("saved_choreo", {
   createdAt,
 }).enableRLS();
 
-export const repsLedger = pgTable("reps_ledger", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  userId: uuid("user_id")
-    .notNull()
-    .references(() => profiles.id, { onDelete: "cascade" }),
-  orderId: uuid("order_id").references(() => orders.id, {
-    onDelete: "set null",
-  }),
-  // Positive when earned, negative when redeemed.
-  points: integer("points").notNull(),
-  reason: text("reason").notNull(),
-  createdAt,
-}).enableRLS();
+export const repsLedger = pgTable(
+  "reps_ledger",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => profiles.id, { onDelete: "cascade" }),
+    orderId: uuid("order_id").references(() => orders.id, {
+      onDelete: "set null",
+    }),
+    // Positive when earned, negative when redeemed.
+    points: integer("points").notNull(),
+    // "join", "order" or "redeem".
+    reason: text("reason").notNull(),
+    createdAt,
+  },
+  (t) => [
+    // An order pays out its Reps once, however often it reaches Bow.
+    uniqueIndex("reps_ledger_order_earned")
+      .on(t.orderId)
+      .where(sql`${t.reason} = 'order'`),
+  ],
+).enableRLS();
 
 export const crewRequests = pgTable("crew_requests", {
   id: uuid("id").primaryKey().defaultRandom(),

@@ -7,6 +7,7 @@ import {
   type OrderStatus,
 } from "@/lib/orders";
 import { db } from "./index";
+import { awardOrderReps } from "./reps";
 import { drinks, orderItems, orders, timeSlots } from "./schema";
 
 const isUuid = (id: string) => z.uuid().safeParse(id).success;
@@ -143,6 +144,8 @@ export async function advanceOrder(id: string, from: OrderStatus) {
     .set({ status: to })
     .where(and(eq(orders.id, id), eq(orders.status, from)))
     .returning({ status: orders.status });
+  // Picked up: members earn their Reps.
+  if (row?.status === "bow") await awardOrderReps(id);
   return row?.status ?? null;
 }
 
