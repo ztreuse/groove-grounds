@@ -17,9 +17,10 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
   const user = useUser();
   if (user === undefined) return null;
 
+  // Shown in both the header bar (icon) and the mobile menu (icon + label):
+  // the nav itself no longer lists the account. Below 360px the bar has no
+  // room for the icon, so it lives in the menu only.
   const signedIn = !!user;
-  // The menu already lists Dancer Profile; only offer Sign in there.
-  if (signedIn && variant === "sheet") return null;
   const Icon = signedIn ? UserRound : LogIn;
   const label = signedIn ? t.header.account : t.header.signIn;
   const ariaLabel = signedIn ? plain.header.account : plain.header.signIn;
@@ -33,7 +34,7 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
       onClick={onNavigate}
       className={
         variant === "bar"
-          ? "hidden size-11 shrink-0 items-center justify-center rounded-full outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring xl:inline-flex"
+          ? "inline-flex size-11 shrink-0 items-center justify-center rounded-full outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring max-[359px]:hidden"
           : "flex min-h-14 items-center gap-3 rounded-xl bg-muted px-3 py-2 font-semibold outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
       }
     >
