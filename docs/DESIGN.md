@@ -113,6 +113,8 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `ScheduleForm` | backstage | Owner-only class schedule: hours (time fields), slot length (chips), max drinks per slot, booking window, minimum notice, blackout dates as removable chips, and a live "N classes a day" preview. |
 | `LevelProgress` | reps | Level name, a purple bar through the current step, and Reps to the next level. Dancer Profile and the Reps page. |
 | `RepsView` | reps | Reps page body: sticky balance card with recent Reps (or a join prompt), how you earn, the level ladder (current level on lilac) and rewards (affordable ones ringed). Rules live in `lib/reps.ts`. |
+| `CrewForm` / `CrewRequestView` | crew | Crew Order request form (lead-time notice on lilac, three fieldsets with heading-style legends) and the request page: status steps, quote with Accept / Decline, sticky summary. |
+| `CrewInbox` | backstage | Owner inbox grouped by status; new requests take a quote (amount + note) or a two-tap decline. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
 

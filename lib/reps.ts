@@ -1,11 +1,7 @@
 // Reps & Levels rules. Pure, shared by the server (awarding) and the UI.
 
 export type LevelKey =
-  | "rookie"
-  | "cypher_regular"
-  | "battler"
-  | "judge"
-  | "legend";
+  "rookie" | "cypher_regular" | "battler" | "judge" | "legend";
 
 // Lifetime Reps needed for each level, lowest first. `copy` is the key in
 // lib/copy.ts `levels` and `reps.perks`.

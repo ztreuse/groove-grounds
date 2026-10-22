@@ -284,16 +284,27 @@ export const repsLedger = pgTable(
   ],
 ).enableRLS();
 
+// Group / event orders. The request page link (by id) is the customer's
+// key, like the order tracker. Quotes come from Backstage.
 export const crewRequests = pgTable("crew_requests", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").references(() => profiles.id, {
     onDelete: "set null",
   }),
-  contact: text("contact").notNull(),
+  name: text("name").notNull(),
+  phone: text("phone").notNull(),
+  // Free-form extra contact (email), optional.
+  contact: text("contact"),
+  // Pickup date and time.
   eventDate: timestamp("event_date", { withTimezone: true }).notNull(),
   headcount: integer("headcount").notNull(),
+  drinkMix: text("drink_mix").notNull(),
+  budget: integer("budget"),
   details: text("details"),
   status: crewRequestStatusEnum("status").notNull().default("new"),
   quoteAmount: integer("quote_amount"),
+  quoteNote: text("quote_note"),
+  quotedAt: timestamp("quoted_at", { withTimezone: true }),
+  respondedAt: timestamp("responded_at", { withTimezone: true }),
   createdAt,
 }).enableRLS();

@@ -6,7 +6,7 @@ import type { PageKey } from "@/lib/copy";
 type BackstageHeaderProps = {
   page: PageKey;
   // Optional intro line for the page.
-  intro?: "menu" | "schedule";
+  intro?: "menu" | "schedule" | "crew";
 };
 
 // Title block for Backstage pages: section label, poster-caps title.
@@ -27,7 +27,11 @@ export function BackstageHeader({ page, intro }: BackstageHeaderProps) {
       )}
       {intro && (
         <p className="mt-4 max-w-prose text-muted-foreground">
-          {intro === "menu" ? t.menu.intro : t.scheduleAdmin.intro}
+          {intro === "menu"
+            ? t.menu.intro
+            : intro === "schedule"
+              ? t.scheduleAdmin.intro
+              : t.crewAdmin.intro}
         </p>
       )}
     </header>
