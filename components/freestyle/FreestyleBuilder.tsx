@@ -745,38 +745,56 @@ export function FreestyleBuilder({
             </motion.div>
           </AnimatePresence>
 
-          {/* Floating control dock: back, running total, next. */}
+          {/* Control dock: a framed bar whose corners match the buttons
+              inside it (outer radius = button radius + padding). Back and
+              Next share one height; step and total sit between them. */}
           {base && current > 0 && (
             <div className="sticky bottom-3 z-20 mt-10">
-              <div className="flex items-center gap-2 rounded-full border border-border bg-espresso-deep/80 p-1.5 shadow-[0_24px_50px_-20px_rgb(0_0_0_/_0.9)] backdrop-blur-xl">
-                <Button
+              <div className="flex items-stretch gap-1.5 rounded-[calc(var(--radius)+0.375rem)] bg-espresso-deep/85 p-1.5 shadow-[0_24px_50px_-20px_rgb(0_0_0_/_0.9)] ring-1 ring-border backdrop-blur-xl ring-inset">
+                <button
                   type="button"
-                  variant="ghost"
-                  size="lg"
                   onClick={() => goTo(current - 1)}
-                  className="rounded-md text-foreground hover:bg-muted"
+                  className="group flex h-14 shrink-0 items-center gap-2.5 rounded-md bg-muted pr-1.5 pl-1.5 sm:pr-4 text-sm font-semibold text-foreground ring-1 ring-border transition-colors ring-inset hover:bg-foreground/15 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px"
                 >
-                  <ArrowLeft aria-hidden />
-                  {t.freestyle.back}
-                </Button>
-                <p className="ml-auto px-2 font-heading text-xl font-black [font-stretch:70%] tabular-nums lg:hidden">
-                  {total}
-                </p>
-                {current < reviewStep && (
-                  <Button
-                    type="button"
-                    size="lg"
-                    onClick={() => goTo(current + 1)}
-                    className="h-auto min-h-12 gap-3 rounded-md py-1.5 pr-4 pl-6 lg:ml-auto"
+                  <span
+                    aria-hidden
+                    className="flex size-11 items-center justify-center rounded-sm bg-foreground/10 transition-transform group-hover:-translate-x-0.5"
                   >
-                    <span className="text-left leading-tight">
-                      <span className="block">{t.freestyle.next}</span>
+                    <ArrowLeft className="size-4" />
+                  </span>
+                  <span className="max-sm:sr-only">{t.freestyle.back}</span>
+                </button>
+
+                <div className="flex min-w-0 flex-1 flex-col items-center justify-center px-2 leading-none">
+                  <span className="text-xs font-semibold text-muted-foreground tabular-nums">
+                    {pad(current)} / {pad(reviewStep)}
+                  </span>
+                  <span className="mt-1 font-heading text-xl font-black [font-stretch:70%] tabular-nums lg:hidden">
+                    {total}
+                  </span>
+                </div>
+
+                {current < reviewStep && (
+                  <button
+                    type="button"
+                    onClick={() => goTo(current + 1)}
+                    className="group flex h-14 min-w-0 shrink items-center gap-3 rounded-md bg-primary pr-1.5 pl-4 text-left text-primary-foreground shadow-[0_12px_28px_-14px_var(--color-purple)] transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px"
+                  >
+                    <span className="min-w-0 leading-tight">
+                      <span className="block text-sm font-bold">
+                        {t.freestyle.next}
+                      </span>
                       <span className="block max-w-[9rem] truncate text-xs font-medium opacity-80">
                         {nextLabel}
                       </span>
                     </span>
-                    <ArrowRight aria-hidden />
-                  </Button>
+                    <span
+                      aria-hidden
+                      className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-white/15 transition-transform group-hover:translate-x-0.5"
+                    >
+                      <ArrowRight className="size-4" />
+                    </span>
+                  </button>
                 )}
               </div>
             </div>
