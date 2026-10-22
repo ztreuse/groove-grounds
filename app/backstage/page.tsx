@@ -1,9 +1,43 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
+import { BackstageHeader } from "@/components/backstage/BackstageHeader";
+import { Dashboard } from "@/components/backstage/Dashboard";
+import { StaffGate } from "@/components/backstage/StaffGate";
+import { CountIn } from "@/components/layout/CountIn";
 import { dance } from "@/lib/copy";
+import { getDashboard } from "@/lib/db/reports";
+import { getScheduleRules } from "@/lib/db/schedule";
+import { routes } from "@/lib/routes";
+import { getStaff } from "@/lib/staff";
+import { getCurrentUser } from "@/lib/supabase/server";
 
-export const metadata: Metadata = { title: dance.pages.backstage };
+export const metadata: Metadata = {
+  title: dance.pages.backstage,
+  robots: { index: false },
+};
 
-export default function Page() {
-  return <PagePlaceholder page="backstage" />;
+// Owner only: reads the login cookie, so it renders per request.
+async function Content() {
+  const staff = await getStaff();
+  if (staff?.role !== "owner") {
+    const reason = staff
+      ? "not-owner"
+      : (await getCurrentUser())
+        ? "not-staff"
+        : "signed-out";
+    return <StaffGate reason={reason} next={routes.backstage.href} />;
+  }
+  const [data, rules] = await Promise.all([getDashboard(), getScheduleRules()]);
+  return <Dashboard data={data} rules={rules} />;
+}
+
+export default function DashboardPage() {
+  return (
+    <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
+      <BackstageHeader page="backstage" intro="dashboard" />
+      <Suspense fallback={<CountIn />}>
+        <Content />
+      </Suspense>
+    </main>
+  );
 }

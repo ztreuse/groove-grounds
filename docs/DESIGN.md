@@ -115,6 +115,7 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `RepsView` | reps | Reps page body: sticky balance card with recent Reps (or a join prompt), how you earn, the level ladder (current level on lilac) and rewards (affordable ones ringed). Rules live in `lib/reps.ts`. |
 | `CrewForm` / `CrewRequestView` | crew | Crew Order request form (lead-time notice on lilac, three fieldsets with heading-style legends) and the request page: status steps, quote with Accept / Decline, sticky summary. |
 | `CrewInbox` | backstage | Owner inbox grouped by status; new requests take a quote (amount + note) or a two-tap decline. |
+| `Dashboard` | backstage | Owner reports: stat tiles (dance label, plain under, price-style number), single-series column charts in `highlight` on one hairline baseline (only the tallest column labelled; espresso tooltip on hover, focus or tap), ranked bars on a `muted` track, booked slots with a capacity meter. Hairline-ruled section heads, no chart boxes. |
 | `PropsPrompt` / `DrinkPropsSection` | tracker, lineup | Props: after Bow the tracker shows a Give Props card per menu drink (five Groove stars, rating label, optional comment); the drink page shows the average, count and three latest comments. No seeded reviews. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
