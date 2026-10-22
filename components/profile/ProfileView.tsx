@@ -38,9 +38,12 @@ type ProfileViewProps = {
   profile: Profile;
   orders: TrackedOrder[];
   choreo: SavedChoreoEntry[];
+  // The shared demo dancer: details and choreo are read-only.
+  isDemo?: boolean;
 };
 
 export function ProfileView({
+  isDemo = false,
   email,
   profile,
   orders,
@@ -145,7 +148,10 @@ export function ProfileView({
                 })}
               />
               <div className="flex items-center gap-3">
-                <Button type="submit" disabled={isSubmitting || !isDirty}>
+                <Button
+                  type="submit"
+                  disabled={isDemo || isSubmitting || !isDirty}
+                >
                   {t.profile.save}
                 </Button>
                 {saved && (
@@ -159,11 +165,16 @@ export function ProfileView({
                 )}
               </div>
             </form>
+            {isDemo && (
+              <p className="mt-3 rounded-md bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">
+                {t.profile.demoLocked}
+              </p>
+            )}
           </section>
         </div>
 
         <div>
-          <SavedChoreo choreo={choreo} />
+          <SavedChoreo choreo={choreo} readOnly={isDemo} />
 
           <section aria-labelledby="past" className="mt-10">
             <h2 id="past" className="text-3xl leading-none">
@@ -175,7 +186,7 @@ export function ProfileView({
               </p>
             )}
             {orders.length === 0 ? (
-              <p className="mt-4 rounded-3xl bg-muted/60 p-6 text-center text-muted-foreground">
+              <p className="mt-4 rounded-md bg-muted/60 p-6 text-center text-muted-foreground">
                 {t.profile.noOrders}
               </p>
             ) : (

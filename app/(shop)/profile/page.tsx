@@ -7,6 +7,7 @@ import { dance } from "@/lib/copy";
 import { listChoreo } from "@/lib/db/choreo";
 import { getOrdersForUser } from "@/lib/db/orders";
 import { getProfile } from "@/lib/db/profiles";
+import { isDemoDancer } from "@/lib/demo-dancer";
 import { getCurrentUser } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ async function ProfileContent() {
       profile={profile}
       orders={orders}
       choreo={choreo}
+      isDemo={isDemoDancer(user)}
     />
   );
 }

@@ -10,6 +10,7 @@ import {
   type LoginInput,
 } from "@/lib/auth-schema";
 import { createSupabaseServer } from "@/lib/supabase/server";
+import { demoDancerCredentials } from "@/lib/demo-dancer";
 
 // Supabase Auth error codes → copy keys in `auth`.
 function authError(code: string | undefined): AuthErrorKey {
@@ -60,6 +61,15 @@ export async function signUp(input: JoinInput): Promise<AuthResult> {
   if (error) return { ok: false, error: authError(error.code) };
   // With email confirmation on, Supabase returns no session yet.
   return { ok: true, needsConfirmation: !data.session };
+}
+
+// One tap into the shared demo dancer account.
+export async function signInAsDemo(): Promise<AuthResult> {
+  const credentials = demoDancerCredentials();
+  if (!credentials) return { ok: false, error: "errorGeneric" };
+  const supabase = await createSupabaseServer();
+  const { error } = await supabase.auth.signInWithPassword(credentials);
+  return error ? { ok: false, error: authError(error.code) } : { ok: true };
 }
 
 export async function signOut() {

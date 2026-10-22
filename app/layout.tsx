@@ -7,6 +7,7 @@ import { Providers } from "@/components/layout/Providers";
 import { Toaster } from "@/components/layout/Toaster";
 import { WelcomeTour } from "@/components/layout/WelcomeTour";
 import { dance } from "@/lib/copy";
+import { getScheduleRules } from "@/lib/db/schedule";
 import "./globals.css";
 
 // Body text.
@@ -35,7 +36,8 @@ export const metadata: Metadata = {
   description: dance.tagline,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const rules = await getScheduleRules();
   return (
     <html
       lang="en"
@@ -46,7 +48,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <DemoBanner />
           <Header />
           {children}
-          <Footer />
+          <Footer
+            openMinute={rules.openMinute}
+            closeMinute={rules.closeMinute}
+          />
           <WelcomeTour />
           <Toaster />
         </Providers>

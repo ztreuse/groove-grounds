@@ -23,7 +23,7 @@ import { fill, type Copy } from "@/lib/copy";
 import { formatDay, formatPeso, formatTime } from "@/lib/format";
 import { getOrderIntent } from "@/lib/order-intent";
 import { routes } from "@/lib/routes";
-import { dayKey, schedule } from "@/lib/schedule";
+import { dayKey, type ScheduleRules } from "@/lib/schedule";
 import { isDrinkItem, usePlaylist } from "@/stores/playlist";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentOptions } from "./PaymentOptions";
@@ -52,7 +52,7 @@ function Section({
   );
 }
 
-export function ShowtimeForm() {
+export function ShowtimeForm({ rules }: { rules: ScheduleRules }) {
   const { t, plain, isPlain } = useCopy();
   const router = useRouter();
   const hydrated = usePlaylistHydrated();
@@ -109,7 +109,7 @@ export function ShowtimeForm() {
     .filter(isDrinkItem)
     .reduce((sum, item) => sum + item.quantity, 0);
   const isClass = orderType === "class";
-  const tooManyForClass = isClass && drinkCount > schedule.slotCapacity;
+  const tooManyForClass = isClass && drinkCount > rules.slotCapacity;
 
   const pickupLabel = isClass
     ? slotStart
@@ -224,7 +224,7 @@ export function ShowtimeForm() {
               {tooManyForClass ? (
                 <p className="mt-4 rounded-2xl bg-destructive/10 p-4 text-sm text-destructive">
                   {fill(t.showtime.tooManyDrinks, {
-                    max: schedule.slotCapacity,
+                    max: rules.slotCapacity,
                   })}
                 </p>
               ) : (
@@ -235,6 +235,7 @@ export function ShowtimeForm() {
                   }
                   drinkCount={drinkCount}
                   refreshToken={slotRefresh}
+                  rules={rules}
                 />
               )}
               {errors.slotStart && (

@@ -14,7 +14,7 @@ import {
 import { cacheLife, cacheTag } from "next/cache";
 import { drinkImageSrc } from "@/lib/drink-images";
 import type { RemixGroup } from "@/lib/pricing";
-import { schedule, slotsForDay } from "@/lib/schedule";
+import { slotsForDay, type ScheduleRules } from "@/lib/schedule";
 import { db } from "./index";
 import {
   drinkOptionGroups,
@@ -233,8 +233,12 @@ export async function getDrinksBySlugs(slugs: string[]) {
 }
 
 // Spots left in each bookable slot on a Manila day.
-export async function getSlotAvailability(day: string, now: Date) {
-  const starts = slotsForDay(day, now);
+export async function getSlotAvailability(
+  day: string,
+  now: Date,
+  rules: ScheduleRules,
+) {
+  const starts = slotsForDay(day, now, rules);
   if (starts.length === 0) return [];
 
   const rows = await db
@@ -259,7 +263,7 @@ export async function getSlotAvailability(day: string, now: Date) {
 
   return starts.map((startsAt) => ({
     startsAt,
-    remaining: Math.max(0, booked.get(startsAt) ?? schedule.slotCapacity),
+    remaining: Math.max(0, booked.get(startsAt) ?? rules.slotCapacity),
   }));
 }
 

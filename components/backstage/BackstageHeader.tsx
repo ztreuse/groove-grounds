@@ -5,8 +5,8 @@ import type { PageKey } from "@/lib/copy";
 
 type BackstageHeaderProps = {
   page: PageKey;
-  // Optional intro line: the menu manager's.
-  intro?: "menu";
+  // Optional intro line for the page.
+  intro?: "menu" | "schedule";
 };
 
 // Title block for Backstage pages: section label, poster-caps title.
@@ -25,8 +25,10 @@ export function BackstageHeader({ page, intro }: BackstageHeaderProps) {
           {plain.pages[page]}
         </p>
       )}
-      {intro === "menu" && (
-        <p className="mt-4 max-w-prose text-muted-foreground">{t.menu.intro}</p>
+      {intro && (
+        <p className="mt-4 max-w-prose text-muted-foreground">
+          {intro === "menu" ? t.menu.intro : t.scheduleAdmin.intro}
+        </p>
       )}
     </header>
   );

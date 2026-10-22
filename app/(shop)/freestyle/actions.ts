@@ -6,6 +6,7 @@ import { insertChoreo } from "@/lib/db/choreo";
 import { getDrinksForCheckout } from "@/lib/db/queries";
 import { priceRemix } from "@/lib/pricing";
 import { recipeFromPriced } from "@/lib/remix-form";
+import { isDemoDancer } from "@/lib/demo-dancer";
 import { getCurrentUser } from "@/lib/supabase/server";
 
 const saveChoreoSchema = z.object({
@@ -18,7 +19,7 @@ const saveChoreoSchema = z.object({
 // "Name your choreo": saves a Freestyle drink to the member's profile.
 export async function saveChoreo(input: z.input<typeof saveChoreoSchema>) {
   const user = await getCurrentUser();
-  if (!user) return { ok: false as const };
+  if (!user || isDemoDancer(user)) return { ok: false as const };
   const parsed = saveChoreoSchema.safeParse(input);
   if (!parsed.success) return { ok: false as const };
 

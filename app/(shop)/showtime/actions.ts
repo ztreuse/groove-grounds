@@ -18,7 +18,8 @@ import { orderItems, orders, timeSlots } from "@/lib/db/schema";
 import { getProfile } from "@/lib/db/profiles";
 import { rememberDemoOrder } from "@/lib/demo-orders";
 import { priceRemix, type PricedRemix } from "@/lib/pricing";
-import { isBookableDay, isBookableSlot, schedule } from "@/lib/schedule";
+import { getScheduleRules } from "@/lib/db/schedule";
+import { isBookableDay, isBookableSlot } from "@/lib/schedule";
 import { getCurrentUser } from "@/lib/supabase/server";
 
 type CheckoutFailure = Extract<CreateOrderResult, { ok: false }>;
@@ -64,8 +65,11 @@ export async function getCheckoutPrefill() {
 
 export async function fetchSlots(day: string) {
   const now = new Date();
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !isBookableDay(day, now)) return [];
-  return getSlotAvailability(day, now);
+  const rules = await getScheduleRules();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !isBookableDay(day, now, rules)) {
+    return [];
+  }
+  return getSlotAvailability(day, now, rules);
 }
 
 // Creates a demo order. Prices are recalculated here from the database; the
@@ -85,8 +89,9 @@ export async function createOrder(
   // Members get the order on their Dancer Profile; guests are fine too.
   const user = await getCurrentUser();
   const isClass = form.orderType === "class";
+  const rules = await getScheduleRules();
 
-  if (isClass && !isBookableSlot(form.slotStart, now)) {
+  if (isClass && !isBookableSlot(form.slotStart, now, rules)) {
     return { ok: false, error: "errorSlot" };
   }
 
@@ -122,7 +127,7 @@ export async function createOrder(
   const drinkCount = lines
     .filter((line) => line.drink.tempsAllowed.length > 0)
     .reduce((sum, line) => sum + line.quantity, 0);
-  if (isClass && drinkCount > schedule.slotCapacity) {
+  if (isClass && drinkCount > rules.slotCapacity) {
     return { ok: false, error: "errorSlotFull" };
   }
 
@@ -135,7 +140,7 @@ export async function createOrder(
             .insert(timeSlots)
             .values({
               startsAt: new Date(form.slotStart),
-              capacity: schedule.slotCapacity,
+              capacity: rules.slotCapacity,
               bookedCount: drinkCount,
             })
             .onConflictDoUpdate({

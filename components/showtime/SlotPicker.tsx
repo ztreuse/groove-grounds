@@ -9,7 +9,12 @@ import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import { fill } from "@/lib/copy";
 import type { SlotAvailability } from "@/lib/db/queries";
 import { formatDay, formatTime } from "@/lib/format";
-import { bookableDays, slotsForDay } from "@/lib/schedule";
+import {
+  bookableDays,
+  dayKey,
+  slotsForDay,
+  type ScheduleRules,
+} from "@/lib/schedule";
 
 type SlotPickerProps = {
   value: string;
@@ -18,6 +23,7 @@ type SlotPickerProps = {
   drinkCount: number;
   // Bump to refetch, e.g. after the chosen class filled up.
   refreshToken: number;
+  rules: ScheduleRules;
 };
 
 type SlotState = { key: string; slots?: SlotAvailability[]; error?: boolean };
@@ -29,15 +35,18 @@ export function SlotPicker({
   onChange,
   drinkCount,
   refreshToken,
+  rules,
 }: SlotPickerProps) {
   const { t, plain } = useCopy();
   const edges = useScrollEdges<HTMLDivElement>();
   // Skip days with no times left (e.g. today after closing).
   const [days] = useState(() => {
     const now = new Date();
-    return bookableDays(now).filter((d) => slotsForDay(d, now).length > 0);
+    return bookableDays(now, rules).filter(
+      (d) => slotsForDay(d, now, rules).length > 0,
+    );
   });
-  const [today] = useState(() => bookableDays(new Date())[0]);
+  const [today] = useState(() => dayKey(new Date()));
   const [day, setDay] = useState(days[0]);
   const [retries, setRetries] = useState(0);
   const [state, setState] = useState<SlotState>({ key: "" });
@@ -45,6 +54,7 @@ export function SlotPicker({
   const key = `${day}:${retries}:${refreshToken}`;
   useEffect(() => {
     let cancelled = false;
+    if (!day) return;
     fetchSlots(day)
       .then((slots) => !cancelled && setState({ key, slots }))
       .catch(() => !cancelled && setState({ key, error: true }));
@@ -60,6 +70,15 @@ export function SlotPicker({
     if (offset === 1) return t.showtime.tomorrow;
     return formatDay(d);
   };
+
+  // Every bookable day is a blackout date (or already over).
+  if (!day) {
+    return (
+      <p className="mt-4 rounded-md bg-muted p-4 text-sm">
+        {t.showtime.noDays}
+      </p>
+    );
+  }
 
   return (
     <div className="mt-4 space-y-4">

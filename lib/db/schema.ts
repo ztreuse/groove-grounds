@@ -227,6 +227,26 @@ export const timeSlots = pgTable("time_slots", {
   bookedCount: integer("booked_count").notNull().default(0),
 }).enableRLS();
 
+// Class schedule (Backstage > Class schedule). One row, id 1. Times are
+// minutes after midnight, Manila time; blackout dates are "YYYY-MM-DD".
+export const scheduleSettings = pgTable(
+  "schedule_settings",
+  {
+    id: integer("id").primaryKey().default(1),
+    openMinute: integer("open_minute").notNull().default(420),
+    closeMinute: integer("close_minute").notNull().default(1260),
+    slotMinutes: integer("slot_minutes").notNull().default(15),
+    slotCapacity: integer("slot_capacity").notNull().default(6),
+    daysAhead: integer("days_ahead").notNull().default(7),
+    leadMinutes: integer("lead_minutes").notNull().default(30),
+    blackoutDates: text("blackout_dates").array().notNull().default([]),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  () => [publicRead("schedule_settings")],
+);
+
 export const savedChoreo = pgTable("saved_choreo", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id")

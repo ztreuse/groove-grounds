@@ -182,6 +182,8 @@ export const dance = {
     classFull: "Class full",
     spotsLeft: "{count} left",
     noSlots: "No classes left that day. Pick another day.",
+    noDays:
+      "No classes on the schedule right now. Drop in instead, or check back soon.",
     slotsError: "Couldn't load class times. Try again.",
     retry: "Try again",
     tooManyDrinks:
@@ -329,9 +331,15 @@ export const dance = {
     errorRateLimit: "Too many tries. Take five and try again.",
     errorEmailBlocked: "We can't send email to that address right now.",
     errorGeneric: "Something went off-beat. Try again.",
+    tryDemo: "Try the demo dancer",
+    tryDemoHint:
+      "No sign-up needed: a shared account with past orders and Saved Choreo.",
+    or: "or",
   },
 
   profile: {
+    demoLocked:
+      "This is the shared demo account, so its details can't be changed.",
     signedOutTitle: "Step into the crew",
     signedOutBody:
       "Join the Crew to keep your details, see your Past Performances and save your choreo.",
@@ -435,6 +443,30 @@ export const dance = {
     required: "Fill this in.",
     priceInvalid: "Use a whole peso amount.",
     snack: "Snack (no temperature)",
+  },
+
+  scheduleAdmin: {
+    intro:
+      "When classes run and how full they get. Changes apply to new bookings right away.",
+    hoursTitle: "Opening hours",
+    opens: "Opens",
+    closes: "Closes",
+    slotsTitle: "Classes",
+    slotMinutes: "Class length",
+    minutes: "{count} min",
+    capacity: "Max drinks per class",
+    daysAhead: "Book up to (days ahead)",
+    lead: "Minimum notice (minutes)",
+    blackoutTitle: "Blackout dates",
+    blackoutBody: "No classes on these days. Drop-in orders still work.",
+    addBlackout: "Add date",
+    removeBlackout: "Remove {date}",
+    noBlackouts: "No blackout dates.",
+    preview: "{count} classes a day, last one at {time}.",
+    save: "Save schedule",
+    saved: "Schedule saved.",
+    saveFailed: "Couldn't save. Check the fields and try again.",
+    closeAfterOpen: "Closing time must be after opening time.",
   },
 
   placeholder: {
@@ -646,6 +678,8 @@ export const plain: Widen<typeof dance> = {
     classFull: "Full",
     spotsLeft: "{count} left",
     noSlots: "No times left that day. Pick another day.",
+    noDays:
+      "No pickup times available right now. Order for pickup now, or check back soon.",
     slotsError: "Couldn't load pickup times. Try again.",
     retry: "Try again",
     tooManyDrinks:
@@ -794,9 +828,15 @@ export const plain: Widen<typeof dance> = {
       "Too many attempts. Please wait a few minutes and try again.",
     errorEmailBlocked: "We can't send email to that address right now.",
     errorGeneric: "Something went wrong. Try again.",
+    tryDemo: "Try a demo account",
+    tryDemoHint:
+      "No sign-up needed: a shared account with past orders and saved drinks.",
+    or: "or",
   },
 
   profile: {
+    demoLocked:
+      "This is the shared demo account, so its details can't be changed.",
     signedOutTitle: "Your account",
     signedOutBody:
       "Sign up to keep your details, see your order history and save drinks.",
@@ -900,6 +940,30 @@ export const plain: Widen<typeof dance> = {
     required: "Fill this in.",
     priceInvalid: "Use a whole peso amount.",
     snack: "Snack (no temperature)",
+  },
+
+  scheduleAdmin: {
+    intro:
+      "Pickup hours and how many drinks fit in each time slot. Changes apply to new orders right away.",
+    hoursTitle: "Opening hours",
+    opens: "Opens",
+    closes: "Closes",
+    slotsTitle: "Pickup slots",
+    slotMinutes: "Slot length",
+    minutes: "{count} min",
+    capacity: "Max drinks per slot",
+    daysAhead: "Book up to (days ahead)",
+    lead: "Minimum notice (minutes)",
+    blackoutTitle: "Closed dates",
+    blackoutBody: "No scheduled pickups on these days. Order-now still works.",
+    addBlackout: "Add date",
+    removeBlackout: "Remove {date}",
+    noBlackouts: "No closed dates.",
+    preview: "{count} slots a day, last one at {time}.",
+    save: "Save schedule",
+    saved: "Schedule saved.",
+    saveFailed: "Couldn't save. Check the fields and try again.",
+    closeAfterOpen: "Closing time must be after opening time.",
   },
 
   placeholder: {

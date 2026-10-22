@@ -6,7 +6,6 @@ import { useCopy } from "@/hooks/use-copy";
 import { fill, type Copy } from "@/lib/copy";
 import { formatClock } from "@/lib/format";
 import { routes } from "@/lib/routes";
-import { schedule } from "@/lib/schedule";
 import { LogoMark } from "./LogoMark";
 
 // The footer always uses plain words (the `footer` copy is the same in both
@@ -20,7 +19,9 @@ const footerLinks: { key: keyof Copy["footer"]; href: string }[] = [
   { key: "demoBackstage", href: routes.backstageQueue.href },
 ];
 
-export function Footer() {
+type FooterProps = { openMinute: number; closeMinute: number };
+
+export function Footer({ openMinute, closeMinute }: FooterProps) {
   const { t, plain } = useCopy();
 
   return (
@@ -32,8 +33,8 @@ export function Footer() {
             <p className="max-w-xs text-foreground/80">{t.tagline}</p>
             <p className="mt-3 eyebrow text-khaki">
               {fill(t.footer.hours, {
-                open: formatClock(schedule.openMinute),
-                close: formatClock(schedule.closeMinute),
+                open: formatClock(openMinute),
+                close: formatClock(closeMinute),
               })}
             </p>
           </div>

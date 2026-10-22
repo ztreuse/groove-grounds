@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MailIcon } from "@/components/icons/GrooveIcons";
-import { signIn, signUp } from "@/app/(auth)/actions";
+import { MailIcon, SneakerIcon } from "@/components/icons/GrooveIcons";
+import { signIn, signUp, signInAsDemo } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import {
@@ -29,6 +29,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
   const router = useRouter();
   const [serverError, setServerError] = useState<AuthErrorKey | null>(null);
   const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
+  const [demoBusy, setDemoBusy] = useState(false);
   const isJoin = mode === "join";
 
   const {
@@ -59,6 +60,20 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
     router.replace(next);
     router.refresh();
   });
+
+  async function tryDemo() {
+    setServerError(null);
+    setDemoBusy(true);
+    const result = await signInAsDemo();
+    setDemoBusy(false);
+    if (!result.ok) {
+      setServerError(result.error);
+      return;
+    }
+    // The demo dancer is a customer: land on their Dancer Profile.
+    router.replace(next.startsWith("/backstage") ? routes.profile.href : next);
+    router.refresh();
+  }
 
   if (confirmEmail) {
     return (
@@ -143,6 +158,28 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
           {isSubmitting ? t.auth.working : title}
         </Button>
       </form>
+
+      {/* One tap into the shared demo dancer, for portfolio visitors. */}
+      <div className="mt-6 flex items-center gap-3 text-xs font-medium text-muted-foreground">
+        <span className="h-px flex-1 bg-border" />
+        {t.auth.or}
+        <span className="h-px flex-1 bg-border" />
+      </div>
+      <Button
+        type="button"
+        variant="outline"
+        size="lg"
+        onClick={tryDemo}
+        disabled={demoBusy}
+        aria-label={plain.auth.tryDemo}
+        className="mt-4 h-auto min-h-14 w-full gap-3 rounded-md"
+      >
+        <IconTile icon={SneakerIcon} size="sm" />
+        {demoBusy ? t.auth.working : t.auth.tryDemo}
+      </Button>
+      <p className="mt-2 text-center text-xs text-muted-foreground">
+        {t.auth.tryDemoHint}
+      </p>
 
       <p className="mt-6 text-sm">
         {isJoin ? t.auth.haveAccount : t.auth.noAccount}{" "}

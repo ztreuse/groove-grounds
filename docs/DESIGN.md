@@ -110,6 +110,7 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `StaffGate` | backstage | Shown when a visitor may not use a Backstage page: sign in (signed out), not on the crew list, or owner only; always offers the Demo Backstage queue. |
 | `Switch` | backstage | Labelled on/off switch, 44px tap target, purple track when on. Spotlight and Sitting out in the menu manager. |
 | `MenuManager` | backstage | Owner-only editor: items by genre with Spotlight / On the floor switches and an inline `DrinkForm`; Remix options with add-on prices and availability. |
+| `ScheduleForm` | backstage | Owner-only class schedule: hours (time fields), slot length (chips), max drinks per slot, booking window, minimum notice, blackout dates as removable chips, and a live "N classes a day" preview. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
 

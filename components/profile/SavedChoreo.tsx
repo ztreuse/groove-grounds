@@ -31,14 +31,21 @@ function RemoveButton({ id }: { id: string }) {
         router.refresh();
       }}
       aria-label={confirm ? plain.profile.confirmRemove : plain.profile.remove}
-      className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-destructive outline-none hover:bg-destructive/10 focus-visible:ring-3 focus-visible:ring-ring"
+      className="inline-flex min-h-11 items-center rounded-md px-2 text-sm font-semibold text-destructive outline-none hover:bg-destructive/10 focus-visible:ring-3 focus-visible:ring-ring"
     >
       {confirm ? t.profile.confirmRemove : t.profile.remove}
     </button>
   );
 }
 
-export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
+export function SavedChoreo({
+  choreo,
+  readOnly = false,
+}: {
+  choreo: SavedChoreoEntry[];
+  // Demo dancer: Run it back only, no removing.
+  readOnly?: boolean;
+}) {
   const { t, plain, isPlain } = useCopy();
 
   return (
@@ -52,7 +59,7 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
         </p>
       )}
       {choreo.length === 0 ? (
-        <div className="mt-4 rounded-3xl bg-muted/60 p-6 text-center">
+        <div className="mt-4 rounded-md bg-muted/60 p-6 text-center">
           <p className="text-muted-foreground">{t.profile.noChoreo}</p>
           <Link
             href={routes.freestyle.href}
@@ -98,7 +105,7 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
                 {entry.available && (
                   <RunItBackButton kind="choreo" id={entry.id} />
                 )}
-                <RemoveButton id={entry.id} />
+                {!readOnly && <RemoveButton id={entry.id} />}
               </div>
             </li>
           ))}

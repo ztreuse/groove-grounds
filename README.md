@@ -34,3 +34,14 @@ update profiles set role = 'owner'   -- or 'barista'
 where id = (select id from auth.users where email = 'you@example.com');
 ```
 
+## Demo dancer (one-tap sign-in)
+
+The sign-in page has **Try the demo dancer**: a shared customer account with past orders, Saved Choreo and Reps, so visitors can see the Dancer Profile without signing up. Its details and choreo are read-only.
+
+1. Set `DEMO_DANCER_EMAIL` and `DEMO_DANCER_PASSWORD` in `.env.local` (and in your host's environment variables when deploying).
+2. Run `npm run db:seed-demo`. It creates the account if needed and resets its orders, choreo and Reps; run it again any time to refresh the demo.
+
+## Class schedule
+
+Opening hours, slot length, max drinks per slot, how far ahead people can book, minimum notice and blackout dates live in the `schedule_settings` table. The owner edits them at `/backstage/schedule`.
+
