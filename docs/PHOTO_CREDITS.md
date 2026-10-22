@@ -52,3 +52,11 @@ Backgrounds in `public/scenes/` (page headers, home, Freestyle stage), also from
 | `barista.webp` | [man in blue shirt and gray cap making cappuccino](https://www.pexels.com/photo/man-in-blue-shirt-and-gray-cap-making-cappuccino-3827542/) |
 | `sneakers.webp` | [a white sneakers](https://www.pexels.com/photo/a-white-sneakers-6322602/) |
 | `studio-rehearsal.webp` | [dancers rehearsing a dance moves](https://www.pexels.com/photo/dancers-rehearsing-a-dance-moves-6926714/) |
+
+## Brand marks
+
+Shown only to label the matching (simulated) payment option; the checkout is a demo and no real payments are taken. Trademarks belong to their owners.
+
+| File | Source |
+| --- | --- |
+| `public/brands/gcash.svg` | GCash logo, [Wikimedia Commons: GCash_logo.svg](https://commons.wikimedia.org/wiki/File:GCash_logo.svg). GCash is a trademark of G-Xchange, Inc. |

@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import type { UseFormRegisterReturn } from "react-hook-form";
-import { CardIcon, ShopIcon, WalletIcon } from "@/components/icons/GrooveIcons";
+import { CardIcon, ShopIcon } from "@/components/icons/GrooveIcons";
 import { IconTile } from "@/components/layout/IconTile";
 import { useCopy } from "@/hooks/use-copy";
 import type { PaymentMethod } from "@/lib/checkout";
@@ -26,7 +27,10 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
       value: "demo_gcash",
       label: t.showtime.gcash,
       ariaLabel: plain.showtime.gcash,
-      icon: WalletIcon,
+      icon: null,
+      // The real GCash mark (public/brands, from Wikimedia Commons) stands
+      // in for icon + label; the demo notice below still applies.
+      logo: { src: "/brands/gcash.svg", width: 1792, height: 422 },
       hint: t.showtime.gcashHint,
     },
     {
@@ -34,6 +38,7 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
       label: t.showtime.card,
       ariaLabel: plain.showtime.card,
       icon: CardIcon,
+      logo: null,
       hint: null,
     },
     {
@@ -41,6 +46,7 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
       label: t.showtime.payAtPickup,
       ariaLabel: plain.showtime.payAtPickup,
       icon: ShopIcon,
+      logo: null,
       hint: t.showtime.payAtPickupHint,
     },
   ] as const;
@@ -50,70 +56,92 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
 
   return (
     <div className="space-y-2">
-      {methods.map(({ value: method, label, ariaLabel, icon: Icon, hint }) => {
-        const active = method === value;
-        return (
-          <div
-            key={method}
-            className={`surface rounded-2xl transition-shadow ${
-              active ? "ring-2 ring-primary" : ""
-            }`}
-          >
-            <label className="flex min-h-14 cursor-pointer items-center gap-3 px-4">
-              <input
-                type="radio"
-                value={method}
-                aria-label={ariaLabel}
-                className="size-5 accent-[var(--color-purple)]"
-                {...register}
-              />
-              <IconTile
-                icon={Icon}
-                tone={active ? "accent" : "neutral"}
-                size="sm"
-              />
-              <span className="font-semibold">{label}</span>
-            </label>
-            {active && hint && (
-              <p className="px-4 pb-3 text-sm text-muted-foreground">{hint}</p>
-            )}
-            {active && method === "demo_card" && (
-              <div className="grid grid-cols-2 gap-2 px-4 pb-4">
-                <label className="col-span-2 text-xs font-medium">
-                  {t.showtime.cardNumber}
-                  <input
-                    readOnly
-                    tabIndex={-1}
-                    value={DEMO_CARD.number}
-                    aria-label={plain.showtime.cardNumber}
-                    className={`mt-1 ${readOnlyField}`}
-                  />
-                </label>
-                <label className="text-xs font-medium">
-                  {t.showtime.cardExpiry}
-                  <input
-                    readOnly
-                    tabIndex={-1}
-                    value={DEMO_CARD.expiry}
-                    aria-label={plain.showtime.cardExpiry}
-                    className={`mt-1 ${readOnlyField}`}
-                  />
-                </label>
-                <label className="text-xs font-medium">
-                  {t.showtime.cardCvc}
-                  <input
-                    readOnly
-                    tabIndex={-1}
-                    value={DEMO_CARD.cvc}
-                    aria-label={plain.showtime.cardCvc}
-                    className={`mt-1 ${readOnlyField}`}
-                  />
-                </label>
-              </div>
-            )}
-          </div>
-        );
-      })}
+      {methods.map(
+        ({ value: method, label, ariaLabel, icon: Icon, logo, hint }) => {
+          const active = method === value;
+          return (
+            <div
+              key={method}
+              className={`surface rounded-2xl transition-shadow ${
+                active ? "ring-2 ring-primary" : ""
+              }`}
+            >
+              <label className="flex min-h-14 cursor-pointer items-center gap-3 px-4">
+                <input
+                  type="radio"
+                  value={method}
+                  aria-label={ariaLabel}
+                  className="size-5 accent-[var(--color-purple)]"
+                  {...register}
+                />
+                {logo ? (
+                  <>
+                    <Image
+                      src={logo.src}
+                      alt=""
+                      width={logo.width}
+                      height={logo.height}
+                      unoptimized
+                      className="h-6 w-auto"
+                    />
+                    <span className="sr-only">{label}</span>
+                  </>
+                ) : (
+                  Icon && (
+                    <>
+                      <IconTile
+                        icon={Icon}
+                        tone={active ? "accent" : "neutral"}
+                        size="sm"
+                      />
+                      <span className="font-semibold">{label}</span>
+                    </>
+                  )
+                )}
+              </label>
+              {active && hint && (
+                <p className="px-4 pb-3 text-sm text-muted-foreground">
+                  {hint}
+                </p>
+              )}
+              {active && method === "demo_card" && (
+                <div className="grid grid-cols-2 gap-2 px-4 pb-4">
+                  <label className="col-span-2 text-xs font-medium">
+                    {t.showtime.cardNumber}
+                    <input
+                      readOnly
+                      tabIndex={-1}
+                      value={DEMO_CARD.number}
+                      aria-label={plain.showtime.cardNumber}
+                      className={`mt-1 ${readOnlyField}`}
+                    />
+                  </label>
+                  <label className="text-xs font-medium">
+                    {t.showtime.cardExpiry}
+                    <input
+                      readOnly
+                      tabIndex={-1}
+                      value={DEMO_CARD.expiry}
+                      aria-label={plain.showtime.cardExpiry}
+                      className={`mt-1 ${readOnlyField}`}
+                    />
+                  </label>
+                  <label className="text-xs font-medium">
+                    {t.showtime.cardCvc}
+                    <input
+                      readOnly
+                      tabIndex={-1}
+                      value={DEMO_CARD.cvc}
+                      aria-label={plain.showtime.cardCvc}
+                      className={`mt-1 ${readOnlyField}`}
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
+          );
+        },
+      )}
       <p className="rounded-xl bg-accent px-4 py-3 text-sm font-medium text-accent-foreground">
         {t.showtime.demoNotice}
       </p>
