@@ -11,16 +11,17 @@ import type { LineupDrink, LineupGenre } from "@/lib/db/queries";
 import { genreBlockFor, genreTerms } from "@/lib/genres";
 import { routes } from "@/lib/routes";
 
-// Offset collage: photos of different shapes, staggered up and down on
-// wide screens. Labels sit under each photo, so long Plain-mode names
-// wrap freely instead of fighting the picture for space.
+// Offset collage: photos of different shapes, staggered on wide screens.
+// Labels sit under each photo, so long Plain-mode names wrap freely.
+// Stagger only with top margins that push tiles down: a negative margin
+// would pull a tile over the label of the tile above it.
 const tileLayout: Record<string, { cell: string; photo: string }> = {
   "old-school": { cell: "lg:col-span-4", photo: "aspect-[4/5]" },
   "new-school": { cell: "lg:col-span-5 lg:mt-28", photo: "aspect-[4/5]" },
   mashup: { cell: "lg:col-span-3", photo: "aspect-[3/4]" },
   "off-beat": { cell: "lg:col-span-5 lg:col-start-2", photo: "aspect-[4/3]" },
   intermission: {
-    cell: "lg:col-span-4 lg:col-start-8 lg:-mt-24",
+    cell: "lg:col-span-4 lg:col-start-8 lg:mt-20",
     photo: "aspect-[4/3]",
   },
 };
