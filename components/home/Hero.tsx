@@ -37,6 +37,17 @@ const ctas = [
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+// Smoothstep from the hero's espresso to the page background, mixed in
+// OKLab so the middle stays a warm brown instead of going grey.
+const easedFade = `linear-gradient(to bottom, ${[
+  100, 97, 89, 76, 59, 41, 24, 11, 3, 0,
+]
+  .map(
+    (dark, i) =>
+      `color-mix(in oklab, var(--color-espresso-deep) ${dark}%, var(--background)) ${(i * 100) / 9}%`,
+  )
+  .join(", ")})`;
+
 // Split hero: the headline and order buttons on cream, a breaker frozen
 // mid-move in a white studio running to the edge, the scroll-turned
 // sticker on the seam and the Spotlight drink pinned to the photo.
@@ -104,27 +115,28 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
           </motion.div>
         </div>
 
-        {/* Photo as the backdrop: a dancer under a single spotlight. The mask
-          fades it into the dark behind the headline and at the bottom. */}
+        {/* Photo as the backdrop: a breaker in the cypher under stage lights.
+          The mask fades it into the dark behind the headline and at the
+          bottom, well before the section ends. */}
         <div className="relative h-[26rem] sm:h-[34rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
           <motion.div
             aria-hidden
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.4, ease }}
-            className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_72%,transparent)] lg:[mask-image:linear-gradient(to_right,transparent,black_28%),linear-gradient(to_bottom,black_68%,transparent)] lg:[mask-composite:intersect]"
+            className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_72%,transparent)] lg:[mask-image:linear-gradient(to_right,transparent,black_30%),linear-gradient(to_bottom,black_60%,transparent_95%)] lg:[mask-composite:intersect]"
           >
             <motion.div
               style={{ y: photoY, scale: photoScale }}
               className="absolute inset-0"
             >
               <Image
-                src="/scenes/hero-spotlight.webp"
+                src="/scenes/cypher-battle.webp"
                 alt=""
                 fill
                 priority
                 sizes="(min-width: 1024px) 55vw, 100vw"
-                className="object-cover object-[45%_30%]"
+                className="object-cover object-[40%_center]"
               />
             </motion.div>
           </motion.div>
@@ -175,10 +187,12 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
           </motion.div>
         </div>
       </section>
-      {/* Dark stage easing into the cream page below. */}
+      {/* Dark stage easing into the cream page below. Eased stops (not a
+          straight two-colour fade) so neither end shows a visible line. */}
       <div
         aria-hidden
-        className="h-24 bg-gradient-to-b from-espresso-deep to-background sm:h-32"
+        className="h-40 sm:h-56"
+        style={{ backgroundImage: easedFade }}
       />
     </>
   );
