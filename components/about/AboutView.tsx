@@ -15,11 +15,12 @@ import { routes } from "@/lib/routes";
 // The three ideas the site is built on, each a glossary term.
 const hooks = ["lineup", "playlist", "showtime"] as const;
 
-// Placeholder choreographers until real names and photos are in.
+// A fictional crew for the concept. Photos show hands only, so no real
+// person is presented as one of them.
 const choreographers = [
-  { photo: "/scenes/barista.webp", position: "center" },
-  { photo: "/scenes/barista-pour.webp", position: "center" },
-];
+  { key: "shots", photo: "/scenes/barista-tamp.webp", position: "center 70%" },
+  { key: "pour", photo: "/scenes/barista-pour.webp", position: "center" },
+] as const;
 
 // Genre names stay as dance terms in both modes (like drink names): the
 // band explains them.
@@ -107,18 +108,21 @@ export function AboutView() {
                 </div>
                 <div className="border-b border-border py-4">
                   <span className="eyebrow text-highlight">
-                    {t.about.baristaRole}
+                    {t.about.choreographers[person.key].role}
                   </span>
                   <h3 className="mt-1 font-heading text-2xl leading-[0.95] font-black uppercase [font-stretch:64%] sm:text-3xl">
-                    {t.about.baristaName}
+                    {t.about.choreographers[person.key].name}
                   </h3>
                   <p className="mt-2 text-muted-foreground">
-                    {t.about.baristaNote}
+                    {t.about.choreographers[person.key].note}
                   </p>
                 </div>
               </Reveal>
             ))}
           </ul>
+          <p className="mt-6 text-sm text-muted-foreground">
+            {t.about.crewNote}
+          </p>
         </div>
       </section>
 

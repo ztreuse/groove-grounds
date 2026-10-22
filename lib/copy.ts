@@ -686,9 +686,19 @@ export const dance = {
     },
     plainSwitch: "Not a dancer? Switch to Plain words anytime, up top.",
     crewBody: "The people behind the bar who make every routine land.",
-    baristaName: "[BARISTA NAME]",
-    baristaRole: "[ROLE]",
-    baristaNote: "[A LINE ABOUT THEM AND THE STYLE THEY DANCE]",
+    choreographers: {
+      shots: {
+        name: "Mika Santos",
+        role: "Head choreographer",
+        note: "Pulls every shot like a popping hit: tight, clean, right on the one. Teaches house on weekends.",
+      },
+      pour: {
+        name: "Jun Reyes",
+        role: "Choreographer, Freestyle bar",
+        note: "Pours latte art like a waacking routine, big arms and sharp lines. Dreamed up most of the Freestyle bases.",
+      },
+    },
+    crewNote: "A concept crew: names and photos are illustrative.",
     inspirationTitle: "Named for the floor",
     inspirationBody:
       "Five genres, each named for how its drinks move. Every drink on The Lineup is a dance style.",
@@ -1434,9 +1444,20 @@ export const plain: Widen<typeof dance> = {
     plainSwitch:
       "The switch at the top of the page changes dance terms to plain words.",
     crewBody: "The baristas who make your drinks.",
-    baristaName: "[BARISTA NAME]",
-    baristaRole: "[ROLE]",
-    baristaNote: "[A LINE ABOUT THEM AND THE STYLE THEY DANCE]",
+    choreographers: {
+      shots: {
+        name: "Mika Santos",
+        role: "Head barista",
+        note: "Makes every espresso by hand, and teaches house dance on weekends.",
+      },
+      pour: {
+        name: "Jun Reyes",
+        role: "Barista, build-your-own drinks",
+        note: "Our latte art lead, and the one behind most of the build-your-own options.",
+      },
+    },
+    crewNote:
+      "These baristas are fictional: names and photos are for illustration.",
     inspirationTitle: "Why the dance names",
     inspirationBody:
       "The menu has five categories, and every drink is named after a dance style.",

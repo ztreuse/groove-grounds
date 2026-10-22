@@ -48,4 +48,4 @@ Opening hours, slot length, max drinks per slot, how far ahead people can book, 
 
 ## Shop details
 
-Find the Studio uses fictional contact details on purpose (a made-up street, a reserved `.example` email, a placeholder number), set in `lib/studio.ts`. Setting `mapEmbedUrl` there (for example the `src` from Google Maps' "Embed a map") shows a map; only do that for a real address. The About page still has `[YOUR …]` placeholders. The story and the choreographers' names live in `lib/copy.ts` under `about`. Opening hours come from Backstage > Class schedule.
+Find the Studio uses fictional contact details on purpose (a made-up street, a reserved `.example` email, a placeholder number), set in `lib/studio.ts`. Setting `mapEmbedUrl` there (for example the `src` from Google Maps' "Embed a map") shows a map; only do that for a real address. The About page's choreographers are fictional too (hands-only photos, so no real person is named); its founding story is still a `[YOUR STORY]` placeholder in `lib/copy.ts`. The story and the choreographers' names live in `lib/copy.ts` under `about`. Opening hours come from Backstage > Class schedule.

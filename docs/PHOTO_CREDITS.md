@@ -50,6 +50,7 @@ Backgrounds in `public/scenes/` (page headers, home, Freestyle stage), also from
 | `bboy.webp` | [a shirtless man in black pants dancing](https://www.pexels.com/photo/a-shirtless-man-in-black-pants-dancing-7375827/) |
 | `barista-pour.webp` | [person pouring liquid in ceramic cup](https://www.pexels.com/photo/person-pouring-liquid-in-ceramic-cup-2036776/) |
 | `barista.webp` | [man in blue shirt and gray cap making cappuccino](https://www.pexels.com/photo/man-in-blue-shirt-and-gray-cap-making-cappuccino-3827542/) |
+| `barista-tamp.webp` | [barista tamping coffee grounds in cafe](https://www.pexels.com/photo/barista-tamping-coffee-grounds-in-cafe-39103471/) |
 | `sneakers.webp` | [a white sneakers](https://www.pexels.com/photo/a-white-sneakers-6322602/) |
 | `studio-rehearsal.webp` | [dancers rehearsing a dance moves](https://www.pexels.com/photo/dancers-rehearsing-a-dance-moves-6926714/) |
 
