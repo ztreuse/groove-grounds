@@ -109,7 +109,7 @@ export function LineupBrowser({
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder={t.lineup.searchPlaceholder}
                 aria-label={plain.lineup.searchLabel}
-                className="h-full min-w-0 flex-1 bg-transparent pl-1 text-base outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
+                className="h-full min-w-0 flex-1 bg-transparent pl-1 label-display text-base outline-none placeholder:font-semibold placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
               />
               <span
                 aria-live="polite"

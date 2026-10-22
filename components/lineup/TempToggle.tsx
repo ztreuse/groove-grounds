@@ -64,7 +64,9 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
         className="relative flex h-9 shrink-0 items-center gap-1.5 rounded-sm bg-muted py-1.5 pr-2 pl-1.5 text-sm font-semibold outline-none after:absolute after:-inset-1 after:content-[''] hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
       >
         {current.tile}
-        <span className="max-sm:sr-only">{current.label}</span>
+        <span className="label-display text-[15px] max-sm:sr-only">
+          {current.label}
+        </span>
         <ChevronDown aria-hidden className="size-4 opacity-70" />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
@@ -89,7 +91,9 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
               >
                 {option.tile}
                 <span className="flex-1 leading-tight">
-                  <span className="block">{option.label}</span>
+                  <span className="block label-display text-[15px]">
+                    {option.label}
+                  </span>
                   {!isPlain && option.ariaLabel !== option.label && (
                     <span className="block text-[11px] font-medium text-muted-foreground">
                       {option.ariaLabel}

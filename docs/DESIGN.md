@@ -70,6 +70,7 @@ Loaded with `next/font/google` in `app/layout.tsx`:
 | Price | `font-heading font-black [font-stretch:70%]`; `₱` via `formatPeso`, no decimals |
 | Body | `font-sans`, 16px, `text-muted-foreground` for secondary, max ~60ch |
 | Label (`eyebrow` utility) | Geist 13px semibold, sentence case. Tags, counts, captions |
+| Control label (`label-display` utility) | Anybody 700, `font-stretch: 96%`: filter chips, search text, dropdown items. Plain sub-labels under them stay in Geist |
 
 Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is used **only** on the home hero ("Coffee with a *beat.*"). Section titles are plain caps.
 

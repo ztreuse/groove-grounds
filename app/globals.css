@@ -290,6 +290,15 @@
   }
 }
 
+/* Control labels in the display face (filters, search, dropdowns), so
+   they sit with the headings. Plain sub-labels stay in the body face. */
+@utility label-display {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-stretch: 96%;
+  letter-spacing: -0.01em;
+}
+
 /* Small label: tags, counts, captions. Quiet sans, sentence case. */
 @utility eyebrow {
   font-family: var(--font-sans);

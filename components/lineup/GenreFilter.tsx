@@ -85,7 +85,9 @@ export function GenreFilter({
             {/* Plain meaning under the dance term, so nobody has to switch
                 modes to know what a genre holds. */}
             <span className="relative text-left leading-tight">
-              <span className="block">{chip.label}</span>
+              <span className="block label-display text-[15px]">
+                {chip.label}
+              </span>
               {!isPlain && chip.ariaLabel !== chip.label && (
                 <span className="block text-[11px] font-medium opacity-70">
                   {chip.ariaLabel}
@@ -93,7 +95,7 @@ export function GenreFilter({
               )}
             </span>
             <span
-              className={`relative min-w-5 rounded-sm px-1 py-px text-center text-[11px] tabular-nums ${
+              className={`relative min-w-5 rounded-sm px-1 py-px text-center label-display text-xs tabular-nums ${
                 active ? "bg-background/15" : "bg-muted text-muted-foreground"
               }`}
             >
