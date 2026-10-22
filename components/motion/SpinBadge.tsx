@@ -38,7 +38,7 @@ export function SpinBadge({ words, className }: SpinBadgeProps) {
         </text>
       </svg>
       <span className="flex size-12 items-center justify-center rounded-full bg-espresso text-lilac">
-        <MugIcon className="size-6 [--icon-accent:var(--color-purple)]" />
+        <MugIcon className="size-6" />
       </span>
     </motion.div>
   );

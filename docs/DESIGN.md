@@ -94,8 +94,8 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `SpinBadge` | motion | Lilac round sticker with text on a circle; rotates with scroll only (never on its own). Home hero only. |
 | `DrinkCard` | lineup | Editorial card: 4:5 photo on its genre colour, dance-style tag, hairline, temps + price, name in poster caps, plain description. A drink is always a `DrinkCard` (Lineup grid and Popular drinks row). |
 | `DrinkVisual` | lineup | The drink's photo (`public/drinks/<slug>.jpg`), falling back to the `CupPreview` / `SnackArt` illustration. |
-| `IconTile` | layout | Renders a Groove icon at a set size (`sm` / `md` / `lg`) with its print colour. Tones: `accent` (lilac print), `neutral` (khaki print), `inherit` (translucent print of the text colour, inside coloured buttons), `custom` (e.g. a temperature). No square behind it. |
-| `TempBadge` | lineup | Temperature on drink cards: the temperature's Groove icon (mug, iced glass, frappe) printed in its colour, plus the dance label. The Lineup filter and the Remix temperature chips use the same `lib/temps.ts` styles. |
+| `IconTile` | layout | A solid Groove glyph on a small `rounded-md` square tinted in its own colour, like a brand logo chip. Tones: `accent` (purple glyph on a purple tint), `neutral` (muted), `inherit` (tint from the surrounding text colour, inside buttons), `custom` (e.g. a temperature). Sizes `sm` / `md` / `lg` (lg for empty and status states). |
+| `TempBadge` | lineup | Temperature on drink cards: the temperature glyph (mug, iced glass, frappe) in its colour on a tint of that colour, plus the dance label. The Lineup filter and the Remix temperature chips use the same `lib/temps.ts` styles. |
 | `OptionGroup` | remix | Remix and Freestyle options. Chips fill with `foreground` when selected; one fill glides between single choices (`layoutId`), multi choices each pop in with a check. |
 | `Button` | ui | shadcn base re-themed: `rounded-md`, purple primary, ghost/outline variants; icon sizes round. Money/time buttons show the dance word and the plain word. |
 | `PlainModeToggle` | layout | Two-segment "Dance terms / Plain words" switch in the header. |
@@ -108,12 +108,12 @@ Inputs use the `field` utility (filled `muted`, small corner, purple focus ring)
 
 ### Icons
 
-- **Groove icon set** (`components/icons/GrooveIcons.tsx`): our own SVGs in a flyer-print style. A rounded outline in `currentColor` (stroke 1.75) over a solid shape printed off-register (offset 1.4 down-right) in `--icon-accent` (lilac by default). 24×24 grid.
+- **Groove icon set** (`components/icons/GrooveIcons.tsx`): our own SVG glyphs drawn like small logos. Solid shapes filled with `currentColor`, details cut out with even-odd (cassette reels, cup sleeve, ice cubes), 24×24 grid. Not outlines, not sketches.
 - Motifs carry the theme: Playlist = cassette, Center Stage = spotlight on a stage, The Lineup = takeaway cup, Freestyle = dance line with a spark, Crew = two dancers, Dance terms = sneaker, Plain words = cup on a saucer, Book a Class = calendar with a clock, empty Playlist = vinyl record.
 - Every icon that stands for a thing or a place uses the Groove set, through `IconTile` or directly. Add new ones to that file in the same style; don't mix in a stock icon for these.
 - Small utility marks (arrows, chevrons, check, plus/minus, close inside dialogs, search, edit, delete) use `lucide-react`, stroke 2.
-- Header icon buttons (account, Playlist, menu) are round, `bg-muted`, and fill with `foreground` on hover; the Playlist count badge sits on the corner with a ring in the page colour.
-- Temperature is always colour-coded in the icon's print (warm orange, cool blue, blended pink) wherever it appears.
+- Beside a label, a glyph sits on an `IconTile` (logo-chip style). Inside round header buttons and the Plain toggle the glyph is bare. Header icon buttons (account, Playlist, menu) are round, `bg-muted`, and fill with `foreground` on hover; the Playlist count badge sits on the corner with a ring in the page colour.
+- Temperature is always colour-coded (warm orange, cool blue, blended pink): glyph in the colour on a tint of it.
 - No emoji.
 
 ## 6. Imagery

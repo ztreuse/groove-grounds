@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
-import { IconTile } from "./IconTile";
 import { CloseIcon, MenuIcon } from "@/components/icons/GrooveIcons";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,7 +53,7 @@ function MobileNav() {
           aria-label={plain.header.openNav}
           className="rounded-full bg-muted text-foreground transition-colors hover:bg-foreground hover:text-background xl:hidden"
         >
-          <IconTile icon={MenuIcon} tone="accent" />
+          <MenuIcon className="size-5" />
         </Button>
       </SheetTrigger>
       <SheetContent
@@ -74,7 +73,7 @@ function MobileNav() {
               aria-label={plain.header.closeNav}
               className="rounded-full"
             >
-              <IconTile icon={CloseIcon} tone="neutral" />
+              <CloseIcon className="size-4" />
             </Button>
           </SheetClose>
         </div>

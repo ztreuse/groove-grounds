@@ -1,6 +1,5 @@
 "use client";
 
-import { IconTile } from "./IconTile";
 import { MugIcon, SneakerIcon } from "@/components/icons/GrooveIcons";
 import { motion } from "motion/react";
 import { useCopy } from "@/hooks/use-copy";
@@ -44,12 +43,7 @@ export function PlainModeToggle() {
                 transition={{ type: "spring", stiffness: 500, damping: 35 }}
               />
             )}
-            <IconTile
-              icon={Icon}
-              tone={active ? "inherit" : "neutral"}
-              size="sm"
-              className="relative"
-            />
+            <Icon className="relative size-4" />
             <span className="relative hidden sm:inline">{label}</span>
           </span>
         );

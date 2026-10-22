@@ -40,7 +40,7 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
       }
     >
       {variant === "bar" ? (
-        <IconTile icon={Icon} tone="accent" />
+        <Icon className="size-5" />
       ) : (
         <IconTile icon={Icon} tone="accent" />
       )}

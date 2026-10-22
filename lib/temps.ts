@@ -7,23 +7,23 @@ import {
 import type { Temperature } from "@/lib/pricing";
 
 // One look per temperature, shared by drink cards, the Lineup filter and the
-// Remix options: an icon, its copy key and its print colour. Class names
+// Remix options: an icon, its copy key and its colour. Class names
 // are written out in full so Tailwind keeps them.
 export const tempStyles = {
   hot: {
     icon: HotIcon,
     key: "warmUp",
-    accent: "[--icon-accent:var(--color-temp-hot)]",
+    accent: "bg-temp-hot/15 text-temp-hot",
   },
   iced: {
     icon: IcedIcon,
     key: "coolDown",
-    accent: "[--icon-accent:var(--color-temp-iced)]",
+    accent: "bg-temp-iced/15 text-temp-iced",
   },
   blended: {
     icon: BlendedIcon,
     key: "blended",
-    accent: "[--icon-accent:var(--color-temp-blended)]",
+    accent: "bg-temp-blended/15 text-temp-blended",
   },
 } as const satisfies Record<
   Temperature,
