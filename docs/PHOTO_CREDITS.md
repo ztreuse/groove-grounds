@@ -51,4 +51,4 @@ Backgrounds in `public/scenes/` (page headers, home, Freestyle stage), also from
 | `barista-pour.webp` | [person pouring liquid in ceramic cup](https://www.pexels.com/photo/person-pouring-liquid-in-ceramic-cup-2036776/) |
 | `barista.webp` | [man in blue shirt and gray cap making cappuccino](https://www.pexels.com/photo/man-in-blue-shirt-and-gray-cap-making-cappuccino-3827542/) |
 | `sneakers.webp` | [a white sneakers](https://www.pexels.com/photo/a-white-sneakers-6322602/) |
-| `cypher-battle.webp` | [man in plaid shirt breakdancing](https://www.pexels.com/photo/man-in-plaid-shirt-breakdancing-5191631/) |
+| `studio-rehearsal.webp` | [dancers rehearsing a dance moves](https://www.pexels.com/photo/dancers-rehearsing-a-dance-moves-6926714/) |

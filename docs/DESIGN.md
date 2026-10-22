@@ -46,7 +46,7 @@ Accent discipline: one primary (purple) action per view. Purple is for actions, 
 
 - **Header** (sticky, full-width glass bar on a hairline) → page content → **Footer** (dark). The demo banner sits above the header on every page.
 - Most pages open with a **`PageHero`**: a dark full-bleed band with a background photo (parallax), the page title in poster caps, the plain meaning under it, optional body and actions. Content below it sits on cream.
-- **Home:** dark hero with a full-bleed spotlight photo fading into cream → genre collage → Popular drinks row → How it works (full-bleed photo with a lilac steps strip) → The Cypher → lilac closing band → footer.
+- **Home:** full-bleed photo hero (dancers rehearsing in a dark studio) ending on a clean edge → genre collage → Popular drinks row → How it works (full-bleed photo with a lilac steps strip) → The Cypher → lilac closing band → footer.
 - **Freestyle** is a full dark "stage" page (`theme-dark` form). **Auth** is a split: photo panel left, form right.
 - Sections are full-bleed and square. Never wrap a section in a rounded, inset card.
 
