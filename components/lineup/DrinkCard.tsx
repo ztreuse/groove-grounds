@@ -10,11 +10,15 @@ import { DrinkVisual } from "./DrinkVisual";
 import { StyleTag } from "./StyleTag";
 import { TempBadge } from "./TempBadge";
 
-type DrinkCardProps = { drink: LineupDrink };
+type DrinkCardProps = {
+  drink: LineupDrink;
+  // Two-up phone grid: tighter type, temperature icons without labels.
+  compact?: boolean;
+};
 
 // Editorial product card: a tall photo on its genre colour, a hairline,
 // then temps and price, and the name in poster caps.
-export function DrinkCard({ drink }: DrinkCardProps) {
+export function DrinkCard({ drink, compact = false }: DrinkCardProps) {
   const { t, plain } = useCopy();
 
   return (
@@ -33,7 +37,13 @@ export function DrinkCard({ drink }: DrinkCardProps) {
             sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 80vw"
           />
         </div>
-        <span className="absolute top-3 left-3">
+        <span
+          className={
+            compact
+              ? "absolute top-2 left-2 sm:top-3 sm:left-3"
+              : "absolute top-3 left-3"
+          }
+        >
           <StyleTag label={drink.danceStyle} genre={drink.genreSlug} />
         </span>
         {!drink.isAvailable && (
@@ -50,24 +60,34 @@ export function DrinkCard({ drink }: DrinkCardProps) {
         </span>
       </div>
 
-      <div className="mt-4 flex items-center gap-3 border-t border-foreground pt-3">
+      <div
+        className={`flex items-center gap-3 border-t border-foreground ${compact ? "mt-3 pt-2.5 sm:mt-4 sm:pt-3" : "mt-4 pt-3"}`}
+      >
         {drink.tempsAllowed.length > 0 && (
-          <ul className="flex flex-wrap gap-x-3 gap-y-1">
+          <ul
+            className={`flex flex-wrap gap-y-1 ${compact ? "gap-x-1.5 sm:gap-x-3" : "gap-x-3"}`}
+          >
             {drink.tempsAllowed.map((temp) => (
               <li key={temp}>
-                <TempBadge temp={temp} />
+                <TempBadge temp={temp} iconOnlyOnPhones={compact} />
               </li>
             ))}
           </ul>
         )}
-        <span className="ml-auto shrink-0 font-heading text-xl leading-none font-black text-highlight [font-stretch:70%]">
+        <span
+          className={`ml-auto shrink-0 font-heading leading-none font-black text-highlight [font-stretch:70%] ${compact ? "text-lg sm:text-xl" : "text-xl"}`}
+        >
           {formatPeso(drink.basePrice)}
         </span>
       </div>
-      <h3 className="mt-2 font-heading text-2xl leading-[0.95] font-black uppercase [font-stretch:64%] sm:text-3xl">
+      <h3
+        className={`mt-2 font-heading leading-[0.95] font-black uppercase [font-stretch:64%] ${compact ? "text-xl sm:text-3xl" : "text-2xl sm:text-3xl"}`}
+      >
         {drink.name}
       </h3>
-      <p className="mt-1.5 text-sm text-muted-foreground">
+      <p
+        className={`mt-1.5 text-muted-foreground ${compact ? "text-xs sm:text-sm" : "text-sm"}`}
+      >
         {drink.plainDescription}
       </p>
     </Link>

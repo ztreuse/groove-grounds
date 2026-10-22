@@ -182,7 +182,7 @@ export function LineupBrowser({
                     ({String(sectionDrinks.length).padStart(2, "0")})
                   </span>
                 </div>
-                <ul className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                <ul className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3">
                   <AnimatePresence mode="popLayout" initial={false}>
                     {sectionDrinks.map((drink, index) => (
                       <motion.li
@@ -198,7 +198,7 @@ export function LineupBrowser({
                           ease: [0.16, 1, 0.3, 1],
                         }}
                       >
-                        <DrinkCard drink={drink} />
+                        <DrinkCard drink={drink} compact />
                       </motion.li>
                     ))}
                   </AnimatePresence>

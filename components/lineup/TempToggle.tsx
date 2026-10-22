@@ -44,7 +44,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
     <div
       role="group"
       aria-label={plain.lineup.tempFilter}
-      className="inline-flex h-14 shrink-0 gap-0.5 self-start rounded-md bg-muted p-1 ring-1 ring-border ring-inset"
+      className="flex h-14 w-full shrink-0 gap-0.5 rounded-md bg-muted p-1 ring-1 ring-border ring-inset md:inline-flex md:w-auto md:self-start"
     >
       {options.map(({ value: optionValue, label, ariaLabel, temp }) => {
         const sub = !isPlain && ariaLabel !== label ? ariaLabel : null;
@@ -56,7 +56,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
             aria-pressed={active}
             aria-label={ariaLabel}
             onClick={() => onChange(optionValue)}
-            className={`relative flex items-center gap-2 rounded-sm py-1 pr-3 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+            className={`relative flex min-w-0 flex-auto items-center justify-center gap-1.5 rounded-sm py-1 pr-2 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring md:flex-none md:justify-start md:gap-2 md:pr-3 ${
               active
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -79,7 +79,12 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
                   size="sm"
                 />
               ) : (
-                <IconTile icon={CupIcon} tone="neutral" size="sm" />
+                <IconTile
+                  icon={CupIcon}
+                  tone="neutral"
+                  size="sm"
+                  className="max-sm:hidden"
+                />
               )}
               <span className="text-left leading-tight">
                 <span className="block">{label}</span>
