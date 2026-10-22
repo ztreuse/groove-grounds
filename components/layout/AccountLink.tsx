@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { LogIn, UserRound } from "lucide-react";
 import { useCopy } from "@/hooks/use-copy";
+import { IconTile } from "./IconTile";
 import { useUser } from "@/hooks/use-user";
 import { routes } from "@/lib/routes";
 
@@ -34,11 +35,15 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
       onClick={onNavigate}
       className={
         variant === "bar"
-          ? "inline-flex size-11 shrink-0 items-center justify-center rounded-full outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring max-[359px]:hidden"
-          : "flex min-h-14 items-center gap-3 rounded-xl bg-muted px-3 py-2 font-semibold outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
+          ? "inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-muted text-foreground transition-colors outline-none hover:bg-foreground hover:text-background focus-visible:ring-3 focus-visible:ring-ring max-[359px]:hidden"
+          : "flex min-h-14 items-center gap-3 rounded-md bg-muted px-3 py-2 font-semibold outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring"
       }
     >
-      <Icon aria-hidden className="size-5 shrink-0" />
+      {variant === "bar" ? (
+        <Icon aria-hidden className="size-5 shrink-0" />
+      ) : (
+        <IconTile icon={Icon} tone="accent" />
+      )}
       {/* Icon only in the header bar; the full nav needs the room. */}
       {variant === "sheet" && label}
     </Link>

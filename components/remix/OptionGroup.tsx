@@ -4,7 +4,9 @@ import type { UseFormRegisterReturn } from "react-hook-form";
 import { Check } from "lucide-react";
 import { motion } from "motion/react";
 import { useCopy } from "@/hooks/use-copy";
+import { IconTile } from "@/components/layout/IconTile";
 import { fill } from "@/lib/copy";
+import { isTemperature, tempStyles } from "@/lib/temps";
 import { formatPeso } from "@/lib/format";
 import type { RemixGroup, RemixOption } from "@/lib/pricing";
 
@@ -36,6 +38,7 @@ function Chip({
   plainLabel,
   extra,
   soldOut,
+  temp,
 }: {
   groupId: string;
   type: "radio" | "checkbox";
@@ -47,6 +50,8 @@ function Chip({
   plainLabel: string;
   extra?: string | null;
   soldOut?: boolean;
+  // Temperature options show their colour-coded icon.
+  temp?: keyof typeof tempStyles;
 }) {
   const { t, plain } = useCopy();
   const { main, sub } = useLabels({ danceLabel, plainLabel });
@@ -86,7 +91,19 @@ function Chip({
             className="absolute top-2 right-2 size-3.5 text-background"
           />
         )}
-        <span className="relative pr-3 text-sm font-semibold">{main}</span>
+        <span className="relative flex items-center gap-2 pr-3 text-sm font-semibold">
+          {temp && (
+            <IconTile
+              icon={tempStyles[temp].icon}
+              tone="custom"
+              className={
+                checked ? tempStyles[temp].solid : tempStyles[temp].tile
+              }
+              size="sm"
+            />
+          )}
+          {main}
+        </span>
         {sub && (
           <span
             className={`relative text-xs ${checked ? "opacity-75" : "text-muted-foreground"}`}
@@ -176,6 +193,11 @@ export function OptionGroup({
               plainLabel={option.plainLabel}
               extra={charged ? `+${formatPeso(option.priceDelta)}` : null}
               soldOut={!option.isAvailable}
+              temp={
+                group.slug === "temperature" && isTemperature(option.slug)
+                  ? option.slug
+                  : undefined
+              }
             />
           );
         })}

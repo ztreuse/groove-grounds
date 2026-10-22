@@ -1,6 +1,7 @@
 "use client";
 
-import { Flame, Snowflake } from "lucide-react";
+import { IconTile } from "@/components/layout/IconTile";
+import { tempStyles } from "@/lib/temps";
 import { useCopy } from "@/hooks/use-copy";
 
 export type TempFilter = "all" | "hot" | "cold";
@@ -19,19 +20,19 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
       value: "all",
       label: t.lineup.tempAny,
       ariaLabel: plain.lineup.tempAny,
-      icon: null,
+      temp: null,
     },
     {
       value: "hot",
       label: t.remix.warmUp,
       ariaLabel: plain.remix.warmUp,
-      icon: Flame,
+      temp: "hot",
     },
     {
       value: "cold",
       label: t.remix.coolDown,
       ariaLabel: plain.remix.coolDown,
-      icon: Snowflake,
+      temp: "iced",
     },
   ] as const;
 
@@ -41,7 +42,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
       aria-label={plain.lineup.tempFilter}
       className="inline-flex h-11 shrink-0 rounded-md bg-muted p-1"
     >
-      {options.map(({ value: optionValue, label, ariaLabel, icon: Icon }) => {
+      {options.map(({ value: optionValue, label, ariaLabel, temp }) => {
         const active = optionValue === value;
         return (
           <button
@@ -50,13 +51,20 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
             aria-pressed={active}
             aria-label={ariaLabel}
             onClick={() => onChange(optionValue)}
-            className={`flex items-center gap-1.5 rounded-md px-3 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
+            className={`flex items-center gap-1.5 rounded-md px-2.5 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
               active
-                ? "bg-primary text-primary-foreground"
+                ? "bg-background text-foreground shadow-[0_1px_0_0_var(--border),0_4px_12px_-6px_rgb(43_30_23_/_0.35)]"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {Icon && <Icon aria-hidden className="size-4" />}
+            {temp && (
+              <IconTile
+                icon={tempStyles[temp].icon}
+                tone="custom"
+                className={tempStyles[temp].tile}
+                size="sm"
+              />
+            )}
             {label}
           </button>
         );

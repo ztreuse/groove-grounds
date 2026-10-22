@@ -17,6 +17,12 @@
   --color-purple: #7b4fc9;
   --color-lilac: #c9b6f0;
 
+  /* Temperature cues on icons: warm, cool, blended. Mid tones so the icon
+     reads on cream and on espresso; tint the tile with /15 of the same. */
+  --color-temp-hot: #d2581f;
+  --color-temp-iced: #3b82c4;
+  --color-temp-blended: #c2477f;
+
   /* Genre colour blocks (cards, tiles, drink page). */
   --color-genre-old: #d9c39b;
   --color-genre-new: #c9b6f0;

@@ -19,6 +19,7 @@ import {
 } from "@/lib/auth-schema";
 import { fill, type Copy } from "@/lib/copy";
 import { routes } from "@/lib/routes";
+import { IconTile } from "@/components/layout/IconTile";
 import { AuthField } from "./AuthField";
 
 type Mode = "join" | "login";
@@ -62,7 +63,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
   if (confirmEmail) {
     return (
       <div role="status" className="mt-8 surface p-6">
-        <MailCheck aria-hidden className="size-10 text-highlight" />
+        <IconTile icon={MailCheck} size="lg" />
         <h2 className="mt-3 text-3xl leading-none">{t.auth.checkEmail}</h2>
         <p className="mt-2 text-muted-foreground">
           {fill(t.auth.checkEmailBody, { email: confirmEmail })}

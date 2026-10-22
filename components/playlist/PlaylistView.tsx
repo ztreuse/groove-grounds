@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Disc3, Plus } from "lucide-react";
 import { AnimatePresence } from "motion/react";
 import { CountIn } from "@/components/layout/CountIn";
+import { IconTile } from "@/components/layout/IconTile";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -37,7 +38,7 @@ export function PlaylistView() {
       <div className="mx-auto w-full max-w-6xl px-4 pt-8">
         {items.length === 0 ? (
           <div className="mt-10 flex flex-col items-center rounded-3xl bg-muted/60 px-6 py-12 text-center">
-            <Disc3 aria-hidden className="size-14 text-highlight" />
+            <IconTile icon={Disc3} size="lg" />
             <h2 className="mt-4 text-3xl">{t.playlist.emptyTitle}</h2>
             <p className="mt-2 max-w-sm text-muted-foreground">
               {t.playlist.emptyBody}

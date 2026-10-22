@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { IconTile } from "@/components/layout/IconTile";
 import { KineticTitle } from "@/components/motion/KineticTitle";
 import { useCopy } from "@/hooks/use-copy";
 import { setOrderIntent } from "@/lib/order-intent";
@@ -71,9 +72,9 @@ export function HowItWorks() {
           href={routes.lineup.href}
           onClick={() => setOrderIntent("drop_in")}
           aria-label={plain.terms.dropIn}
-          className="group mt-8 inline-flex min-h-14 items-center gap-3 self-start rounded-md bg-cream py-2 pr-5 pl-5 text-espresso outline-none focus-visible:ring-3 focus-visible:ring-lilac active:translate-y-px"
+          className="group mt-8 inline-flex min-h-14 items-center gap-3 self-start rounded-md bg-cream py-2 pr-5 pl-2.5 text-espresso outline-none focus-visible:ring-3 focus-visible:ring-lilac active:translate-y-px"
         >
-          <Zap aria-hidden className="size-5 shrink-0" />
+          <IconTile icon={Zap} tone="inherit" />
           <span className="text-left">
             <span className="block font-heading text-lg leading-none font-extrabold whitespace-nowrap">
               {t.terms.dropIn}

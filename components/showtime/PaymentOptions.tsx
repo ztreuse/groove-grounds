@@ -2,6 +2,7 @@
 
 import type { UseFormRegisterReturn } from "react-hook-form";
 import { CreditCard, Store, Wallet } from "lucide-react";
+import { IconTile } from "@/components/layout/IconTile";
 import { useCopy } from "@/hooks/use-copy";
 import type { PaymentMethod } from "@/lib/checkout";
 
@@ -66,7 +67,11 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
                 className="size-5 accent-[var(--color-purple)]"
                 {...register}
               />
-              <Icon aria-hidden className="size-5" />
+              <IconTile
+                icon={Icon}
+                tone={active ? "accent" : "neutral"}
+                size="sm"
+              />
               <span className="font-semibold">{label}</span>
             </label>
             {active && hint && (

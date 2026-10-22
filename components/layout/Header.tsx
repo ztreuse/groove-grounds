@@ -51,7 +51,7 @@ function MobileNav() {
           variant="ghost"
           size="icon"
           aria-label={plain.header.openNav}
-          className="rounded-full xl:hidden"
+          className="rounded-full bg-muted text-foreground transition-colors hover:bg-foreground hover:text-background xl:hidden"
         >
           <Menu aria-hidden className="size-5" />
         </Button>

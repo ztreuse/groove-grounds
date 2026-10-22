@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarClock, Zap } from "lucide-react";
 import { createOrder, getCheckoutPrefill } from "@/app/(shop)/showtime/actions";
 import { CountIn } from "@/components/layout/CountIn";
+import { IconTile } from "@/components/layout/IconTile";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { usePlaylistHydrated } from "@/hooks/use-playlist-hydrated";
@@ -202,7 +203,7 @@ export function ShowtimeForm() {
                     className="sr-only"
                     {...register("orderType")}
                   />
-                  <Icon aria-hidden className="size-6 shrink-0" />
+                  <IconTile icon={Icon} tone={active ? "accent" : "neutral"} />
                   <span>
                     <span className="block font-heading text-2xl leading-none tracking-tight">
                       {t.terms[term]}

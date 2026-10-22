@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { UserRound } from "lucide-react";
+import { IconTile } from "@/components/layout/IconTile";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/layout/PageHero";
 import { useCopy } from "@/hooks/use-copy";
@@ -20,7 +21,7 @@ export function SignedOutProfile() {
       />
       <div className="mx-auto w-full max-w-6xl px-4 pt-10">
         <div className="grid gap-6 surface p-8 md:grid-cols-[auto_1fr_auto] md:items-center">
-          <UserRound aria-hidden className="size-12 text-highlight" />
+          <IconTile icon={UserRound} size="lg" />
           <div>
             <h2 className="text-3xl leading-none">
               {t.profile.signedOutTitle}

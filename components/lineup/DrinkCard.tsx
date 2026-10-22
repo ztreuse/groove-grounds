@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, CupSoda, Flame, Snowflake } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useCopy } from "@/hooks/use-copy";
 import type { LineupDrink } from "@/lib/db/queries";
 import { formatPeso } from "@/lib/format";
 import { genreBlockFor } from "@/lib/genres";
 import { DrinkVisual } from "./DrinkVisual";
-
-const tempIcons = {
-  hot: { key: "warmUp", icon: Flame },
-  iced: { key: "coolDown", icon: Snowflake },
-  blended: { key: "blended", icon: CupSoda },
-} as const;
+import { TempBadge } from "./TempBadge";
 
 type DrinkCardProps = { drink: LineupDrink };
 
@@ -56,17 +51,12 @@ export function DrinkCard({ drink }: DrinkCardProps) {
 
       <div className="mt-4 flex items-center gap-3 border-t border-foreground pt-3">
         {drink.tempsAllowed.length > 0 && (
-          <ul className="flex gap-2.5 text-xs font-medium text-muted-foreground">
-            {drink.tempsAllowed.map((temp) => {
-              const { key, icon: Icon } = tempIcons[temp];
-              return (
-                <li key={temp} className="flex items-center gap-1">
-                  <Icon aria-hidden className="size-3.5" />
-                  <span aria-hidden>{t.remix[key]}</span>
-                  <span className="sr-only">{plain.remix[key]}</span>
-                </li>
-              );
-            })}
+          <ul className="flex flex-wrap gap-x-3 gap-y-1">
+            {drink.tempsAllowed.map((temp) => (
+              <li key={temp}>
+                <TempBadge temp={temp} />
+              </li>
+            ))}
           </ul>
         )}
         <span className="ml-auto shrink-0 font-heading text-xl leading-none font-black text-highlight [font-stretch:70%]">

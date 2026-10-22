@@ -22,6 +22,8 @@ Defined once in `app/globals.css` (`@theme`). Never write hex anywhere else.
 | `purple` | #7B4FC9 | THE accent: primary buttons, active states, progress, prices |
 | `lilac` | #C9B6F0 | Accent on dark (text, fills); the closing band; badges |
 
+Temperature colours (icon tiles only, never text or large fills): `temp-hot` #D2581F (Warm-up / hot), `temp-iced` #3B82C4 (Cool-down / iced), `temp-blended` #C2477F (Mashup / blended). Use them through `lib/temps.ts`: the icon at full colour on a `/15` tint of the same colour.
+
 Genre colours (photo backdrops and small genre swatches only): `genre-old`, `genre-new`, `genre-mashup`, `genre-offbeat`, `genre-intermission`. Drink colours for the cup illustration: `brew-*`, `milk`, `whip`, `caramel`, `ice`.
 
 Components use the **semantic tokens**, not the raw palette, so they work on light and dark: `background`, `foreground`, `card`, `muted`, `muted-foreground`, `border`, `primary`, `highlight` (accent text that passes AA: purple on light, lilac on dark), `ring`, `destructive`.
@@ -92,6 +94,8 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `SpinBadge` | motion | Lilac round sticker with text on a circle; rotates with scroll only (never on its own). Home hero only. |
 | `DrinkCard` | lineup | Editorial card: 4:5 photo on its genre colour, dance-style tag, hairline, temps + price, name in poster caps, plain description. A drink is always a `DrinkCard` (Lineup grid and Popular drinks row). |
 | `DrinkVisual` | lineup | The drink's photo (`public/drinks/<slug>.jpg`), falling back to the `CupPreview` / `SnackArt` illustration. |
+| `IconTile` | layout | An icon on a small tinted square (`rounded-md`). Tones: `accent` (purple tint), `neutral` (muted), `inherit` (tinted from the surrounding text colour, for icons inside buttons), `custom` (e.g. a temperature). Sizes `sm` / `md` / `lg` (lg for empty and status states). |
+| `TempBadge` | lineup | Temperature on drink cards: colour-coded `IconTile` (hot, iced, blended) plus the dance label. The Lineup filter and the Remix temperature chips use the same `lib/temps.ts` styles. |
 | `OptionGroup` | remix | Remix and Freestyle options. Chips fill with `foreground` when selected; one fill glides between single choices (`layoutId`), multi choices each pop in with a check. |
 | `Button` | ui | shadcn base re-themed: `rounded-md`, purple primary, ghost/outline variants; icon sizes round. Money/time buttons show the dance word and the plain word. |
 | `PlainModeToggle` | layout | Two-segment "Dance terms / Plain words" switch in the header. |
@@ -101,6 +105,14 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `Footer` | layout | Plain words always; hours; giant fading wordmark with a drink photo blended in front. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
+
+### Icons
+
+- `lucide-react` only, stroke width 2. No emoji.
+- An icon next to a label sits on an `IconTile`, never bare: order buttons, the mobile menu, checkout options, the account link, empty and status states.
+- Header icon buttons (account, Playlist, menu) are round, `bg-muted`, and fill with `foreground` on hover; the Playlist count badge sits on the corner with a ring in the page colour.
+- Temperature is always colour-coded (warm orange, cool blue, blended pink) wherever it appears.
+- Small inline utility icons (arrows, chevrons, close, search) stay bare.
 
 ## 6. Imagery
 

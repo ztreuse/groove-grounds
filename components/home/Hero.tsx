@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, CalendarClock, Zap } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { IconTile } from "@/components/layout/IconTile";
 import { DrinkVisual } from "@/components/lineup/DrinkVisual";
 import { KineticTitle } from "@/components/motion/KineticTitle";
 import { SpinBadge } from "@/components/motion/SpinBadge";
@@ -81,9 +82,9 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
               href={routes.lineup.href}
               onClick={() => setOrderIntent(intent)}
               aria-label={plain.terms[term]}
-              className={`group flex min-h-14 items-center gap-3 rounded-md py-2 pr-4 pl-5 transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px ${className}`}
+              className={`group flex min-h-14 items-center gap-3 rounded-md py-2 pr-4 pl-2.5 transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px ${className}`}
             >
-              <Icon aria-hidden className="size-5 shrink-0" />
+              <IconTile icon={Icon} tone="inherit" />
               <span className="flex-1 text-left">
                 <span className="block font-heading text-lg leading-none font-extrabold tracking-tight whitespace-nowrap">
                   {t.terms[term]}
