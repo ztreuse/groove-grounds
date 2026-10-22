@@ -79,7 +79,7 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 - Wide pages use the width: Profile, Playlist and the tracker are two columns on `lg` (summary/sidebar sticky at `top-24`).
 - Section rhythm on home: `gap-28 sm:gap-40` between sections, `py-24 sm:py-32` for standalone sections.
 - **Shape rule:** sections, photos and cards are **square**. Buttons, inputs and tags use a small corner (`rounded-md` / `rounded-sm`, `--radius: 0.3rem`). Only icon-only buttons and status dots are round (`rounded-full`).
-- Cards: flat, hairline edge (`surface` utility = `card` background + 1px `border` ring). No drop shadows on cards; a soft shadow is allowed only on floating elements (Spotlight card, toasts, the Freestyle dock).
+- Cards: flat, hairline edge (`surface` utility = `card` background + 1px `border` ring). No drop shadows on cards; a soft shadow is allowed only on floating elements (Spotlight card, toasts).
 - No horizontal page scroll at any width. Rows of chips or cards scroll inside their own box with `scroll-edges` (fades only on the side that has more).
 - Sticky bars fade the content they cover: `fade-below` under sticky top bars, `fade-above` over sticky bottom bars.
 

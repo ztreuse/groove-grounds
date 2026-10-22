@@ -723,20 +723,19 @@ export function FreestyleBuilder({
             </motion.div>
           </AnimatePresence>
 
-          {/* Controls: Back and Next (Add to cart on the last step) side by
-              side on the right, same height, floating on their own. Phones also show the
-              running total on the left, since the preview panel scrolls
-              away there. */}
+          {/* Controls at the foot of the column (not sticky): Back and Next,
+              or Add to cart on the last step, side by side on the right.
+              Phones also show the running total on the left. */}
           {base && current > 0 && (
-            <div className="sticky bottom-3 z-20 mt-10">
+            <div className="mt-10 border-t border-border pt-6">
               <div className="flex items-center justify-end gap-2">
-                <span className="mr-auto rounded-md bg-espresso-soft px-3 py-2 font-heading text-xl leading-none font-black [font-stretch:70%] tabular-nums shadow-[0_12px_28px_-14px_rgb(0_0_0_/_0.8)] lg:hidden">
+                <span className="mr-auto rounded-md bg-espresso-soft px-3 py-2 font-heading text-xl leading-none font-black [font-stretch:70%] tabular-nums lg:hidden">
                   {total}
                 </span>
                 <button
                   type="button"
                   onClick={() => goTo(current - 1)}
-                  className="group flex h-14 shrink-0 items-center gap-2.5 rounded-md bg-espresso-soft pr-1.5 pl-1.5 text-sm font-semibold text-foreground shadow-[0_12px_28px_-14px_rgb(0_0_0_/_0.8)] ring-1 ring-border transition-colors ring-inset hover:bg-espresso-soft/80 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px sm:pr-4"
+                  className="group flex h-14 shrink-0 items-center gap-2.5 rounded-md bg-espresso-soft pr-1.5 pl-1.5 text-sm font-semibold text-foreground ring-1 ring-border transition-colors ring-inset hover:bg-espresso-soft/80 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px sm:pr-4"
                 >
                   <span
                     aria-hidden
