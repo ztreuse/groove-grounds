@@ -1,6 +1,7 @@
 import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 
 // Supabase client for server actions and server components. The session
 // lives in cookies shared with the browser client.
@@ -29,6 +30,8 @@ export async function createSupabaseServer() {
 
 // The signed-in user, verified with Supabase Auth, or null.
 export async function getCurrentUser() {
+  // Supabase checks the session expiry with Date.now(); render per request.
+  await connection();
   const supabase = await createSupabaseServer();
   const { data } = await supabase.auth.getUser();
   return data.user ?? null;

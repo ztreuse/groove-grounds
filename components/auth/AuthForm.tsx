@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -75,9 +76,9 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
 
   return (
     <>
-      <h1 className="text-4xl leading-tight sm:text-5xl">{title}</h1>
+      <h1 className="text-6xl sm:text-7xl">{title}</h1>
       {!isPlain && (
-        <p className="mt-1 text-lg text-muted-foreground">{titlePlain}</p>
+        <p className="mt-3 eyebrow text-muted-foreground">{titlePlain}</p>
       )}
       <p className="mt-3">{isJoin ? t.auth.joinIntro : t.auth.loginIntro}</p>
 
@@ -161,13 +162,40 @@ function FormFromQuery({ mode }: { mode: Mode }) {
   return <Form mode={mode} next={next} />;
 }
 
+// Photo panel beside the form on wide screens: the crew, the tagline.
+function AuthPanel() {
+  const { t } = useCopy();
+  return (
+    <div className="theme-dark grain relative hidden overflow-hidden rounded-[2rem] bg-background lg:block">
+      <Image
+        src="/scenes/crew-color.webp"
+        alt=""
+        fill
+        priority
+        sizes="50vw"
+        className="object-cover opacity-80"
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-espresso-deep via-espresso-deep/30 to-transparent"
+      />
+      <p className="absolute inset-x-8 bottom-8 max-w-sm font-heading text-5xl leading-[0.9] font-black uppercase [font-stretch:64%]">
+        {t.tagline}
+      </p>
+    </div>
+  );
+}
+
 // The page is prerendered, so ?next= is read on the client.
 export function AuthForm({ mode }: { mode: Mode }) {
   return (
-    <main className="mx-auto w-full max-w-md flex-1 px-4 pt-10 pb-16 sm:pt-16">
-      <Suspense fallback={<Form mode={mode} next={routes.profile.href} />}>
-        <FormFromQuery mode={mode} />
-      </Suspense>
+    <main className="mx-2 grid flex-1 gap-6 pt-2 pb-16 sm:mx-4 lg:min-h-[calc(100dvh-6rem)] lg:grid-cols-2 lg:pb-2">
+      <AuthPanel />
+      <div className="mx-auto w-full max-w-md self-center px-2 pt-8 sm:pt-12 lg:py-12">
+        <Suspense fallback={<Form mode={mode} next={routes.profile.href} />}>
+          <FormFromQuery mode={mode} />
+        </Suspense>
+      </div>
     </main>
   );
 }

@@ -28,8 +28,8 @@ function Logo() {
       aria-label={plain.header.logoHome}
       className="flex shrink-0 items-center gap-2 rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring"
     >
-      <LogoMark className="size-10 transition-transform duration-700 hover:rotate-180 motion-reduce:transition-none" />
-      <span className="font-heading text-lg leading-[0.85] tracking-tight sm:text-xl">
+      <LogoMark className="size-9 transition-transform duration-700 hover:rotate-180 motion-reduce:transition-none" />
+      <span className="font-heading text-base leading-[0.85] font-extrabold tracking-tight uppercase [font-stretch:72%] sm:text-xl">
         {t.brand.split(" ").map((word) => (
           <span key={word} className="block sm:inline sm:not-last:mr-1.5">
             {word}
@@ -63,7 +63,7 @@ function MobileNav() {
         className="w-[85%] gap-2 p-4"
       >
         <div className="flex items-center justify-between">
-          <SheetTitle className="font-heading text-2xl tracking-tight">
+          <SheetTitle className="font-heading text-2xl font-extrabold tracking-tight uppercase [font-stretch:72%]">
             {t.brand}
           </SheetTitle>
           <SheetClose asChild>
@@ -95,14 +95,15 @@ export function Header() {
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 8));
 
   return (
-    <header
-      className={`sticky top-0 z-40 bg-background/85 backdrop-blur-md transition-shadow duration-300 supports-backdrop-filter:bg-background/70 ${
-        scrolled
-          ? "shadow-[0_10px_30px_-18px_rgb(59_42_32_/_0.45)]"
-          : "shadow-[0_1px_0_0_var(--border)]"
-      }`}
-    >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-4">
+    // Floating glass bar; it tightens and gains a shadow once the page scrolls.
+    <header className="sticky top-0 z-40 h-16 px-2 pt-2 sm:px-4">
+      <div
+        className={`mx-auto flex h-14 w-full items-center gap-2 rounded-full border border-border/60 bg-background/75 pr-2 pl-3 backdrop-blur-xl transition-[max-width,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] supports-backdrop-filter:bg-background/60 ${
+          scrolled
+            ? "max-w-6xl shadow-[0_18px_40px_-20px_rgb(43_30_23_/_0.45)]"
+            : "max-w-[90rem] shadow-none"
+        }`}
+      >
         <Logo />
         <nav aria-label={plain.header.mainNav} className="ml-4 hidden xl:block">
           <MainNav variant="bar" />

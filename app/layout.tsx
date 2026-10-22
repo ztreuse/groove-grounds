@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Bricolage_Grotesque } from "next/font/google";
+import { Anybody, Geist, Geist_Mono } from "next/font/google";
 import { DemoBanner } from "@/components/layout/DemoBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -9,14 +9,25 @@ import { WelcomeTour } from "@/components/layout/WelcomeTour";
 import { dance } from "@/lib/copy";
 import "./globals.css";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+// Body text.
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+// Small labels: counts, eyebrows, order codes.
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Display type. The width axis runs from condensed poster caps to wide,
+// and the italic gives headings a playful accent.
+const anybody = Anybody({
+  variable: "--font-anybody",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["wdth"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${bricolage.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} ${anybody.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Providers>

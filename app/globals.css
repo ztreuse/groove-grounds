@@ -54,6 +54,14 @@
     }
   }
 
+  /* Endless ticker: the track holds two copies, so -50% loops seamlessly. */
+  --animate-ticker: ticker 40s linear infinite;
+  @keyframes ticker {
+    to {
+      translate: -50% 0;
+    }
+  }
+
   /* One beat per number at ~120 BPM: 4 counts over 2 seconds. */
   --animate-count-in: count-in 2s ease-out infinite;
   @keyframes count-in {
@@ -74,8 +82,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-highlight: var(--highlight);
-  --font-sans: var(--font-archivo);
-  --font-heading: var(--font-bricolage);
+  --font-sans: var(--font-geist);
+  --font-heading: var(--font-anybody);
+  --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -196,11 +205,106 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Soft studio light washing in from the top corners. */
+    background-image:
+      radial-gradient(
+        56rem 28rem at 88% -6rem,
+        color-mix(in oklch, var(--color-lilac) 38%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        44rem 26rem at -8% 14rem,
+        color-mix(in oklch, var(--color-khaki) 32%, transparent),
+        transparent 70%
+      );
+    background-repeat: no-repeat;
   }
+  /* Headings: page titles are condensed poster caps; section and card
+     titles run wider in mixed case. <em> inside any heading is the
+     playful italic accent. */
   h1,
   h2,
   h3 {
-    @apply font-heading font-bold tracking-tight text-balance;
+    @apply font-heading text-balance;
+  }
+  h1 {
+    font-weight: 900;
+    font-stretch: 64%;
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: -0.005em;
+  }
+  h2 {
+    font-weight: 800;
+    font-stretch: 108%;
+    letter-spacing: -0.035em;
+  }
+  h3 {
+    font-weight: 700;
+    font-stretch: 100%;
+    letter-spacing: -0.025em;
+  }
+  :is(h1, h2, h3) em {
+    font-style: italic;
+    font-stretch: 80%;
+    color: var(--highlight);
+  }
+}
+
+/* Dark "after hours" panels (hero, page headers, the Freestyle stage).
+   Re-points the theme tokens so every component inside turns dark. */
+.theme-dark {
+  --background: var(--color-espresso-deep);
+  --foreground: var(--color-cream);
+  --card: color-mix(in oklch, var(--color-cream) 7%, transparent);
+  --card-foreground: var(--color-cream);
+  --popover: var(--color-espresso-soft);
+  --popover-foreground: var(--color-cream);
+  --secondary: var(--color-espresso-soft);
+  --secondary-foreground: var(--color-cream);
+  --muted: color-mix(in oklch, var(--color-cream) 9%, transparent);
+  --muted-foreground: color-mix(in oklch, var(--color-cream) 68%, transparent);
+  --accent: var(--color-lilac);
+  --accent-foreground: var(--color-espresso);
+  --highlight: var(--color-lilac);
+  --destructive: oklch(0.7 0.19 22);
+  --border: color-mix(in oklch, var(--color-cream) 14%, transparent);
+  --input: color-mix(in oklch, var(--color-cream) 20%, transparent);
+  --ring: var(--color-lilac);
+  color: var(--foreground);
+}
+
+/* KineticTitle letters stretch wider on hover and ease back. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .kinetic-char {
+    transition: font-stretch 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .kinetic-char:hover {
+    font-stretch: 125%;
+    transition-duration: 160ms;
+  }
+}
+
+/* Small mono label above or below a title. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Film grain for dark panels: a tiny SVG noise tile. */
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%272%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");
   }
 }
 

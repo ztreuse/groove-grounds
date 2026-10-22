@@ -133,9 +133,11 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
         </div>
       )}
       <div className="mb-2">
-        <h2 className="text-4xl leading-none">{t.terms.remix}</h2>
+        <h2 className="text-5xl leading-none sm:text-6xl">{t.terms.remix}</h2>
         {!isPlain && (
-          <p className="mt-1 text-muted-foreground">{plain.terms.remix}</p>
+          <p className="mt-2 eyebrow text-muted-foreground">
+            {plain.terms.remix}
+          </p>
         )}
       </div>
 
@@ -143,9 +145,9 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
         {drink.groups.map((group) => {
           if (group.type === "text") {
             return (
-              <div key={group.id} className="border-t pt-6">
+              <div key={group.id} className="border-t border-border pt-6">
                 <label htmlFor="remix-notes" className="block">
-                  <span className="block font-heading text-2xl leading-none tracking-tight">
+                  <span className="block font-heading text-2xl leading-none font-bold tracking-tight">
                     {isPlain ? group.plainLabel : group.danceLabel}
                   </span>
                   {!isPlain && (
@@ -204,7 +206,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 8, opacity: 0 }}
                 transition={{ duration: 0.15 }}
-                className="font-heading text-4xl leading-none"
+                className="font-heading text-5xl leading-none font-black [font-stretch:70%]"
               >
                 {formatPeso(total)}
               </motion.p>
@@ -217,7 +219,7 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
           size="lg"
           disabled={!drink.isAvailable}
           aria-label={submitPlain}
-          className="mt-3 h-auto min-h-14 w-full flex-col gap-0 rounded-full py-2"
+          className="mt-3 h-auto min-h-14 w-full flex-col gap-0 rounded-full py-2 shadow-[0_18px_40px_-16px_var(--color-purple)]"
         >
           {justAdded ? (
             <span className="flex items-center gap-2 text-base font-bold">

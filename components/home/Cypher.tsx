@@ -1,14 +1,16 @@
 "use client";
 
+import Image from "next/image";
+import { SectionHeading } from "@/components/layout/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
 import { cypherPosts } from "@/lib/cypher";
 
-// Community board: one featured post and two smaller ones.
+// Community board: one featured post on a dance photo, two smaller flyers.
 const flyerStyles = [
-  "md:col-span-3 md:row-span-2 bg-card text-card-foreground",
+  "theme-dark grain md:col-span-3 md:row-span-2 md:min-h-[28rem] bg-background",
   "md:col-span-2 bg-lilac text-espresso",
-  "md:col-span-2 bg-espresso text-cream dark:bg-espresso-deep",
+  "md:col-span-2 bg-espresso text-cream dark:bg-espresso-soft",
 ];
 
 export function Cypher() {
@@ -18,32 +20,56 @@ export function Cypher() {
 
   return (
     <section aria-labelledby="cypher" className="mx-auto w-full max-w-6xl px-4">
-      <h2 id="cypher" className="text-4xl leading-tight sm:text-5xl">
-        {t.terms.cypher}
-      </h2>
-      {!isPlain && (
-        <p className="mt-1 text-muted-foreground">{plain.terms.cypher}</p>
-      )}
-      <p className="mt-3 max-w-prose">{t.home.cypherIntro}</p>
+      <SectionHeading
+        id="cypher"
+        index="04"
+        title={t.terms.cypher}
+        plainTitle={plain.terms.cypher}
+      >
+        <p className="max-w-xs text-muted-foreground">{t.home.cypherIntro}</p>
+      </SectionHeading>
 
-      <ul className="mt-8 grid gap-6 rounded-[1.75rem] bg-secondary p-6 sm:p-8 md:grid-cols-5 dark:bg-espresso-soft">
+      <ul className="grid gap-4 md:grid-cols-5">
         {cypherPosts.map((post, index) => (
           <Reveal
             as="li"
             delay={index * 0.08}
             key={post.id}
-            className={`relative flex flex-col rounded-2xl p-6 shadow-[0_16px_30px_-18px_rgb(43_30_23_/_0.6)] ${flyerStyles[index % flyerStyles.length]}`}
+            className={`group relative flex min-h-60 flex-col overflow-hidden rounded-[1.75rem] p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 ${flyerStyles[index % flyerStyles.length]}`}
           >
-            <span className="text-xs font-bold tracking-wide uppercase opacity-80">
+            {index === 0 && (
+              <>
+                <Image
+                  src="/scenes/bboy.webp"
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 60vw, 100vw"
+                  className="object-cover object-[70%_center] opacity-60 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                />
+                <span
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-espresso-deep via-espresso-deep/70 to-espresso-deep/10"
+                />
+              </>
+            )}
+            <span className="relative eyebrow opacity-80">
               {pick(post.tag)}
             </span>
             <h3
-              className={`mt-3 leading-[0.95] ${index === 0 ? "text-3xl sm:text-4xl" : "text-2xl"}`}
+              className={`relative leading-[0.95] ${
+                index === 0
+                  ? "mt-auto pt-16 text-4xl sm:text-5xl"
+                  : "mt-4 text-2xl"
+              }`}
             >
               {pick(post.title)}
             </h3>
-            <p className="mt-3 flex-1">{pick(post.body)}</p>
-            <p className="mt-5 text-sm font-semibold">{post.author}</p>
+            <p
+              className={`relative mt-3 ${index === 0 ? "max-w-md text-foreground/80" : "flex-1"}`}
+            >
+              {pick(post.body)}
+            </p>
+            <p className="relative mt-6 eyebrow opacity-80">{post.author}</p>
           </Reveal>
         ))}
       </ul>

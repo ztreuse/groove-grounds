@@ -23,13 +23,13 @@ export function Footer() {
   const { t, plain } = useCopy();
 
   return (
-    <footer className="mt-auto overflow-hidden bg-espresso-deep text-cream">
+    <footer className="theme-dark grain relative mt-auto overflow-hidden bg-background">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-14 pb-6 md:grid-cols-[1fr_auto]">
         <div className="flex items-start gap-4">
           <LogoMark light className="size-14 shrink-0" />
           <div>
-            <p className="max-w-xs text-cream/80">{t.tagline}</p>
-            <p className="mt-2 text-sm font-semibold text-khaki">
+            <p className="max-w-xs text-foreground/80">{t.tagline}</p>
+            <p className="mt-3 eyebrow text-khaki">
               {fill(t.footer.hours, {
                 open: formatClock(schedule.openMinute),
                 close: formatClock(schedule.closeMinute),
@@ -54,11 +54,11 @@ export function Footer() {
       </div>
       <p
         aria-hidden
-        className="mx-auto w-full max-w-6xl px-4 font-heading text-[18vw] leading-[0.92] text-cream/25 uppercase text-outline lg:text-[10rem] lg:whitespace-nowrap"
+        className="mx-auto w-full max-w-6xl bg-gradient-to-b from-cream/30 to-cream/5 bg-clip-text px-4 font-heading text-[24vw] leading-[0.82] font-black text-transparent uppercase [font-stretch:62%] lg:text-[11.5rem] lg:whitespace-nowrap"
       >
         {t.brand}
       </p>
-      <p className="mx-auto w-full max-w-6xl px-4 pt-4 pb-8 text-xs text-cream/70">
+      <p className="relative mx-auto w-full max-w-6xl border-t border-border px-4 pt-5 pb-8 text-xs text-foreground/60">
         {t.footer.rights}
       </p>
     </footer>

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Search, X } from "lucide-react";
+import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { fill } from "@/lib/copy";
@@ -71,19 +72,13 @@ export function LineupBrowser({
 
   return (
     <main className="flex-1 pb-16">
-      <header className="relative overflow-hidden bg-espresso text-cream dark:bg-espresso-deep">
-        <div className="relative mx-auto w-full max-w-6xl px-4 pt-10 pb-12 sm:pt-14 sm:pb-16">
-          <h1 className="text-5xl leading-[0.95] sm:text-7xl">
-            {t.pages.lineup}
-          </h1>
-          {!isPlain && (
-            <p className="mt-2 text-lg text-khaki">{plain.pages.lineup}</p>
-          )}
-          <p className="mt-4 max-w-md text-lg text-cream/90">
-            {t.lineup.intro}
-          </p>
-        </div>
-      </header>
+      <PageHero
+        title={t.pages.lineup}
+        plainTitle={plain.pages.lineup}
+        body={t.lineup.intro}
+        image="/scenes/barista-pour.webp"
+        imagePosition="center 40%"
+      />
 
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="fade-below sticky top-16 z-30 -mx-4 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
@@ -140,28 +135,26 @@ export function LineupBrowser({
               <section
                 key={g.slug}
                 aria-labelledby={`genre-${g.slug}`}
-                className="mt-12 first-of-type:mt-8"
+                className="mt-16 first-of-type:mt-8"
               >
-                <div className="mb-5 flex items-center gap-4">
-                  <span
-                    aria-hidden
-                    className={`size-12 shrink-0 rounded-full ${genreBlockFor(g.slug)}`}
-                  />
+                <div className="mb-6 flex items-end gap-4 border-b border-border pb-4">
                   <div className="min-w-0">
+                    <p className="mb-2 flex items-center gap-2 eyebrow text-muted-foreground">
+                      <span
+                        aria-hidden
+                        className={`size-3 shrink-0 rounded-full ${genreBlockFor(g.slug)}`}
+                      />
+                      {!isPlain && term ? plain.terms[term] : null}
+                    </p>
                     <h2
                       id={`genre-${g.slug}`}
-                      className="text-4xl leading-none sm:text-5xl"
+                      className="text-5xl leading-[0.85] font-black tracking-normal uppercase [font-stretch:64%] sm:text-7xl"
                     >
                       {term ? t.terms[term] : g.name}
                     </h2>
-                    {!isPlain && term && (
-                      <p className="text-sm text-muted-foreground">
-                        {plain.terms[term]}
-                      </p>
-                    )}
                   </div>
-                  <span className="ml-auto font-heading text-4xl text-highlight">
-                    {sectionDrinks.length}
+                  <span className="ml-auto pb-1 eyebrow text-highlight">
+                    ({String(sectionDrinks.length).padStart(2, "0")})
                   </span>
                 </div>
                 <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

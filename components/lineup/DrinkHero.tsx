@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { motion } from "motion/react";
+import { KineticTitle } from "@/components/motion/KineticTitle";
 import { useCopy } from "@/hooks/use-copy";
 import type { DrinkDetail } from "@/lib/db/queries";
 import { formatPeso } from "@/lib/format";
@@ -26,19 +28,29 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
         {t.drink.back}
       </Link>
 
-      <div
-        className={`relative mt-3 aspect-square overflow-hidden rounded-3xl sm:aspect-[4/3] lg:aspect-square ${genreBlockFor(drink.genreSlug)} ${
+      <motion.div
+        initial={{ clipPath: "inset(6% 6% 6% 6% round 2rem)", opacity: 0 }}
+        animate={{ clipPath: "inset(0% 0% 0% 0% round 2rem)", opacity: 1 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className={`relative mt-3 aspect-square overflow-hidden rounded-[2rem] sm:aspect-[4/3] lg:aspect-square ${genreBlockFor(drink.genreSlug)} ${
           drink.isAvailable ? "" : "grayscale"
         }`}
       >
-        <DrinkVisual
-          drink={drink}
-          live
-          priority
-          sizes="(min-width: 1024px) 40vw, 90vw"
-        />
+        <motion.div
+          initial={{ scale: 1.15 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
+        >
+          <DrinkVisual
+            drink={drink}
+            live
+            priority
+            sizes="(min-width: 1024px) 40vw, 90vw"
+          />
+        </motion.div>
         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-          <span className="rounded-full bg-background/90 px-3 py-1 text-sm font-semibold backdrop-blur">
+          <span className="rounded-full bg-background/90 px-3 py-1.5 eyebrow backdrop-blur">
             {drink.danceStyle}
           </span>
           {term && (
@@ -54,11 +66,15 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
             <span className="sr-only">{plain.terms.sittingOut}</span>
           </span>
         )}
-      </div>
+      </motion.div>
 
-      <div className="mt-6 flex items-start justify-between gap-4">
-        <h1 className="text-4xl leading-tight sm:text-5xl">{drink.name}</h1>
-        <p className="shrink-0 text-3xl font-semibold text-highlight sm:text-4xl">
+      <div className="mt-7 flex items-start justify-between gap-4">
+        <KineticTitle
+          text={drink.name}
+          delay={0.2}
+          className="text-[clamp(3rem,9vw,5.25rem)]"
+        />
+        <p className="shrink-0 pt-1 font-heading text-4xl leading-none font-black text-highlight [font-stretch:70%] sm:text-5xl">
           {formatPeso(drink.basePrice)}
         </p>
       </div>

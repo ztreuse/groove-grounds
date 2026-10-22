@@ -7,9 +7,11 @@ export const metadata: Metadata = { title: dance.pages.showtime };
 
 export default function ShowtimePage() {
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-8 pb-16 sm:pt-12">
+    <main className="flex-1 pb-16">
       <ShowtimeIntro />
-      <ShowtimeForm />
+      <div className="mx-auto w-full max-w-6xl px-4 pt-4">
+        <ShowtimeForm />
+      </div>
     </main>
   );
 }

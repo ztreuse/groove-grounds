@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { SectionHeading } from "@/components/layout/SectionHeading";
 import { DrinkCard } from "@/components/lineup/DrinkCard";
-import { Reveal } from "@/components/motion/Reveal";
 import { useScrollEdges } from "@/hooks/use-scroll-edges";
 import { useCopy } from "@/hooks/use-copy";
 import type { LineupDrink } from "@/lib/db/queries";
@@ -14,7 +14,7 @@ const arrowClass =
   "hidden size-12 items-center justify-center rounded-full bg-muted outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring active:scale-95 sm:flex";
 
 export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
-  const { t, plain, isPlain } = useCopy();
+  const { t, plain } = useCopy();
   const track = useRef<HTMLUListElement>(null);
   const edges = useScrollEdges<HTMLUListElement>();
 
@@ -36,17 +36,12 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
       aria-labelledby="trending"
       className="mx-auto w-full max-w-6xl px-4"
     >
-      <Reveal className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h2 id="trending" className="text-4xl leading-tight sm:text-5xl">
-            {t.home.trendingTitle}
-          </h2>
-          {!isPlain && (
-            <p className="mt-1 text-sm text-muted-foreground">
-              {plain.home.trendingTitle}
-            </p>
-          )}
-        </div>
+      <SectionHeading
+        id="trending"
+        index="02"
+        title={t.home.trendingTitle}
+        plainTitle={plain.home.trendingTitle}
+      >
         <div className="flex items-center gap-2">
           <Link
             href={routes.lineup.href}
@@ -71,7 +66,7 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
             <ChevronRight aria-hidden className="size-5" />
           </button>
         </div>
-      </Reveal>
+      </SectionHeading>
       <ul
         ref={(el) => {
           track.current = el;

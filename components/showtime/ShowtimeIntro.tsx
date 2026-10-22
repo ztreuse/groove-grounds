@@ -1,19 +1,18 @@
 "use client";
 
+import { PageHero } from "@/components/layout/PageHero";
 import { useCopy } from "@/hooks/use-copy";
 
 export function ShowtimeIntro() {
-  const { t, plain, isPlain } = useCopy();
+  const { t, plain } = useCopy();
 
   return (
-    <header>
-      <h1 className="text-4xl leading-tight sm:text-6xl">{t.pages.showtime}</h1>
-      {!isPlain && (
-        <p className="mt-1 text-lg text-muted-foreground">
-          {plain.pages.showtime}
-        </p>
-      )}
-      <p className="mt-3 max-w-prose">{t.showtime.intro}</p>
-    </header>
+    <PageHero
+      title={t.pages.showtime}
+      plainTitle={plain.pages.showtime}
+      body={t.showtime.intro}
+      image="/scenes/hero-spotlight.webp"
+      imagePosition="center 30%"
+    />
   );
 }

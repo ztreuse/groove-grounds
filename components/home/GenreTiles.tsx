@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { SectionHeading } from "@/components/layout/SectionHeading";
 import { DrinkVisual } from "@/components/lineup/DrinkVisual";
 import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
@@ -26,9 +27,12 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
 
   return (
     <section aria-labelledby="genres" className="mx-auto w-full max-w-6xl px-4">
-      <h2 id="genres" className="mb-6 text-4xl leading-tight sm:text-5xl">
-        {t.home.genresTitle}
-      </h2>
+      <SectionHeading
+        id="genres"
+        index="01"
+        title={t.home.genresTitle}
+        plainTitle={plain.home.genresTitle}
+      />
       <ul className="grid gap-4 sm:grid-cols-2 lg:auto-rows-[15rem] lg:grid-cols-6">
         {genres.map((genre, index) => {
           const term = genreTerms[genre.slug];
@@ -48,13 +52,21 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
               <Link
                 href={`${routes.lineup.href}?genre=${genre.slug}`}
                 aria-label={term ? plain.terms[term] : genre.name}
-                className={`group relative flex h-full ${photoBelow ? "min-h-80" : "min-h-56"} flex-col overflow-hidden rounded-[1.75rem] p-6 text-espresso transition-transform duration-300 outline-none hover:-translate-y-1 focus-visible:ring-3 focus-visible:ring-ring ${genreBlockFor(genre.slug)}`}
+                className={`group relative flex h-full ${photoBelow ? "min-h-80" : "min-h-56"} flex-col overflow-hidden rounded-[1.75rem] p-6 text-espresso transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] outline-none hover:-translate-y-1.5 focus-visible:ring-3 focus-visible:ring-ring ${genreBlockFor(genre.slug)}`}
               >
-                <span className="relative font-heading text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
+                <span
+                  className={`relative font-heading text-5xl leading-[0.85] font-black uppercase [font-stretch:64%] sm:text-6xl ${
+                    photoBelow ? "" : "max-w-[52%]"
+                  }`}
+                >
                   {term ? t.terms[term] : genre.name}
                 </span>
                 {!isPlain && term && (
-                  <span className="relative mt-1 text-sm font-medium">
+                  <span
+                    className={`relative mt-1 text-sm font-medium ${
+                      photoBelow ? "" : "max-w-[52%]"
+                    }`}
+                  >
                     {plain.terms[term]}
                   </span>
                 )}
@@ -76,7 +88,7 @@ export function GenreTiles({ genres, drinks }: GenreTilesProps) {
                         : "top-4 right-4 bottom-4 w-[42%]"
                     }`}
                   >
-                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+                    <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:rotate-1">
                       <DrinkVisual drink={cover} sizes="400px" />
                     </div>
                   </div>

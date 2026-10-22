@@ -26,3 +26,27 @@ Drink and snack photos in `public/drinks/` are from [Pexels](https://www.pexels.
 | `toprock-croissant.jpg` | [close up photo of croissant](https://www.pexels.com/photo/close-up-photo-of-croissant-3892469/) |
 | `pirouette-cinnamon-roll.jpg` | [delicious german pastries on a plate](https://www.pexels.com/photo/delicious-german-pastries-on-a-plate-34364452/) |
 | `battle-banana-bread.jpg` | [chocolate cake with nuts on a cooling rack](https://www.pexels.com/photo/chocolate-cake-with-nuts-on-a-cooling-rack-9810298/) |
+| `freestyle-espresso.jpg` | [coffee poured in glasses in cafe](https://www.pexels.com/photo/coffee-poured-in-glasses-in-cafe-7736770/) |
+| `freestyle-cold-brew.jpg` | [man drinking cold coffee](https://www.pexels.com/photo/man-drinking-cold-coffee-16284351/) |
+| `freestyle-matcha.jpg` | [matcha latte art in hanoi cafe setting](https://www.pexels.com/photo/matcha-latte-art-in-hanoi-cafe-setting-34694990/) |
+| `freestyle-chocolate.jpg` | [hot chocolate](https://www.pexels.com/photo/hot-chocolate-14704654/) |
+| `freestyle-tea.jpg` | [cozy evening with a steaming cup of tea](https://www.pexels.com/photo/cozy-evening-with-a-steaming-cup-of-tea-30742323/) |
+
+## Scene photos
+
+Backgrounds in `public/scenes/` (page headers, home, Freestyle stage), also from Pexels under the same license.
+
+| File | Source |
+| --- | --- |
+| `hero-spotlight.webp` | [a man dancing on the dance floor](https://www.pexels.com/photo/a-man-dancing-on-the-dance-floor-8285998/) |
+| `hero-garage.webp` | [man kicking his leg up in the air in an empty car park](https://www.pexels.com/photo/man-kicking-his-leg-up-in-the-air-in-an-empty-car-park-8315882/) |
+| `crew-purple.webp` | [women dancing together](https://www.pexels.com/photo/women-dancing-together-7974892/) |
+| `crew-smoke.webp` | [a group of people in black clothing are dancing](https://www.pexels.com/photo/a-group-of-people-in-black-clothing-are-dancing-27658397/) |
+| `crew-color.webp` | [group of dancers in trendy clothing](https://www.pexels.com/photo/group-of-dancers-in-trendy-clothing-8973536/) |
+| `stage-blur.webp` | [blurred woman dancing](https://www.pexels.com/photo/blurred-woman-dancing-24408975/) |
+| `stage-lights.webp` | [photo of colored spotlights](https://www.pexels.com/photo/photo-of-colored-spotlights-2020432/) |
+| `studio-floor.webp` | [ballerinas standing on toes](https://www.pexels.com/photo/ballerinas-standing-on-toes-5680215/) |
+| `bboy.webp` | [a shirtless man in black pants dancing](https://www.pexels.com/photo/a-shirtless-man-in-black-pants-dancing-7375827/) |
+| `barista-pour.webp` | [person pouring liquid in ceramic cup](https://www.pexels.com/photo/person-pouring-liquid-in-ceramic-cup-2036776/) |
+| `barista.webp` | [man in blue shirt and gray cap making cappuccino](https://www.pexels.com/photo/man-in-blue-shirt-and-gray-cap-making-cappuccino-3827542/) |
+| `sneakers.webp` | [a white sneakers](https://www.pexels.com/photo/a-white-sneakers-6322602/) |

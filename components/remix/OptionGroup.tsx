@@ -1,6 +1,8 @@
 "use client";
 
 import type { UseFormRegisterReturn } from "react-hook-form";
+import { Check } from "lucide-react";
+import { motion } from "motion/react";
 import { useCopy } from "@/hooks/use-copy";
 import { fill } from "@/lib/copy";
 import { formatPeso } from "@/lib/format";
@@ -24,6 +26,7 @@ function useLabels(item: { danceLabel: string; plainLabel: string }) {
 }
 
 function Chip({
+  groupId,
   type,
   value,
   checked,
@@ -34,6 +37,7 @@ function Chip({
   extra,
   soldOut,
 }: {
+  groupId: string;
   type: "radio" | "checkbox";
   value: string;
   checked: boolean;
@@ -58,22 +62,40 @@ function Chip({
         {...register}
       />
       <span
-        className={`flex min-h-11 flex-col justify-center rounded-2xl px-4 py-2 text-left transition-colors peer-focus-visible:ring-3 peer-focus-visible:ring-ring ${
+        className={`relative flex min-h-12 flex-col justify-center rounded-2xl px-4 py-2 text-left transition-[color,translate] duration-300 peer-focus-visible:ring-3 peer-focus-visible:ring-ring active:translate-y-px ${
           checked
-            ? "bg-espresso text-cream dark:bg-cream dark:text-espresso"
+            ? "text-background"
             : "bg-muted hover:bg-accent hover:text-accent-foreground"
         } ${disabled ? "opacity-50" : ""}`}
       >
-        <span className="text-sm font-semibold">{main}</span>
+        {/* Selected fill: one per group glides between single choices;
+            multi choices each pop in their own. */}
+        {checked && (
+          <motion.span
+            aria-hidden
+            layoutId={type === "radio" ? `pick-${groupId}` : undefined}
+            initial={type === "checkbox" ? { scale: 0.85, opacity: 0 } : false}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 520, damping: 38 }}
+            className="absolute inset-0 rounded-2xl bg-foreground shadow-[0_10px_24px_-12px_rgb(43_30_23_/_0.6)]"
+          />
+        )}
+        {checked && type === "checkbox" && (
+          <Check
+            aria-hidden
+            className="absolute top-2 right-2 size-3.5 text-background"
+          />
+        )}
+        <span className="relative pr-3 text-sm font-semibold">{main}</span>
         {sub && (
           <span
-            className={`text-xs ${checked ? "opacity-80" : "text-muted-foreground"}`}
+            className={`relative text-xs ${checked ? "opacity-75" : "text-muted-foreground"}`}
           >
             {sub}
           </span>
         )}
         {(extra || soldOut) && (
-          <span className="text-xs font-semibold">
+          <span className="relative text-xs font-semibold">
             {soldOut ? (
               <>
                 <span aria-hidden>{t.terms.sittingOut}</span>
@@ -108,25 +130,26 @@ export function OptionGroup({
       : t.drink.optional;
 
   return (
-    <fieldset className="border-t pt-6">
+    <fieldset className="border-t border-border pt-6">
       <legend className="sr-only">{group.plainLabel}</legend>
       <div
         aria-hidden
         className="mb-3 flex items-baseline justify-between gap-3"
       >
         <div>
-          <p className="font-heading text-2xl leading-none tracking-tight">
+          <p className="font-heading text-2xl leading-none font-bold tracking-tight">
             {main}
           </p>
           {sub && <p className="mt-1 text-sm text-muted-foreground">{sub}</p>}
         </div>
-        <p className="shrink-0 text-xs font-medium text-muted-foreground">
+        <p className="shrink-0 eyebrow text-[0.65rem] text-muted-foreground">
           {hint}
         </p>
       </div>
       <div className="flex flex-wrap gap-2">
         {group.type === "single" && !group.required && (
           <Chip
+            groupId={group.id}
             type="radio"
             value=""
             checked={picked.length === 0}
@@ -142,6 +165,7 @@ export function OptionGroup({
             option.priceDelta > 0 && option.id !== group.defaultOptionId;
           return (
             <Chip
+              groupId={group.id}
               key={option.id}
               type={isMulti ? "checkbox" : "radio"}
               value={option.id}
