@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { CartIcon } from "@/components/icons/GrooveIcons";
 import { KineticTitle } from "@/components/motion/KineticTitle";
 import { OptionGroup } from "@/components/remix/OptionGroup";
 import { QuantityStepper } from "@/components/remix/QuantityStepper";
@@ -18,7 +19,6 @@ import {
   CupPreview,
   type CupState,
 } from "@/components/remix/CupPreview";
-import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import { CHOREO_NAME_LIMIT, NOTES_LIMIT } from "@/lib/checkout";
 import { fill } from "@/lib/copy";
@@ -682,7 +682,7 @@ export function FreestyleBuilder({
                     />
                   </div>
 
-                  {added ? (
+                  {added && (
                     <motion.div
                       role="status"
                       initial={{ opacity: 0, y: 12 }}
@@ -717,40 +717,18 @@ export function FreestyleBuilder({
                         </button>
                       </div>
                     </motion.div>
-                  ) : (
-                    <Button
-                      type="submit"
-                      size="lg"
-                      aria-label={
-                        editItem
-                          ? plain.drink.update
-                          : plain.drink.addToPlaylist
-                      }
-                      className="h-auto min-h-16 w-full flex-col gap-0 rounded-md py-2 shadow-[0_18px_40px_-14px_var(--color-purple)]"
-                    >
-                      <span className="text-base font-bold">
-                        {editItem ? t.drink.update : t.drink.addToPlaylist}
-                      </span>
-                      {!isPlain && (
-                        <span className="text-xs font-medium">
-                          {editItem
-                            ? plain.drink.update
-                            : plain.drink.addToPlaylist}
-                        </span>
-                      )}
-                    </Button>
                   )}
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
 
-          {/* Controls: Back and Next side by side on the right, same
-              height, floating on their own (no frame). Phones also show the
+          {/* Controls: Back and Next (Add to cart on the last step) side by
+              side on the right, same height, floating on their own. Phones also show the
               running total on the left, since the preview panel scrolls
               away there. */}
           {base && current > 0 && (
-            <div className="fade-above sticky bottom-3 z-20 mt-10">
+            <div className="sticky bottom-3 z-20 mt-10">
               <div className="flex items-center justify-end gap-2">
                 <span className="mr-auto rounded-md bg-espresso-soft px-3 py-2 font-heading text-xl leading-none font-black [font-stretch:70%] tabular-nums shadow-[0_12px_28px_-14px_rgb(0_0_0_/_0.8)] lg:hidden">
                   {total}
@@ -788,6 +766,35 @@ export function FreestyleBuilder({
                       className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-white/15 transition-transform group-hover:translate-x-0.5"
                     >
                       <ArrowRight className="size-4" />
+                    </span>
+                  </button>
+                )}
+
+                {current === reviewStep && !added && (
+                  <button
+                    type="submit"
+                    aria-label={
+                      editItem ? plain.drink.update : plain.drink.addToPlaylist
+                    }
+                    className="group flex h-14 min-w-0 shrink items-center gap-3 rounded-md bg-primary pr-1.5 pl-4 text-left text-primary-foreground shadow-[0_12px_28px_-14px_var(--color-purple)] transition-colors hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring active:translate-y-px"
+                  >
+                    <span className="min-w-0 leading-tight">
+                      <span className="block truncate text-sm font-bold">
+                        {editItem ? t.drink.update : t.drink.addToPlaylist}
+                      </span>
+                      {!isPlain && (
+                        <span className="block truncate text-xs font-medium opacity-80">
+                          {editItem
+                            ? plain.drink.update
+                            : plain.drink.addToPlaylist}
+                        </span>
+                      )}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="flex size-11 shrink-0 items-center justify-center rounded-sm bg-white/15 transition-transform group-hover:translate-x-0.5"
+                    >
+                      <CartIcon className="size-5" />
                     </span>
                   </button>
                 )}
