@@ -205,7 +205,7 @@ export function ShowtimeForm() {
                   />
                   <IconTile icon={Icon} tone={active ? "accent" : "neutral"} />
                   <span>
-                    <span className="block font-heading text-2xl leading-none tracking-tight">
+                    <span className="block label-display text-2xl leading-none">
                       {t.terms[term]}
                     </span>
                     {!isPlain && (

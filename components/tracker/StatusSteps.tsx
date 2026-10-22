@@ -39,7 +39,7 @@ export function StatusSteps({ status }: { status: OrderStatus }) {
                 } ${current ? "motion-safe:animate-pulse" : ""}`}
               />
               <span
-                className={`mt-1 block font-heading text-lg ${
+                className={`mt-1 block label-display text-lg ${
                   filled ? "text-highlight" : "text-muted-foreground"
                 }`}
               >
@@ -64,7 +64,7 @@ export function StatusSteps({ status }: { status: OrderStatus }) {
               } ${!done && !current ? "opacity-60" : ""}`}
             >
               <span
-                className={`flex size-8 shrink-0 items-center justify-center rounded-full bg-muted font-heading ${
+                className={`flex size-8 shrink-0 items-center justify-center rounded-full bg-muted label-display ${
                   done || current ? "bg-primary text-primary-foreground" : ""
                 }`}
               >

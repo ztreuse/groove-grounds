@@ -105,7 +105,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
               role="alert"
               className="mt-6 rounded-2xl bg-destructive/10 p-4 font-semibold text-destructive"
             >
-              <span className="block font-heading text-2xl uppercase">
+              <span className="block label-display text-2xl uppercase">
                 {t.status.cut}
               </span>
               {t.tracker.cutMessage}
@@ -173,7 +173,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
                   ? t.tracker.paid
                   : t.tracker.payAtPickup}
               </span>
-              <span className="font-heading text-3xl">
+              <span className="font-heading text-3xl font-black [font-stretch:70%]">
                 {t.tracker.total} {formatPeso(order.total)}
               </span>
             </div>

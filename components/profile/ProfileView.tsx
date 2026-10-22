@@ -106,7 +106,7 @@ export function ProfileView({
               <p className="text-sm font-medium text-khaki">
                 {t.profile.level}
               </p>
-              <p className="mt-1 font-heading text-3xl tracking-tight">
+              <p className="mt-1 label-display text-3xl">
                 {t.levels[levelKey[profile.level]]}
               </p>
             </div>
@@ -114,7 +114,9 @@ export function ProfileView({
               <p className="text-sm font-medium text-muted-foreground">
                 {t.profile.reps}
               </p>
-              <p className="mt-1 font-heading text-3xl">{profile.reps}</p>
+              <p className="mt-1 font-heading text-3xl font-black [font-stretch:70%]">
+                {profile.reps}
+              </p>
             </div>
           </div>
 
@@ -187,7 +189,7 @@ export function ProfileView({
                   >
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
-                        <p className="font-heading text-2xl leading-none tracking-tight">
+                        <p className="label-display text-2xl leading-none">
                           {order.code}
                         </p>
                         <p className="mt-1 text-sm text-muted-foreground">
@@ -204,7 +206,7 @@ export function ProfileView({
                         .join(", ")}
                     </p>
                     <div className="mt-2 flex items-center justify-between">
-                      <span className="font-heading text-2xl">
+                      <span className="font-heading text-2xl font-black [font-stretch:70%]">
                         {formatPeso(order.total)}
                       </span>
                     </div>

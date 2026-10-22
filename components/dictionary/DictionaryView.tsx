@@ -128,7 +128,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
             <dl className="grid gap-3 sm:grid-cols-2">
               {section.entries.map((entry) => (
                 <div key={entry.term} className="surface p-4">
-                  <dt className="font-heading text-2xl leading-tight tracking-tight">
+                  <dt className="label-display text-2xl leading-tight">
                     {entry.term}
                   </dt>
                   <dd className="mt-1 font-semibold text-highlight">
@@ -198,7 +198,7 @@ export function DictionaryView({ styleDrinks }: { styleDrinks: StyleDrink[] }) {
             <dl className="grid gap-3 sm:grid-cols-2">
               {snackWords.map((word) => (
                 <div key={word.term} className="surface p-4">
-                  <dt className="font-heading text-2xl leading-none tracking-tight">
+                  <dt className="label-display text-2xl leading-none">
                     {word.term}
                   </dt>
                   <dd className="mt-2 text-sm text-muted-foreground">

@@ -34,7 +34,7 @@ export function PlaylistItem({ item }: { item: Item }) {
             {item.plainDescription}
           </p>
         </div>
-        <p className="shrink-0 font-heading text-2xl">
+        <p className="shrink-0 font-heading text-2xl font-black [font-stretch:70%]">
           {formatPeso(item.unitPrice * item.quantity)}
         </p>
       </div>

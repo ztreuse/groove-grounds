@@ -159,7 +159,7 @@ export function QueueBoard() {
                       </p>
                     )}
                   </div>
-                  <span className="font-heading text-2xl text-highlight">
+                  <span className="font-heading text-2xl font-black text-highlight [font-stretch:70%]">
                     {column.length}
                   </span>
                 </div>

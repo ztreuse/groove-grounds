@@ -17,7 +17,10 @@ export function CountIn() {
       {isPlain ? (
         <p className="text-lg font-semibold">{t.terms.loading}</p>
       ) : (
-        <p aria-hidden className="flex gap-4 font-heading text-6xl">
+        <p
+          aria-hidden
+          className="flex gap-4 font-heading text-6xl font-black [font-stretch:70%]"
+        >
           {counts.map((count, index) => (
             <span
               key={count}

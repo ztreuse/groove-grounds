@@ -80,7 +80,7 @@ function Tour() {
         </div>
 
         <div className="p-6">
-          <DialogTitle className="font-heading text-3xl leading-none tracking-tight">
+          <DialogTitle className="label-display text-3xl leading-none">
             {t.welcome[title]}
           </DialogTitle>
           <DialogDescription className="mt-3 text-base text-muted-foreground">

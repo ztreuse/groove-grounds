@@ -67,7 +67,7 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
             <li key={entry.id} className="flex flex-col surface p-4">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="truncate font-heading text-2xl leading-tight tracking-tight">
+                  <p className="truncate label-display text-2xl leading-tight">
                     {entry.name}
                   </p>
                   <p className="text-sm text-muted-foreground">
@@ -75,7 +75,7 @@ export function SavedChoreo({ choreo }: { choreo: SavedChoreoEntry[] }) {
                   </p>
                 </div>
                 {entry.unitPrice !== null ? (
-                  <span className="shrink-0 font-heading text-2xl">
+                  <span className="shrink-0 font-heading text-2xl font-black [font-stretch:70%]">
                     {formatPeso(entry.unitPrice)}
                   </span>
                 ) : (

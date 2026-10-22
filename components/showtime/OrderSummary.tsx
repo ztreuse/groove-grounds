@@ -41,7 +41,9 @@ export function OrderSummary({ items, pickupLabel, total }: OrderSummaryProps) {
       </div>
       <div className="mt-2 flex items-baseline justify-between">
         <span className="font-semibold">{t.showtime.total}</span>
-        <span className="font-heading text-4xl">{formatPeso(total)}</span>
+        <span className="font-heading text-4xl font-black [font-stretch:70%]">
+          {formatPeso(total)}
+        </span>
       </div>
     </section>
   );

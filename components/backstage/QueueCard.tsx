@@ -42,9 +42,7 @@ export function QueueCard({
     >
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="font-heading text-2xl leading-none tracking-tight">
-            {order.code}
-          </p>
+          <p className="label-display text-2xl leading-none">{order.code}</p>
           {order.guestName && (
             <p className="mt-1 text-sm font-semibold">{order.guestName}</p>
           )}
