@@ -339,14 +339,15 @@
 }
 
 /* Horizontal scrollers fade at whichever edge has more to scroll
-   (data attributes set by useScrollEdges). */
+   (data attributes set by useScrollEdges). Fallbacks need units:
+   calc(100% - 0) is invalid and would drop the whole mask. */
 @utility scroll-edges {
   --fade: 2.5rem;
   mask-image: linear-gradient(
     to right,
     transparent 0,
-    black var(--fade-start, 0),
-    black calc(100% - var(--fade-end, 0)),
+    black var(--fade-start, 0px),
+    black calc(100% - var(--fade-end, 0px)),
     transparent 100%
   );
   &[data-more-start] {
