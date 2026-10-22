@@ -10,6 +10,7 @@ import { formatPeso } from "@/lib/format";
 import { genreBlockFor, genreTerms } from "@/lib/genres";
 import { routes } from "@/lib/routes";
 import { DrinkVisual } from "./DrinkVisual";
+import { StyleTag } from "./StyleTag";
 
 // Drink page header: the product photo, then name, price, description and
 // the dance style note.
@@ -50,14 +51,18 @@ export function DrinkHero({ drink }: { drink: DrinkDetail }) {
           />
         </motion.div>
         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-          <span className="rounded-md bg-background/90 px-3 py-1.5 eyebrow backdrop-blur">
-            {drink.danceStyle}
-          </span>
+          <StyleTag
+            label={drink.danceStyle}
+            genre={drink.genreSlug}
+            size="md"
+          />
           {term && (
-            <span className="rounded-md bg-background/90 px-3 py-1 text-sm font-medium backdrop-blur">
-              <span aria-hidden>{t.terms[term]}</span>
-              <span className="sr-only">{plain.terms[term]}</span>
-            </span>
+            <StyleTag
+              label={t.terms[term]}
+              srLabel={plain.terms[term]}
+              genre={drink.genreSlug}
+              size="md"
+            />
           )}
         </div>
         {!drink.isAvailable && (

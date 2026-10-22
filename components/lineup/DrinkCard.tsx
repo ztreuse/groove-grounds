@@ -7,6 +7,7 @@ import type { LineupDrink } from "@/lib/db/queries";
 import { formatPeso } from "@/lib/format";
 import { genreBlockFor } from "@/lib/genres";
 import { DrinkVisual } from "./DrinkVisual";
+import { StyleTag } from "./StyleTag";
 import { TempBadge } from "./TempBadge";
 
 type DrinkCardProps = { drink: LineupDrink };
@@ -32,8 +33,8 @@ export function DrinkCard({ drink }: DrinkCardProps) {
             sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 80vw"
           />
         </div>
-        <span className="absolute top-3 left-3 rounded-sm bg-background/90 px-2 py-1 eyebrow text-[0.65rem] backdrop-blur">
-          {drink.danceStyle}
+        <span className="absolute top-3 left-3">
+          <StyleTag label={drink.danceStyle} genre={drink.genreSlug} />
         </span>
         {!drink.isAvailable && (
           <span className="absolute top-3 right-3 rounded-sm bg-espresso px-2.5 py-1 text-xs font-semibold text-cream">

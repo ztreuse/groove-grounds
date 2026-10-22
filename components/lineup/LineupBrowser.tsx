@@ -63,6 +63,16 @@ export function LineupBrowser({
   }, [drinks, genres, genre, temp, query]);
 
   const count = sections.reduce((n, section) => n + section.drinks.length, 0);
+  // Chip counts: the whole Lineup per genre, regardless of other filters.
+  const genreCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: drinks.length };
+    for (const drink of drinks) {
+      counts[drink.genreSlug] = (counts[drink.genreSlug] ?? 0) + 1;
+    }
+    return counts;
+  }, [drinks]);
+  const resultLabel =
+    count === 1 ? t.lineup.resultOne : fill(t.lineup.results, { count });
 
   function reset() {
     setGenre("all");
@@ -82,43 +92,54 @@ export function LineupBrowser({
 
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="fade-below sticky top-16 z-30 -mx-4 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
-          <div className="relative">
-            <Search
-              aria-hidden
-              className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
-            />
-            <input
-              type="search"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder={t.lineup.searchPlaceholder}
-              aria-label={plain.lineup.searchLabel}
-              className="h-12 w-full rounded-md bg-muted pr-12 pl-11 text-base outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring [&::-webkit-search-cancel-button]:hidden"
-            />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearch("")}
-                aria-label={plain.lineup.clearSearch}
-                className="absolute top-0 right-0 flex size-11 items-center justify-center rounded-full text-muted-foreground outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring"
+          {/* Row 1: search (framed, icon on a tile, live count) and the
+              temperature switch. Row 2: genre chips, wrapping on md+. */}
+          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+            <div className="group relative flex h-14 min-w-0 flex-1 items-center gap-3 rounded-md bg-card pr-2 pl-2 ring-1 ring-border transition-shadow ring-inset focus-within:ring-2 focus-within:ring-ring">
+              <span
+                aria-hidden
+                className="flex size-10 shrink-0 items-center justify-center rounded-sm bg-muted text-muted-foreground transition-colors group-focus-within:bg-primary group-focus-within:text-primary-foreground"
               >
-                <X aria-hidden className="size-5" />
-              </button>
-            )}
-          </div>
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="min-w-0 md:flex-1">
-              <GenreFilter genres={genres} value={genre} onChange={setGenre} />
+                <Search className="size-5" />
+              </span>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder={t.lineup.searchPlaceholder}
+                aria-label={plain.lineup.searchLabel}
+                className="h-full min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
+              />
+              <span
+                aria-live="polite"
+                className="hidden shrink-0 rounded-sm bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground sm:inline"
+              >
+                {resultLabel}
+              </span>
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch("")}
+                  aria-label={plain.lineup.clearSearch}
+                  className="flex size-10 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring"
+                >
+                  <X aria-hidden className="size-5" />
+                </button>
+              )}
             </div>
             <TempToggle value={temp} onChange={setTemp} />
           </div>
+          <GenreFilter
+            genres={genres}
+            counts={genreCounts}
+            value={genre}
+            onChange={setGenre}
+          />
         </div>
 
-        <p
-          aria-live="polite"
-          className="mt-5 text-sm font-medium text-muted-foreground"
-        >
-          {count === 1 ? t.lineup.resultOne : fill(t.lineup.results, { count })}
+        {/* Count lives in the search field from sm up. */}
+        <p className="mt-5 text-sm font-medium text-muted-foreground sm:hidden">
+          {resultLabel}
         </p>
 
         {sections.length === 0 ? (
