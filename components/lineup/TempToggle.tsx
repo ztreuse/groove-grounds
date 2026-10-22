@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
+import { DropdownMenu } from "radix-ui";
+import { Check, ChevronDown } from "lucide-react";
 import { CupIcon } from "@/components/icons/GrooveIcons";
 import { IconTile } from "@/components/layout/IconTile";
 import { useCopy } from "@/hooks/use-copy";
@@ -13,9 +14,9 @@ type TempToggleProps = {
   onChange: (value: TempFilter) => void;
 };
 
-// Any / Warm-up (hot) / Cool-down (iced and blended): a framed segmented
-// control; each option shows its logo-style tile, the selected one lifts
-// onto the card colour with a sliding highlight.
+// Temperature filter as a compact dropdown that sits inside the search
+// field: the trigger shows the current choice's tile (label from sm up);
+// the menu lists Any / Warm-up / Cool-down with their plain meanings.
 export function TempToggle({ value, onChange }: TempToggleProps) {
   const { t, plain, isPlain } = useCopy();
 
@@ -24,80 +25,85 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
       value: "all",
       label: t.lineup.tempAny,
       ariaLabel: plain.lineup.tempAny,
-      temp: null,
+      tile: <IconTile icon={CupIcon} tone="neutral" size="sm" />,
     },
     {
       value: "hot",
       label: t.remix.warmUp,
       ariaLabel: plain.remix.warmUp,
-      temp: "hot",
+      tile: (
+        <IconTile
+          icon={tempStyles.hot.icon}
+          tone="custom"
+          className={tempStyles.hot.accent}
+          size="sm"
+        />
+      ),
     },
     {
       value: "cold",
       label: t.remix.coolDown,
       ariaLabel: plain.remix.coolDown,
-      temp: "iced",
+      tile: (
+        <IconTile
+          icon={tempStyles.iced.icon}
+          tone="custom"
+          className={tempStyles.iced.accent}
+          size="sm"
+        />
+      ),
     },
   ] as const;
+  const current =
+    options.find((option) => option.value === value) ?? options[0];
 
   return (
-    <div
-      role="group"
-      aria-label={plain.lineup.tempFilter}
-      className="flex min-h-12 w-full shrink-0 gap-1 rounded-md bg-muted p-1 ring-1 ring-border ring-inset md:inline-flex md:w-auto md:self-start"
-    >
-      {options.map(({ value: optionValue, label, ariaLabel, temp }) => {
-        const sub = !isPlain && ariaLabel !== label ? ariaLabel : null;
-        const active = optionValue === value;
-        return (
-          <button
-            key={optionValue}
-            type="button"
-            aria-pressed={active}
-            aria-label={ariaLabel}
-            onClick={() => onChange(optionValue)}
-            className={`relative flex min-w-0 flex-auto items-center justify-center gap-1.5 rounded-sm py-1 pr-2.5 pl-1 text-sm font-semibold whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring sm:pr-3.5 md:flex-none md:justify-start ${
-              active
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger
+        aria-label={`${plain.lineup.tempFilter}: ${current.ariaLabel}`}
+        className="relative flex h-9 shrink-0 items-center gap-1.5 rounded-sm bg-muted py-1.5 pr-2 pl-1.5 text-sm font-semibold outline-none after:absolute after:-inset-1 after:content-[''] hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+      >
+        {current.tile}
+        <span className="max-sm:sr-only">{current.label}</span>
+        <ChevronDown aria-hidden className="size-4 opacity-70" />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          align="end"
+          sideOffset={10}
+          className="z-50 min-w-56 rounded-md bg-popover p-1.5 text-popover-foreground shadow-[0_0_0_1px_var(--border),0_18px_40px_-18px_rgb(43_30_23_/_0.5)] data-[state=open]:animate-in data-[state=open]:zoom-in-95 data-[state=open]:fade-in"
+        >
+          <DropdownMenu.Label className="px-2 pt-1 pb-2 text-xs font-medium text-muted-foreground">
+            {t.lineup.tempFilter}
+          </DropdownMenu.Label>
+          <DropdownMenu.RadioGroup
+            value={value}
+            onValueChange={(next) => onChange(next as TempFilter)}
           >
-            {active && (
-              <motion.span
-                aria-hidden
-                layoutId="temp-toggle"
-                transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                className="absolute inset-0 rounded-sm bg-card shadow-[0_0_0_1px_var(--border),0_6px_14px_-8px_rgb(43_30_23_/_0.45)]"
-              />
-            )}
-            <span className="relative flex items-center gap-2 sm:gap-2.5">
-              {temp ? (
-                <IconTile
-                  icon={tempStyles[temp].icon}
-                  tone="custom"
-                  className={tempStyles[temp].accent}
-                  size="sm"
-                />
-              ) : (
-                <IconTile
-                  icon={CupIcon}
-                  tone="neutral"
-                  size="sm"
-                  className="max-sm:hidden"
-                />
-              )}
-              <span className="text-left leading-tight">
-                <span className="block">{label}</span>
-                {sub && (
-                  <span className="block text-[11px] font-medium opacity-70">
-                    {sub}
-                  </span>
-                )}
-              </span>
-            </span>
-          </button>
-        );
-      })}
-    </div>
+            {options.map((option) => (
+              <DropdownMenu.RadioItem
+                key={option.value}
+                value={option.value}
+                aria-label={option.ariaLabel}
+                className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-sm px-2 text-sm font-semibold outline-none data-[highlighted]:bg-muted"
+              >
+                {option.tile}
+                <span className="flex-1 leading-tight">
+                  <span className="block">{option.label}</span>
+                  {!isPlain && option.ariaLabel !== option.label && (
+                    <span className="block text-[11px] font-medium text-muted-foreground">
+                      {option.ariaLabel}
+                    </span>
+                  )}
+                </span>
+                <DropdownMenu.ItemIndicator>
+                  <Check aria-hidden className="size-4 text-highlight" />
+                </DropdownMenu.ItemIndicator>
+              </DropdownMenu.RadioItem>
+            ))}
+          </DropdownMenu.RadioGroup>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 }

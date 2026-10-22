@@ -92,15 +92,16 @@ export function LineupBrowser({
 
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="fade-below sticky top-16 z-30 -mx-4 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
-          {/* Row 1: search (framed, icon on a tile, live count) and the
-              temperature switch. Row 2: genre chips, wrapping on md+. */}
-          <div className="flex flex-col gap-3 md:flex-row md:items-center">
-            <div className="group relative flex h-12 min-w-0 flex-1 items-center gap-3 rounded-md bg-card pr-2 pl-2 ring-1 ring-border transition-shadow ring-inset focus-within:ring-2 focus-within:ring-ring">
+          {/* Search field: icon tile, input, live count, clear and the
+              temperature dropdown, all 36px with equal 6px padding inside
+              the 48px frame. Genre chips below, wrapping on md+. */}
+          <div>
+            <div className="group relative flex h-12 min-w-0 flex-1 items-center gap-2 rounded-md bg-card px-1.5 ring-1 ring-border transition-shadow ring-inset focus-within:ring-2 focus-within:ring-ring">
               <span
                 aria-hidden
                 className="flex size-9 shrink-0 items-center justify-center rounded-sm bg-muted text-muted-foreground transition-colors group-focus-within:bg-primary group-focus-within:text-primary-foreground"
               >
-                <Search className="size-5" />
+                <Search className="size-4" />
               </span>
               <input
                 type="search"
@@ -108,11 +109,11 @@ export function LineupBrowser({
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder={t.lineup.searchPlaceholder}
                 aria-label={plain.lineup.searchLabel}
-                className="h-full min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
+                className="h-full min-w-0 flex-1 bg-transparent pl-1 text-base outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
               />
               <span
                 aria-live="polite"
-                className="hidden shrink-0 rounded-sm bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground sm:inline"
+                className="hidden shrink-0 text-xs font-semibold text-muted-foreground md:inline"
               >
                 {resultLabel}
               </span>
@@ -121,13 +122,13 @@ export function LineupBrowser({
                   type="button"
                   onClick={() => setSearch("")}
                   aria-label={plain.lineup.clearSearch}
-                  className="flex size-10 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring"
+                  className="flex size-9 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring"
                 >
-                  <X aria-hidden className="size-5" />
+                  <X aria-hidden className="size-4" />
                 </button>
               )}
+              <TempToggle value={temp} onChange={setTemp} />
             </div>
-            <TempToggle value={temp} onChange={setTemp} />
           </div>
           <GenreFilter
             genres={genres}
@@ -137,8 +138,8 @@ export function LineupBrowser({
           />
         </div>
 
-        {/* Count lives in the search field from sm up. */}
-        <p className="mt-5 text-sm font-medium text-muted-foreground sm:hidden">
+        {/* Count lives in the search field from md up. */}
+        <p className="mt-5 text-sm font-medium text-muted-foreground md:hidden">
           {resultLabel}
         </p>
 
