@@ -117,3 +117,62 @@ export function MainNav(props: Omit<NavListProps, "pathname">) {
     </Suspense>
   );
 }
+
+// Menu only: the pages that live in the footer on wide screens (About,
+// Find the Studio, Dance Dictionary), as a smaller second group.
+const moreItems: PageKey[] = ["about", "studio", "dictionary"];
+
+function MoreList({
+  pathname,
+  onNavigate,
+}: {
+  pathname: string | null;
+  onNavigate?: () => void;
+}) {
+  const { t, plain, isPlain } = useCopy();
+
+  return (
+    <div>
+      <p className="px-3 eyebrow text-muted-foreground">{t.header.more}</p>
+      <ul className="mt-1 grid">
+        {moreItems.map((page) => {
+          const { href } = routes[page];
+          const active = isActive(href, pathname);
+          return (
+            <li key={page}>
+              <Link
+                href={href}
+                aria-label={plain.pages[page]}
+                aria-current={active ? "page" : undefined}
+                onClick={onNavigate}
+                className={`flex min-h-12 flex-col justify-center rounded-md px-3 py-1.5 transition-colors outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring ${
+                  active ? "bg-muted text-highlight" : ""
+                }`}
+              >
+                <span className="text-sm font-semibold">{t.pages[page]}</span>
+                {!isPlain && plain.pages[page] !== t.pages[page] && (
+                  <span className="text-xs text-muted-foreground">
+                    {plain.pages[page]}
+                  </span>
+                )}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+function ActiveMoreList(props: { onNavigate?: () => void }) {
+  const pathname = usePathname();
+  return <MoreList {...props} pathname={pathname} />;
+}
+
+export function MoreNav(props: { onNavigate?: () => void }) {
+  return (
+    <Suspense fallback={<MoreList {...props} pathname={null} />}>
+      <ActiveMoreList {...props} />
+    </Suspense>
+  );
+}

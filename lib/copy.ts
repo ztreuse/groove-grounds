@@ -102,6 +102,7 @@ export const dance = {
     cartItems: "{count} items",
     account: "Account",
     signIn: "Sign in",
+    more: "More moves",
   },
 
   // The footer always uses plain words, so both dictionaries match here.
@@ -851,6 +852,7 @@ export const plain: Widen<typeof dance> = {
     cartItems: "{count} items",
     account: "Account",
     signIn: "Sign in",
+    more: "More",
   },
 
   footer: {

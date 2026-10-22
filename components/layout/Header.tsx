@@ -15,7 +15,7 @@ import {
 import { useCopy } from "@/hooks/use-copy";
 import { AccountLink } from "./AccountLink";
 import { LogoMark } from "./LogoMark";
-import { MainNav } from "./MainNav";
+import { MainNav, MoreNav } from "./MainNav";
 import { PlainModeToggle } from "./PlainModeToggle";
 import { PlaylistButton } from "./PlaylistButton";
 
@@ -79,6 +79,9 @@ function MobileNav() {
         </div>
         <nav aria-label={plain.header.mainNav}>
           <MainNav variant="sheet" onNavigate={() => setOpen(false)} />
+          <div className="mt-2 border-t pt-4">
+            <MoreNav onNavigate={() => setOpen(false)} />
+          </div>
         </nav>
         <div className="mt-2 border-t pt-4">
           <AccountLink variant="sheet" onNavigate={() => setOpen(false)} />
