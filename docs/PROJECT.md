@@ -158,7 +158,7 @@ Freestyle starts from a base instead of a menu drink: espresso, cold brew, match
 
 ## Sitemap & pages
 
-14 customer pages and 5 admin pages, using the Next.js App Router.
+14 customer pages and 6 admin pages, using the Next.js App Router.
 
 ### Customer pages
 
@@ -190,6 +190,7 @@ Every page shares a header (logo, main nav, Plain Mode switch, Playlist icon) an
 | `/backstage/lineup`      | Menu manager        | Add / edit drinks, genres, Remix options and prices; toggle Sitting out          |
 | `/backstage/schedule`    | Class schedule      | Opening hours, time-slot length, max drinks per slot, blackout dates             |
 | `/backstage/crew-orders` | Crew Order requests | Review, quote, accept or decline group orders                                    |
+| `/backstage/cypher`      | The Cypher          | Add, edit, hide or delete community board posts (Dance and Plain wording); the newest 3 live posts show on Center Stage. Spotlight is the Menu manager switch |
 
 ## User flows
 
@@ -309,8 +310,8 @@ Remix choices are stored on each order item as a snapshot so old orders stay acc
 | `saved_choreo`        | id, user_id, name, base, options (JSON)                                                                                                                                                                                                               | Favorites and Freestyle recipes                                  |
 | `reps_ledger`         | id, user_id, order_id, points, reason                                                                                                                                                                                                                 | Earned and redeemed points                                       |
 | `crew_requests`       | id, user_id, contact, event_date, headcount, details, status, quote_amount                                                                                                                                                                            | Group / event orders                                             |
-
-Optional later: `reviews` (Props), `promos` (Spotlight), `cypher_posts` (community board).
+| `props`               | id, order_id, drink_id, user_id, name, rating, comment | One per drink per order, after pickup |
+| `cypher_posts`        | id, tag_dance, tag_plain, title_dance, title_plain, body_dance, body_plain, author, is_published | The Cypher on Center Stage |
 
 ## Design direction
 

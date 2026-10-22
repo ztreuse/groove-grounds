@@ -13,6 +13,7 @@ const tabs: PageKey[] = [
   "backstageLineup",
   "backstageSchedule",
   "backstageCrewOrders",
+  "backstageCypher",
   "backstage",
 ];
 

@@ -332,3 +332,18 @@ export const crewRequests = pgTable("crew_requests", {
   respondedAt: timestamp("responded_at", { withTimezone: true }),
   createdAt,
 }).enableRLS();
+
+// The Cypher on Center Stage: specials, news and shout-outs, each worded
+// for Dance and Plain mode. Edited in Backstage; server-only access.
+export const cypherPosts = pgTable("cypher_posts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  tagDance: text("tag_dance").notNull(),
+  tagPlain: text("tag_plain").notNull(),
+  titleDance: text("title_dance").notNull(),
+  titlePlain: text("title_plain").notNull(),
+  bodyDance: text("body_dance").notNull(),
+  bodyPlain: text("body_plain").notNull(),
+  author: text("author").notNull(),
+  isPublished: boolean("is_published").notNull().default(true),
+  createdAt,
+}).enableRLS();

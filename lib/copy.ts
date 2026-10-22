@@ -646,6 +646,31 @@ export const dance = {
     today: "Today",
   },
 
+  cypherAdmin: {
+    intro:
+      "Specials, news and shout-outs for The Cypher on Center Stage. The newest {count} live posts show there.",
+    add: "New post",
+    empty: "No posts yet. Drop the first one in the circle.",
+    live: "On Center Stage",
+    hidden: "Hidden",
+    publish: "Show on Center Stage",
+    edit: "Edit",
+    delete: "Delete",
+    confirmDelete: "Tap again to delete",
+    save: "Save post",
+    cancel: "Cancel",
+    danceWording: "Dance terms",
+    plainWording: "Plain words",
+    tag: "Tag",
+    title: "Title",
+    body: "Text",
+    author: "Signed by",
+    required: "Fill this in.",
+    saved: "Post saved.",
+    deleted: "Post deleted.",
+    failed: "Couldn't save. Try again.",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -676,6 +701,7 @@ export const dance = {
     backstageLineup: "Menu manager",
     backstageSchedule: "Class schedule",
     backstageCrewOrders: "Crew Order requests",
+    backstageCypher: "The Cypher",
   },
 } as const;
 
@@ -1317,6 +1343,31 @@ export const plain: Widen<typeof dance> = {
     today: "Today",
   },
 
+  cypherAdmin: {
+    intro:
+      "Specials, news and shout-outs for the community board on the home page. The newest {count} visible posts show there.",
+    add: "New post",
+    empty: "No posts yet. Add the first one.",
+    live: "On the home page",
+    hidden: "Hidden",
+    publish: "Show on the home page",
+    edit: "Edit",
+    delete: "Delete",
+    confirmDelete: "Tap again to delete",
+    save: "Save post",
+    cancel: "Cancel",
+    danceWording: "Dance terms",
+    plainWording: "Plain words",
+    tag: "Tag",
+    title: "Title",
+    body: "Text",
+    author: "Signed by",
+    required: "Fill this in.",
+    saved: "Post saved.",
+    deleted: "Post deleted.",
+    failed: "Couldn't save. Try again.",
+  },
+
   placeholder: {
     comingSoon: "This page is coming soon.",
     phase: "Phase",
@@ -1347,6 +1398,7 @@ export const plain: Widen<typeof dance> = {
     backstageLineup: "Menu manager",
     backstageSchedule: "Pickup schedule",
     backstageCrewOrders: "Group order requests",
+    backstageCypher: "Community board",
   },
 };
 

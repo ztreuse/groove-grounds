@@ -1,12 +1,13 @@
 "use client";
 
 import { useCopy } from "@/hooks/use-copy";
-import type { PageKey } from "@/lib/copy";
+import { fill, type PageKey } from "@/lib/copy";
+import { CYPHER_ON_HOME } from "@/lib/cypher";
 
 type BackstageHeaderProps = {
   page: PageKey;
   // Optional intro line for the page.
-  intro?: "menu" | "schedule" | "crew" | "dashboard";
+  intro?: "menu" | "schedule" | "crew" | "dashboard" | "cypher";
 };
 
 // Title block for Backstage pages: section label, poster-caps title.
@@ -33,7 +34,9 @@ export function BackstageHeader({ page, intro }: BackstageHeaderProps) {
               ? t.scheduleAdmin.intro
               : intro === "crew"
                 ? t.crewAdmin.intro
-                : t.dashboard.intro}
+                : intro === "dashboard"
+                  ? t.dashboard.intro
+                  : fill(t.cypherAdmin.intro, { count: CYPHER_ON_HOME })}
         </p>
       )}
     </header>

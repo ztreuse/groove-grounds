@@ -31,6 +31,7 @@ export const routes: Record<PageKey, RouteInfo> = {
     phase: 2,
   },
   backstage: { href: "/backstage", area: "backstage", phase: 3 },
+  backstageCypher: { href: "/backstage/cypher", area: "backstage", phase: 3 },
   backstageCrewOrders: {
     href: "/backstage/crew-orders",
     area: "backstage",

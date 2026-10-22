@@ -4,14 +4,16 @@ import { GenreTiles } from "@/components/home/GenreTiles";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { TrendingCarousel } from "@/components/home/TrendingCarousel";
+import { getCypherPosts } from "@/lib/db/cypher";
 import { getLineup, getTrendingDrinkIds } from "@/lib/db/queries";
 
 const TRENDING_COUNT = 8;
 
 export default async function Home() {
-  const [{ genres, drinks }, trendingIds] = await Promise.all([
+  const [{ genres, drinks }, trendingIds, cypherPosts] = await Promise.all([
     getLineup(),
     getTrendingDrinkIds(),
+    getCypherPosts(),
   ]);
 
   // Drinks only (no snacks), and nothing that's Sitting out.
@@ -40,7 +42,7 @@ export default async function Home() {
       </div>
       <HowItWorks />
       <div className="py-24 sm:py-32">
-        <Cypher />
+        <Cypher posts={cypherPosts} />
       </div>
       <BackstagePromo />
     </main>

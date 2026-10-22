@@ -1,5 +1,22 @@
-// Demo posts for The Cypher (community board / specials feed) until the
-// optional cypher_posts table exists. Each post has Dance and Plain wording.
+import { z } from "zod";
+
+// The Cypher (community board / specials feed). Posts live in the
+// cypher_posts table; each one has Dance and Plain wording. Shared by the
+// Backstage editor and its server actions. Error messages are copy keys.
+
+const text = (max: number) => z.string().trim().min(1, "required").max(max);
+
+export const cypherPostSchema = z.object({
+  tagDance: text(30),
+  tagPlain: text(30),
+  titleDance: text(80),
+  titlePlain: text(80),
+  bodyDance: text(240),
+  bodyPlain: text(240),
+  author: text(40),
+});
+export type CypherPostInput = z.input<typeof cypherPostSchema>;
+export type CypherPostValues = z.output<typeof cypherPostSchema>;
 
 type Wording = { dance: string; plain: string };
 
@@ -11,48 +28,15 @@ export type CypherPost = {
   author: string;
 };
 
-export const cypherPosts: CypherPost[] = [
-  {
-    id: "open-style",
-    tag: { dance: "Open Style", plain: "Weekly special" },
-    title: {
-      dance: "This week's freestyle: Calamansi Cold Foam Latte",
-      plain: "This week's special: Calamansi Cold Foam Latte",
-    },
-    body: {
-      dance:
-        "Bright, citrusy, a little off-beat. Only on The Lineup till Sunday.",
-      plain: "A bright citrus latte, on the menu until Sunday.",
-    },
-    author: "@groovegrounds",
-  },
-  {
-    id: "crew-fridays",
-    tag: { dance: "Crew Order", plain: "Group orders" },
-    title: {
-      dance: "Rolling deep to rehearsal?",
-      plain: "Ordering for a group?",
-    },
-    body: {
-      dance:
-        "Send a Crew Order a day ahead and we'll have the whole set ready at your call time.",
-      plain:
-        "Place a group order a day ahead and we'll have everything ready at your pickup time.",
-    },
-    author: "@groovegrounds",
-  },
-  {
-    id: "shout-out",
-    tag: { dance: "Shout-out", plain: "Community" },
-    title: {
-      dance: "Props to Studio 23 for their showcase",
-      plain: "Congrats to Studio 23 on their showcase",
-    },
-    body: {
-      dance:
-        "24 drinks, one Crew Order, zero missed counts. Fuel for the encore.",
-      plain: "They ordered 24 drinks for the night. Thanks for choosing us!",
-    },
-    author: "Studio 23 Crew",
-  },
-];
+// Posts shown on Center Stage: the newest published ones.
+export const CYPHER_ON_HOME = 3;
+
+export const EMPTY_POST: CypherPostInput = {
+  tagDance: "",
+  tagPlain: "",
+  titleDance: "",
+  titlePlain: "",
+  bodyDance: "",
+  bodyPlain: "",
+  author: "@groovegrounds",
+};

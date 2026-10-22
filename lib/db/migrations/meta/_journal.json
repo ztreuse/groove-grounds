@@ -50,6 +50,13 @@
       "when": 1792688779614,
       "tag": "0006_props",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792689693403,
+      "tag": "0007_cypher_posts",
+      "breakpoints": true
     }
   ]
 }

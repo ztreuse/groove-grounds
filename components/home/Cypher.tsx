@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { SectionHeading } from "@/components/layout/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { useCopy } from "@/hooks/use-copy";
-import { cypherPosts } from "@/lib/cypher";
+import type { CypherPost } from "@/lib/cypher";
 
 // Photos from the floor, drifting sideways as the page scrolls.
 const floor = [
@@ -20,7 +20,7 @@ const floor = [
 
 // Community board: a scroll-drifting strip of photos, then the posts as
 // columns split by hairlines, each signed like a flyer.
-export function Cypher() {
+export function Cypher({ posts }: { posts: CypherPost[] }) {
   const { t, plain, isPlain } = useCopy();
   const strip = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -64,31 +64,35 @@ export function Cypher() {
         </motion.div>
       </div>
 
-      <ul className="mx-auto mt-16 grid w-full max-w-6xl gap-10 px-4 md:grid-cols-3 md:gap-0">
-        {cypherPosts.map((post, index) => (
-          <Reveal
-            as="li"
-            delay={index * 0.08}
-            key={post.id}
-            className="flex flex-col border-border md:border-l md:px-8 md:first:border-l-0 md:first:pl-0"
-          >
-            <span className="eyebrow text-highlight">{pick(post.tag)}</span>
-            <h3 className="mt-3 text-2xl leading-tight">{pick(post.title)}</h3>
-            <p className="mt-3 flex-1 text-muted-foreground">
-              {pick(post.body)}
-            </p>
-            <p className="mt-6 flex items-center gap-3 text-sm font-semibold">
-              <span
-                aria-hidden
-                className="flex size-9 items-center justify-center rounded-full bg-lilac font-heading text-xs font-black text-espresso uppercase"
-              >
-                {post.author.replace("@", "").slice(0, 2)}
-              </span>
-              {post.author}
-            </p>
-          </Reveal>
-        ))}
-      </ul>
+      {posts.length > 0 && (
+        <ul className="mx-auto mt-16 grid w-full max-w-6xl gap-10 px-4 md:grid-cols-3 md:gap-0">
+          {posts.map((post, index) => (
+            <Reveal
+              as="li"
+              delay={index * 0.08}
+              key={post.id}
+              className="flex flex-col border-border md:border-l md:px-8 md:first:border-l-0 md:first:pl-0"
+            >
+              <span className="eyebrow text-highlight">{pick(post.tag)}</span>
+              <h3 className="mt-3 text-2xl leading-tight">
+                {pick(post.title)}
+              </h3>
+              <p className="mt-3 flex-1 text-muted-foreground">
+                {pick(post.body)}
+              </p>
+              <p className="mt-6 flex items-center gap-3 text-sm font-semibold">
+                <span
+                  aria-hidden
+                  className="flex size-9 items-center justify-center rounded-full bg-lilac font-heading text-xs font-black text-espresso uppercase"
+                >
+                  {post.author.replace("@", "").slice(0, 2)}
+                </span>
+                {post.author}
+              </p>
+            </Reveal>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
