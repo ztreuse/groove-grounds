@@ -103,15 +103,15 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `PlainModeToggle` | layout | Two-segment "Dance terms / Plain words" switch in the header. |
 | `Toaster` | layout | Sonner toasts (bottom centre, espresso, lilac action). Used for added to Playlist, saved, Run it back. |
 | `CountIn` | layout | Loader: "5, 6, 7, 8…". Errors: "You missed a count". Empty Playlist: "The floor's empty". |
-| `Header` / `MainNav` | layout | Logo, nav (Center Stage, The Lineup, Freestyle, Crew Order) with a thin underline that slides on hover, Plain toggle, account icon, Playlist icon. Account lives on the icon, not in the nav. |
+| `Header` / `MainNav` | layout | Logo, nav (Center Stage, The Lineup, Freestyle, Crew Order) with a thin underline that slides on hover, Plain toggle, account icon, Playlist icon. Account: a round icon in the bar on wide screens; on smaller screens it lives only in the menu (signed-in name, or Join the Crew + Sign in). |
 | `Footer` | layout | Plain words always; hours; giant fading wordmark with a drink photo blended in front. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
 
 ### Icons
 
-- **Groove icon set** (`components/icons/GrooveIcons.tsx`): our own SVG glyphs drawn like small logos. Solid shapes filled with `currentColor`, details cut out with even-odd (cassette reels, cup sleeve, ice cubes), 24×24 grid. Not outlines, not sketches.
-- Motifs carry the theme: Playlist = cassette, Center Stage = spotlight on a stage, The Lineup = takeaway cup, Freestyle = dance line with a spark, Crew = two dancers, Dance terms = sneaker, Plain words = cup on a saucer, Book a Class = calendar with a clock, empty Playlist = vinyl record.
+- **Groove icon set** (`components/icons/GrooveIcons.tsx`): our own SVG glyphs drawn like small logos. Solid shapes filled with `currentColor`, details cut out with even-odd (cart slats, cup sleeve, ice cubes), 24×24 grid. Not outlines, not sketches.
+- Motifs carry the theme: Playlist = shopping cart (kept literal so it reads as the cart), Center Stage = spotlight on a stage, The Lineup = takeaway cup, Freestyle = dance line with a spark, Crew = two dancers, Dance terms = sneaker, Plain words = cup on a saucer, Book a Class = calendar with a clock, empty Playlist = vinyl record.
 - Every icon that stands for a thing or a place uses the Groove set, through `IconTile` or directly. Add new ones to that file in the same style; don't mix in a stock icon for these.
 - Small utility marks (arrows, chevrons, check, plus/minus, close inside dialogs, search, edit, delete) use `lucide-react`, stroke 2.
 - Beside a label, a glyph sits on an `IconTile` (logo-chip style). Inside round header buttons and the Plain toggle the glyph is bare. Header icon buttons (account, Playlist, menu) are round, `bg-muted`, and fill with `foreground` on hover; the Playlist count badge sits on the corner with a ring in the page colour.

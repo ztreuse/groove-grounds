@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import {
   CupIcon,
   MugIcon,
-  PlaylistIcon,
+  CartIcon,
   SneakerIcon,
 } from "@/components/icons/GrooveIcons";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ import { usePreferences } from "@/stores/preferences";
 
 const steps = [
   { title: "step1Title", body: "step1Body", icon: CupIcon },
-  { title: "step2Title", body: "step2Body", icon: PlaylistIcon },
+  { title: "step2Title", body: "step2Body", icon: CartIcon },
   { title: "step3Title", body: "step3Body", icon: SneakerIcon },
 ] as const;
 

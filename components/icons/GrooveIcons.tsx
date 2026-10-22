@@ -128,6 +128,18 @@ export const PlaylistIcon = icon(
   />,
 );
 
+// Playlist (cart): a shopping cart, basket slats cut out, two wheels.
+export const CartIcon = icon(
+  <>
+    <path
+      d={`M1.5 3.2h2.9a1.2 1.2 0 0 1 1.17.93L6 6h14.6a1 1 0 0 1 .97 1.24l-1.6 6.6A1.6 1.6 0 0 1 18.4 15H8.1l.35 1.6h10.3v2H7.6a1.2 1.2 0 0 1-1.17-.94L3.6 5.2H1.5z
+        M8.7 8.2h1.6l.5 4.6H9.6z M12.3 8.2h1.6l-.1 4.6h-1.5z M15.9 8.2h1.6l-.8 4.6h-1.3z`}
+    />
+    <path d={c(8.6, 21, 1.6)} />
+    <path d={c(17.2, 21, 1.6)} />
+  </>,
+);
+
 // Menu: three bars, cut like an equaliser.
 export const MenuIcon = icon(
   <>
