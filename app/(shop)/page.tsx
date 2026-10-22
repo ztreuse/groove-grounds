@@ -3,7 +3,6 @@ import { Cypher } from "@/components/home/Cypher";
 import { GenreTiles } from "@/components/home/GenreTiles";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { Setlist } from "@/components/home/Setlist";
 import { TrendingCarousel } from "@/components/home/TrendingCarousel";
 import { getLineup, getTrendingDrinkIds } from "@/lib/db/queries";
 
@@ -37,7 +36,6 @@ export default async function Home() {
       <Hero spotlight={spotlight} />
       <div className="flex flex-col gap-28 py-24 sm:gap-40 sm:py-32">
         <GenreTiles genres={genres} drinks={drinks} />
-        <Setlist drinks={onStage} />
         <TrendingCarousel drinks={trending} />
       </div>
       <HowItWorks />

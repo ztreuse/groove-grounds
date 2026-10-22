@@ -14,7 +14,7 @@ export function BackstagePromo() {
   return (
     <section className="bg-gradient-to-b from-background via-lilac/60 to-lilac text-espresso">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pt-24 pb-28 text-center sm:pt-32 sm:pb-36">
-        <p className="eyebrow text-espresso/70">06</p>
+        <p className="eyebrow text-espresso/70">05</p>
         <KineticTitle
           as="h2"
           text={t.home.backstageTitle}

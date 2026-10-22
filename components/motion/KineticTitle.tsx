@@ -52,7 +52,14 @@ export function KineticTitle({
   return (
     <Tag id={id} className={className}>
       <span className="sr-only">{text}</span>
-      <motion.span aria-hidden initial={reduce ? false : "hidden"} {...play}>
+      {/* Keyed by the text: switching Dance/Plain wording remounts the
+          letters so they play in again instead of staying hidden. */}
+      <motion.span
+        key={text}
+        aria-hidden
+        initial={reduce ? false : "hidden"}
+        {...play}
+      >
         {words.map((word, w) => {
           const accent = accentLast && w === words.length - 1;
           const Word = accent ? "em" : "span";

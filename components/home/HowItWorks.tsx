@@ -3,10 +3,11 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { KineticTitle } from "@/components/motion/KineticTitle";
 import { useCopy } from "@/hooks/use-copy";
+import { setOrderIntent } from "@/lib/order-intent";
 import { routes } from "@/lib/routes";
 
 const steps = [
@@ -54,7 +55,7 @@ export function HowItWorks() {
 
       <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-20">
         <p className="eyebrow text-lilac">
-          04{!isPlain && ` — ${plain.home.howTitle}`}
+          03{!isPlain && ` — ${plain.home.howTitle}`}
         </p>
         <KineticTitle
           as="h2"
@@ -64,11 +65,24 @@ export function HowItWorks() {
           trigger="view"
           className="mt-4 max-w-[10ch] text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.88] font-black tracking-normal uppercase [font-stretch:64%]"
         />
+        {/* Starts an order now, rather than repeating the menu links above. */}
         <Link
           href={routes.lineup.href}
-          className="group mt-8 inline-flex min-h-12 items-center gap-2 self-start rounded-md bg-cream px-6 font-semibold text-espresso outline-none focus-visible:ring-3 focus-visible:ring-lilac active:translate-y-px"
+          onClick={() => setOrderIntent("drop_in")}
+          aria-label={plain.terms.dropIn}
+          className="group mt-8 inline-flex min-h-14 items-center gap-3 self-start rounded-md bg-cream py-2 pr-5 pl-5 text-espresso outline-none focus-visible:ring-3 focus-visible:ring-lilac active:translate-y-px"
         >
-          {t.home.seeLineup}
+          <Zap aria-hidden className="size-5 shrink-0" />
+          <span className="text-left">
+            <span className="block font-heading text-lg leading-none font-extrabold whitespace-nowrap">
+              {t.terms.dropIn}
+            </span>
+            {!isPlain && (
+              <span className="block text-xs font-medium opacity-75">
+                {plain.terms.dropIn}
+              </span>
+            )}
+          </span>
           <ArrowRight
             aria-hidden
             className="size-4 transition-transform group-hover:translate-x-1"

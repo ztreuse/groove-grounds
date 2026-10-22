@@ -43,7 +43,7 @@ export function TrendingCarousel({ drinks }: { drinks: LineupDrink[] }) {
       <div className="mx-auto w-full max-w-6xl px-4">
         <SectionHeading
           id="trending"
-          index="03"
+          index="02"
           title={t.home.trendingTitle}
           plainTitle={plain.home.trendingTitle}
         />
