@@ -1,7 +1,7 @@
 "use client";
 
 import { useId } from "react";
-import { Coffee } from "lucide-react";
+import { MugIcon } from "@/components/icons/GrooveIcons";
 import { motion, useScroll, useTransform } from "motion/react";
 
 type SpinBadgeProps = {
@@ -38,7 +38,7 @@ export function SpinBadge({ words, className }: SpinBadgeProps) {
         </text>
       </svg>
       <span className="flex size-12 items-center justify-center rounded-full bg-espresso text-lilac">
-        <Coffee className="size-6" />
+        <MugIcon className="size-6 [--icon-accent:var(--color-purple)]" />
       </span>
     </motion.div>
   );

@@ -1,29 +1,25 @@
-import type { LucideIcon } from "lucide-react";
+import type { GrooveIcon } from "@/components/icons/GrooveIcons";
 
 type IconTileProps = {
-  icon: LucideIcon;
-  // inherit: tints with the text colour around it (use inside buttons).
+  icon: GrooveIcon;
+  // Colour of the off-register print behind the outline.
   tone?: "accent" | "neutral" | "inherit" | "custom";
-  // Tile colours for tone="custom" (e.g. a temperature from lib/temps).
+  // Accent for tone="custom", e.g. a temperature from lib/temps.
   className?: string;
   size?: "sm" | "md" | "lg";
 };
 
 const tones = {
-  accent: "bg-primary/12 text-highlight",
-  neutral: "bg-muted text-foreground",
-  inherit: "bg-current/12",
+  accent: "[--icon-accent:var(--color-lilac)]",
+  neutral: "[--icon-accent:var(--color-khaki)]",
+  // Inside coloured buttons: a translucent print of the text colour.
+  inherit: "[--icon-accent:color-mix(in_oklch,currentColor_30%,transparent)]",
   custom: "",
 };
 
-const sizes = {
-  sm: { tile: "size-6", icon: "size-3.5" },
-  md: { tile: "size-9", icon: "size-5" },
-  lg: { tile: "size-14", icon: "size-7" },
-};
+const sizes = { sm: "size-5", md: "size-6", lg: "size-14" };
 
-// An icon sitting on a small tinted square, so icons beside labels read as
-// a deliberate mark rather than a bare line drawing. Decorative.
+// A Groove Grounds icon at a set size and print colour. Decorative.
 export function IconTile({
   icon: Icon,
   tone = "accent",
@@ -33,9 +29,9 @@ export function IconTile({
   return (
     <span
       aria-hidden
-      className={`inline-flex shrink-0 items-center justify-center rounded-md ${sizes[size].tile} ${tones[tone]} ${className}`}
+      className={`inline-flex shrink-0 ${tones[tone]} ${className}`}
     >
-      <Icon className={sizes[size].icon} strokeWidth={2} />
+      <Icon className={sizes[size]} />
     </span>
   );
 }

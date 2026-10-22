@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MailCheck } from "lucide-react";
+import { MailIcon } from "@/components/icons/GrooveIcons";
 import { signIn, signUp } from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -63,7 +63,7 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
   if (confirmEmail) {
     return (
       <div role="status" className="mt-8 surface p-6">
-        <IconTile icon={MailCheck} size="lg" />
+        <IconTile icon={MailIcon} size="lg" />
         <h2 className="mt-3 text-3xl leading-none">{t.auth.checkEmail}</h2>
         <p className="mt-2 text-muted-foreground">
           {fill(t.auth.checkEmailBody, { email: confirmEmail })}

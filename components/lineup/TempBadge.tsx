@@ -9,11 +9,11 @@ import { tempStyles } from "@/lib/temps";
 // with the dance label; screen readers get the plain word.
 export function TempBadge({ temp }: { temp: Temperature }) {
   const { t, plain } = useCopy();
-  const { icon, key, tile } = tempStyles[temp];
+  const { icon, key, accent } = tempStyles[temp];
 
   return (
     <span className="inline-flex items-center gap-1.5 text-xs font-semibold">
-      <IconTile icon={icon} tone="custom" className={tile} size="sm" />
+      <IconTile icon={icon} tone="custom" className={accent} size="sm" />
       <span aria-hidden>{t.remix[key]}</span>
       <span className="sr-only">{plain.remix[key]}</span>
     </span>

@@ -96,9 +96,7 @@ function Chip({
             <IconTile
               icon={tempStyles[temp].icon}
               tone="custom"
-              className={
-                checked ? tempStyles[temp].solid : tempStyles[temp].tile
-              }
+              className={tempStyles[temp].accent}
               size="sm"
             />
           )}

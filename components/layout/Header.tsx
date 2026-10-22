@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { IconTile } from "./IconTile";
+import { CloseIcon, MenuIcon } from "@/components/icons/GrooveIcons";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -53,7 +54,7 @@ function MobileNav() {
           aria-label={plain.header.openNav}
           className="rounded-full bg-muted text-foreground transition-colors hover:bg-foreground hover:text-background xl:hidden"
         >
-          <Menu aria-hidden className="size-5" />
+          <IconTile icon={MenuIcon} tone="accent" />
         </Button>
       </SheetTrigger>
       <SheetContent
@@ -73,7 +74,7 @@ function MobileNav() {
               aria-label={plain.header.closeNav}
               className="rounded-full"
             >
-              <X aria-hidden className="size-5" />
+              <IconTile icon={CloseIcon} tone="neutral" />
             </Button>
           </SheetClose>
         </div>

@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { DropInIcon } from "@/components/icons/GrooveIcons";
 import { motion, useScroll, useTransform } from "motion/react";
 import { IconTile } from "@/components/layout/IconTile";
 import { KineticTitle } from "@/components/motion/KineticTitle";
@@ -74,7 +75,7 @@ export function HowItWorks() {
           aria-label={plain.terms.dropIn}
           className="group mt-8 inline-flex min-h-14 items-center gap-3 self-start rounded-md bg-cream py-2 pr-5 pl-2.5 text-espresso outline-none focus-visible:ring-3 focus-visible:ring-lilac active:translate-y-px"
         >
-          <IconTile icon={Zap} tone="inherit" />
+          <IconTile icon={DropInIcon} tone="inherit" />
           <span className="text-left">
             <span className="block font-heading text-lg leading-none font-extrabold whitespace-nowrap">
               {t.terms.dropIn}

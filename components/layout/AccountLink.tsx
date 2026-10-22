@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogIn, UserRound } from "lucide-react";
+import { ProfileIcon, SignInIcon } from "@/components/icons/GrooveIcons";
 import { useCopy } from "@/hooks/use-copy";
 import { IconTile } from "./IconTile";
 import { useUser } from "@/hooks/use-user";
@@ -22,7 +22,7 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
   // the nav itself no longer lists the account. Below 360px the bar has no
   // room for the icon, so it lives in the menu only.
   const signedIn = !!user;
-  const Icon = signedIn ? UserRound : LogIn;
+  const Icon = signedIn ? ProfileIcon : SignInIcon;
   const label = signedIn ? t.header.account : t.header.signIn;
   const ariaLabel = signedIn ? plain.header.account : plain.header.signIn;
   const href = signedIn ? routes.profile.href : routes.login.href;
@@ -40,7 +40,7 @@ export function AccountLink({ variant, onNavigate }: AccountLinkProps) {
       }
     >
       {variant === "bar" ? (
-        <Icon aria-hidden className="size-5 shrink-0" />
+        <IconTile icon={Icon} tone="accent" />
       ) : (
         <IconTile icon={Icon} tone="accent" />
       )}

@@ -1,36 +1,36 @@
-import { CupSoda, Flame, Snowflake } from "lucide-react";
+import {
+  BlendedIcon,
+  HotIcon,
+  IcedIcon,
+  type GrooveIcon,
+} from "@/components/icons/GrooveIcons";
 import type { Temperature } from "@/lib/pricing";
 
 // One look per temperature, shared by drink cards, the Lineup filter and the
-// Remix options: an icon, its copy key and its colour. Class names are
-// written out in full so Tailwind keeps them.
+// Remix options: an icon, its copy key and its print colour. Class names
+// are written out in full so Tailwind keeps them.
 export const tempStyles = {
   hot: {
-    icon: Flame,
+    icon: HotIcon,
     key: "warmUp",
-    tile: "bg-temp-hot/15 text-temp-hot",
-    solid: "bg-temp-hot text-white",
+    accent: "[--icon-accent:var(--color-temp-hot)]",
   },
   iced: {
-    icon: Snowflake,
+    icon: IcedIcon,
     key: "coolDown",
-    tile: "bg-temp-iced/15 text-temp-iced",
-    solid: "bg-temp-iced text-white",
+    accent: "[--icon-accent:var(--color-temp-iced)]",
   },
   blended: {
-    icon: CupSoda,
+    icon: BlendedIcon,
     key: "blended",
-    tile: "bg-temp-blended/15 text-temp-blended",
-    solid: "bg-temp-blended text-white",
+    accent: "[--icon-accent:var(--color-temp-blended)]",
   },
 } as const satisfies Record<
   Temperature,
   {
-    icon: typeof Flame;
+    icon: GrooveIcon;
     key: "warmUp" | "coolDown" | "blended";
-    // Tinted tile on light surfaces; solid tile on dark/selected ones.
-    tile: string;
-    solid: string;
+    accent: string;
   }
 >;
 

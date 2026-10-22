@@ -15,7 +15,7 @@ If a request conflicts with these files, say so and ask before building. Never s
 ## Stack (do not swap or add libraries without asking)
 
 - Next.js 16 App Router + TypeScript (strict), React Server Components by default, `"use client"` only where needed. `cacheComponents` is on: request-time data goes inside `<Suspense>`; no `Date.now()` / `new Date()` during prerender
-- Tailwind CSS v4 (tokens in `app/globals.css`), shadcn/ui primitives, `lucide-react` icons, Motion (`motion/react`), Sonner toasts
+- Tailwind CSS v4 (tokens in `app/globals.css`), shadcn/ui primitives, the Groove icon set (`components/icons`) plus `lucide-react` for utility marks, Motion (`motion/react`), Sonner toasts
 - Supabase (Postgres, Auth, Realtime, Storage) with Drizzle ORM
 - Zustand: `stores/playlist.ts` (cart) and `stores/preferences.ts` (Plain Mode), persisted to localStorage
 - React Hook Form + Zod for every form

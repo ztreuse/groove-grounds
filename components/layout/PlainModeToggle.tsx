@@ -1,6 +1,7 @@
 "use client";
 
-import { Coffee, Footprints } from "lucide-react";
+import { IconTile } from "./IconTile";
+import { MugIcon, SneakerIcon } from "@/components/icons/GrooveIcons";
 import { motion } from "motion/react";
 import { useCopy } from "@/hooks/use-copy";
 import { usePreferences } from "@/stores/preferences";
@@ -12,8 +13,8 @@ export function PlainModeToggle() {
   const togglePlainMode = usePreferences((state) => state.togglePlainMode);
 
   const options = [
-    { isPlainOption: false, icon: Footprints, label: t.header.modeDance },
-    { isPlainOption: true, icon: Coffee, label: t.header.modePlain },
+    { isPlainOption: false, icon: SneakerIcon, label: t.header.modeDance },
+    { isPlainOption: true, icon: MugIcon, label: t.header.modePlain },
   ];
 
   return (
@@ -43,7 +44,12 @@ export function PlainModeToggle() {
                 transition={{ type: "spring", stiffness: 500, damping: 35 }}
               />
             )}
-            <Icon aria-hidden className="relative size-4" />
+            <IconTile
+              icon={Icon}
+              tone={active ? "inherit" : "neutral"}
+              size="sm"
+              className="relative"
+            />
             <span className="relative hidden sm:inline">{label}</span>
           </span>
         );

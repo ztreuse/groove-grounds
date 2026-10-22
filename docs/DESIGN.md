@@ -94,8 +94,8 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `SpinBadge` | motion | Lilac round sticker with text on a circle; rotates with scroll only (never on its own). Home hero only. |
 | `DrinkCard` | lineup | Editorial card: 4:5 photo on its genre colour, dance-style tag, hairline, temps + price, name in poster caps, plain description. A drink is always a `DrinkCard` (Lineup grid and Popular drinks row). |
 | `DrinkVisual` | lineup | The drink's photo (`public/drinks/<slug>.jpg`), falling back to the `CupPreview` / `SnackArt` illustration. |
-| `IconTile` | layout | An icon on a small tinted square (`rounded-md`). Tones: `accent` (purple tint), `neutral` (muted), `inherit` (tinted from the surrounding text colour, for icons inside buttons), `custom` (e.g. a temperature). Sizes `sm` / `md` / `lg` (lg for empty and status states). |
-| `TempBadge` | lineup | Temperature on drink cards: colour-coded `IconTile` (hot, iced, blended) plus the dance label. The Lineup filter and the Remix temperature chips use the same `lib/temps.ts` styles. |
+| `IconTile` | layout | Renders a Groove icon at a set size (`sm` / `md` / `lg`) with its print colour. Tones: `accent` (lilac print), `neutral` (khaki print), `inherit` (translucent print of the text colour, inside coloured buttons), `custom` (e.g. a temperature). No square behind it. |
+| `TempBadge` | lineup | Temperature on drink cards: the temperature's Groove icon (mug, iced glass, frappe) printed in its colour, plus the dance label. The Lineup filter and the Remix temperature chips use the same `lib/temps.ts` styles. |
 | `OptionGroup` | remix | Remix and Freestyle options. Chips fill with `foreground` when selected; one fill glides between single choices (`layoutId`), multi choices each pop in with a check. |
 | `Button` | ui | shadcn base re-themed: `rounded-md`, purple primary, ghost/outline variants; icon sizes round. Money/time buttons show the dance word and the plain word. |
 | `PlainModeToggle` | layout | Two-segment "Dance terms / Plain words" switch in the header. |
@@ -108,11 +108,13 @@ Inputs use the `field` utility (filled `muted`, small corner, purple focus ring)
 
 ### Icons
 
-- `lucide-react` only, stroke width 2. No emoji.
-- An icon next to a label sits on an `IconTile`, never bare: order buttons, the mobile menu, checkout options, the account link, empty and status states.
+- **Groove icon set** (`components/icons/GrooveIcons.tsx`): our own SVGs in a flyer-print style. A rounded outline in `currentColor` (stroke 1.75) over a solid shape printed off-register (offset 1.4 down-right) in `--icon-accent` (lilac by default). 24×24 grid.
+- Motifs carry the theme: Playlist = cassette, Center Stage = spotlight on a stage, The Lineup = takeaway cup, Freestyle = dance line with a spark, Crew = two dancers, Dance terms = sneaker, Plain words = cup on a saucer, Book a Class = calendar with a clock, empty Playlist = vinyl record.
+- Every icon that stands for a thing or a place uses the Groove set, through `IconTile` or directly. Add new ones to that file in the same style; don't mix in a stock icon for these.
+- Small utility marks (arrows, chevrons, check, plus/minus, close inside dialogs, search, edit, delete) use `lucide-react`, stroke 2.
 - Header icon buttons (account, Playlist, menu) are round, `bg-muted`, and fill with `foreground` on hover; the Playlist count badge sits on the corner with a ring in the page colour.
-- Temperature is always colour-coded (warm orange, cool blue, blended pink) wherever it appears.
-- Small inline utility icons (arrows, chevrons, close, search) stay bare.
+- Temperature is always colour-coded in the icon's print (warm orange, cool blue, blended pink) wherever it appears.
+- No emoji.
 
 ## 6. Imagery
 
@@ -146,7 +148,7 @@ Inputs use the `field` utility (filled `muted`, small corner, purple focus ring)
 - No italic coloured accent word on section titles (hero only).
 - No marquees or tickers, no tilted sticker tags, no arrows that spin 45° on hover.
 - No rounded inset section panels; no drop shadows on cards.
-- No new colours, fonts or hex values outside `globals.css`. No emoji. Icons from `lucide-react` only.
+- No new colours, fonts or hex values outside `globals.css`. No emoji. Icons: the Groove set for things and places, `lucide-react` only for utility marks.
 - No default shadcn look left un-themed (grey borders, slate text, blue rings).
 - Don't create a second card style for the same thing on another page.
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarClock, Zap } from "lucide-react";
+import { BookIcon, DropInIcon } from "@/components/icons/GrooveIcons";
 import { createOrder, getCheckoutPrefill } from "@/app/(shop)/showtime/actions";
 import { CountIn } from "@/components/layout/CountIn";
 import { IconTile } from "@/components/layout/IconTile";
@@ -168,8 +168,8 @@ export function ShowtimeForm() {
   }
 
   const orderTypes = [
-    { value: "drop_in", term: "dropIn", icon: Zap },
-    { value: "class", term: "bookAClass", icon: CalendarClock },
+    { value: "drop_in", term: "dropIn", icon: DropInIcon },
+    { value: "class", term: "bookAClass", icon: BookIcon },
   ] as const;
 
   return (

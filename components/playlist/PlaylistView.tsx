@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Disc3, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import { RecordIcon } from "@/components/icons/GrooveIcons";
 import { AnimatePresence } from "motion/react";
 import { CountIn } from "@/components/layout/CountIn";
 import { IconTile } from "@/components/layout/IconTile";
@@ -38,7 +39,7 @@ export function PlaylistView() {
       <div className="mx-auto w-full max-w-6xl px-4 pt-8">
         {items.length === 0 ? (
           <div className="mt-10 flex flex-col items-center rounded-3xl bg-muted/60 px-6 py-12 text-center">
-            <IconTile icon={Disc3} size="lg" />
+            <IconTile icon={RecordIcon} size="lg" />
             <h2 className="mt-4 text-3xl">{t.playlist.emptyTitle}</h2>
             <p className="mt-2 max-w-sm text-muted-foreground">
               {t.playlist.emptyBody}

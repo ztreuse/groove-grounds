@@ -61,7 +61,7 @@ export function TempToggle({ value, onChange }: TempToggleProps) {
               <IconTile
                 icon={tempStyles[temp].icon}
                 tone="custom"
-                className={tempStyles[temp].tile}
+                className={tempStyles[temp].accent}
                 size="sm"
               />
             )}

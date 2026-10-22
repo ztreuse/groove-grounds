@@ -2,7 +2,13 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Coffee, Footprints, ShoppingCart, X } from "lucide-react";
+import { X } from "lucide-react";
+import {
+  CupIcon,
+  MugIcon,
+  PlaylistIcon,
+  SneakerIcon,
+} from "@/components/icons/GrooveIcons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,9 +22,9 @@ import { fill } from "@/lib/copy";
 import { usePreferences } from "@/stores/preferences";
 
 const steps = [
-  { title: "step1Title", body: "step1Body", icon: Coffee },
-  { title: "step2Title", body: "step2Body", icon: ShoppingCart },
-  { title: "step3Title", body: "step3Body", icon: Footprints },
+  { title: "step1Title", body: "step1Body", icon: CupIcon },
+  { title: "step2Title", body: "step2Body", icon: PlaylistIcon },
+  { title: "step3Title", body: "step3Body", icon: SneakerIcon },
 ] as const;
 
 // Order links and Backstage open straight to a task, so skip the tour there.
@@ -64,11 +70,11 @@ function Tour() {
             {t.welcome.title} ·{" "}
             {fill(t.welcome.stepOf, { step: step + 1, total: steps.length })}
           </p>
-          <span className="relative mt-4 flex size-14 items-center justify-center rounded-2xl bg-primary">
+          <span className="relative mt-4 flex size-14 items-center justify-center rounded-md bg-primary text-cream [--icon-accent:color-mix(in_oklch,var(--color-lilac)_70%,transparent)]">
             {step === 2 && isPlain ? (
-              <Coffee aria-hidden className="size-7" />
+              <MugIcon className="size-8" />
             ) : (
-              <Icon aria-hidden className="size-7" />
+              <Icon className="size-8" />
             )}
           </span>
         </div>

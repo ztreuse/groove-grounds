@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { IconTile } from "./IconTile";
+import { PlaylistIcon } from "@/components/icons/GrooveIcons";
 import { motion } from "motion/react";
 import { useCopy } from "@/hooks/use-copy";
 import { fill } from "@/lib/copy";
@@ -22,7 +23,7 @@ export function PlaylistButton() {
       aria-label={`${plain.terms.playlist}, ${countLabel}`}
       className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-muted text-foreground transition-colors outline-none hover:bg-foreground hover:text-background focus-visible:ring-3 focus-visible:ring-ring"
     >
-      <ShoppingCart aria-hidden className="size-5" />
+      <IconTile icon={PlaylistIcon} tone="accent" />
       {count > 0 && (
         <motion.span
           key={count}

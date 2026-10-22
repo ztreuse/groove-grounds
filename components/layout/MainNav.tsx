@@ -4,19 +4,25 @@ import { Suspense, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Coffee, House, Sparkles, Users } from "lucide-react";
+import {
+  CrewIcon,
+  CupIcon,
+  FreestyleIcon,
+  StageIcon,
+} from "@/components/icons/GrooveIcons";
 import { useCopy } from "@/hooks/use-copy";
 import type { PageKey, TermKey } from "@/lib/copy";
+import type { GrooveIcon } from "@/components/icons/GrooveIcons";
 import { IconTile } from "./IconTile";
 import { routes } from "@/lib/routes";
 
 // Standard icons (house, cup) so the layout stays familiar. The account
 // lives on the user icon beside the cart, not in this list.
-const navItems: { page: PageKey; term: TermKey; icon: typeof House }[] = [
-  { page: "home", term: "centerStage", icon: House },
-  { page: "lineup", term: "lineup", icon: Coffee },
-  { page: "freestyle", term: "freestyle", icon: Sparkles },
-  { page: "crew", term: "crewOrder", icon: Users },
+const navItems: { page: PageKey; term: TermKey; icon: GrooveIcon }[] = [
+  { page: "home", term: "centerStage", icon: StageIcon },
+  { page: "lineup", term: "lineup", icon: CupIcon },
+  { page: "freestyle", term: "freestyle", icon: FreestyleIcon },
+  { page: "crew", term: "crewOrder", icon: CrewIcon },
 ];
 
 type NavListProps = {

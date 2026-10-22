@@ -3,7 +3,9 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, CalendarClock, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { BookIcon, DropInIcon } from "@/components/icons/GrooveIcons";
+import type { GrooveIcon } from "@/components/icons/GrooveIcons";
 import { motion, useScroll, useTransform } from "motion/react";
 import { IconTile } from "@/components/layout/IconTile";
 import { DrinkVisual } from "@/components/lineup/DrinkVisual";
@@ -19,20 +21,20 @@ const ctas = [
   {
     intent: "drop_in",
     term: "dropIn",
-    icon: Zap,
+    icon: DropInIcon,
     className: "bg-primary text-primary-foreground hover:bg-primary/90",
   },
   {
     intent: "class",
     term: "bookAClass",
-    icon: CalendarClock,
+    icon: BookIcon,
     className:
       "bg-transparent text-foreground ring-1 ring-foreground/80 ring-inset hover:bg-foreground hover:text-background",
   },
 ] as const satisfies {
   intent: OrderIntent;
   term: "dropIn" | "bookAClass";
-  icon: typeof Zap;
+  icon: GrooveIcon;
   className: string;
 }[];
 

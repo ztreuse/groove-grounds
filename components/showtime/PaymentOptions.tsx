@@ -1,7 +1,7 @@
 "use client";
 
 import type { UseFormRegisterReturn } from "react-hook-form";
-import { CreditCard, Store, Wallet } from "lucide-react";
+import { CardIcon, ShopIcon, WalletIcon } from "@/components/icons/GrooveIcons";
 import { IconTile } from "@/components/layout/IconTile";
 import { useCopy } from "@/hooks/use-copy";
 import type { PaymentMethod } from "@/lib/checkout";
@@ -26,21 +26,21 @@ export function PaymentOptions({ value, register }: PaymentOptionsProps) {
       value: "demo_gcash",
       label: t.showtime.gcash,
       ariaLabel: plain.showtime.gcash,
-      icon: Wallet,
+      icon: WalletIcon,
       hint: t.showtime.gcashHint,
     },
     {
       value: "demo_card",
       label: t.showtime.card,
       ariaLabel: plain.showtime.card,
-      icon: CreditCard,
+      icon: CardIcon,
       hint: null,
     },
     {
       value: "pay_at_pickup",
       label: t.showtime.payAtPickup,
       ariaLabel: plain.showtime.payAtPickup,
-      icon: Store,
+      icon: ShopIcon,
       hint: t.showtime.payAtPickupHint,
     },
   ] as const;
