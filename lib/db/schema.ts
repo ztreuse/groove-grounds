@@ -284,6 +284,30 @@ export const repsLedger = pgTable(
   ],
 ).enableRLS();
 
+// Props: a 1-5 rating (and optional comment) on a drink, given from the
+// order tracker after pickup. One per drink per order. Server-only access.
+export const props = pgTable(
+  "props",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    orderId: uuid("order_id")
+      .notNull()
+      .references(() => orders.id, { onDelete: "cascade" }),
+    drinkId: uuid("drink_id")
+      .notNull()
+      .references(() => drinks.id, { onDelete: "cascade" }),
+    userId: uuid("user_id").references(() => profiles.id, {
+      onDelete: "set null",
+    }),
+    // First name only, shown with the comment.
+    name: text("name"),
+    rating: integer("rating").notNull(),
+    comment: text("comment"),
+    createdAt,
+  },
+  (t) => [unique().on(t.orderId, t.drinkId)],
+).enableRLS();
+
 // Group / event orders. The request page link (by id) is the customer's
 // key, like the order tracker. Quotes come from Backstage.
 export const crewRequests = pgTable("crew_requests", {

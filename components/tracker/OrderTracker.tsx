@@ -14,6 +14,7 @@ import { formatDay, formatPeso, formatTime } from "@/lib/format";
 import { choreographerFor, isOpen, statusCopyKey } from "@/lib/orders";
 import { routes } from "@/lib/routes";
 import { dayKey } from "@/lib/schedule";
+import { PropsPrompt } from "./PropsPrompt";
 import { StatusSteps } from "./StatusSteps";
 
 export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
@@ -115,6 +116,8 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
           <section className="mt-8">
             <StatusSteps status={order.status} />
           </section>
+
+          {order.status === "bow" && <PropsPrompt order={order} />}
         </div>
 
         <div>
@@ -180,7 +183,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
           </section>
 
           {open && (
-            <section className="mt-6 rounded-3xl bg-muted/60 p-5">
+            <section className="mt-6 rounded-md bg-muted/60 p-5">
               <h2 className="text-3xl leading-none">{t.tracker.demoTitle}</h2>
               <p className="mt-2 text-muted-foreground">{t.tracker.demoBody}</p>
               <Button asChild size="lg" variant="outline" className="mt-4">

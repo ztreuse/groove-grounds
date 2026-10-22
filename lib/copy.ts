@@ -591,6 +591,31 @@ export const dance = {
     customerView: "Customer view",
   },
 
+  props: {
+    title: "Props",
+    count: "{count} Props",
+    countOne: "1 Prop",
+    average: "{average} out of 5",
+    none: "No Props yet. Pick one up and be the first to give it some.",
+    from: "{name}",
+    anonymous: "A dancer",
+    giveTitle: "Give Props",
+    giveBody: "How did it land? Rate what you picked up.",
+    rate: "Rate {name}: {count} out of 5",
+    labels: {
+      1: "Off-beat",
+      2: "Warming up",
+      3: "On the beat",
+      4: "Fire",
+      5: "Legendary",
+    },
+    comment: "Say something (optional)",
+    commentPlaceholder: "What hit, what missed…",
+    submit: "Send Props",
+    thanks: "Props sent. Thanks for the love.",
+    failed: "Couldn't send. Try again.",
+  },
+
   placeholder: {
     comingSoon: "This routine is still in rehearsal.",
     phase: "Phase",
@@ -1206,6 +1231,31 @@ export const plain: Widen<typeof dance> = {
     failed: "Couldn't update. Try again.",
     received: "Received {date}",
     customerView: "Customer view",
+  },
+
+  props: {
+    title: "Ratings",
+    count: "{count} ratings",
+    countOne: "1 rating",
+    average: "{average} out of 5",
+    none: "No ratings yet. Order it and be the first to rate it.",
+    from: "{name}",
+    anonymous: "A customer",
+    giveTitle: "Rate your order",
+    giveBody: "How was it? Rate what you picked up.",
+    rate: "Rate {name}: {count} out of 5",
+    labels: {
+      1: "Poor",
+      2: "Okay",
+      3: "Good",
+      4: "Great",
+      5: "Excellent",
+    },
+    comment: "Add a comment (optional)",
+    commentPlaceholder: "What you liked or didn't…",
+    submit: "Send rating",
+    thanks: "Rating sent. Thank you.",
+    failed: "Couldn't send. Try again.",
   },
 
   placeholder: {

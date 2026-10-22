@@ -256,6 +256,11 @@ export const ShopIcon = icon(
   </>,
 );
 
+// Props: a five-point star.
+export const StarIcon = icon(
+  <path d="M12 2.2l2.95 6.1 6.7.9-4.9 4.65 1.2 6.65L12 17.3l-5.95 3.2 1.2-6.65L2.35 9.2l6.7-.9z" />,
+);
+
 // States ------------------------------------------------------------------
 
 // Empty Playlist: a vinyl record with grooves and a label.

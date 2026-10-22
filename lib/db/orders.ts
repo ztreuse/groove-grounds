@@ -8,7 +8,7 @@ import {
 } from "@/lib/orders";
 import { db } from "./index";
 import { awardOrderReps } from "./reps";
-import { drinks, orderItems, orders, timeSlots } from "./schema";
+import { drinks, genres, orderItems, orders, timeSlots } from "./schema";
 
 const isUuid = (id: string) => z.uuid().safeParse(id).success;
 
@@ -34,12 +34,16 @@ async function withItems(rows: OrderRow[]) {
   const itemRows = await db
     .select({
       orderId: orderItems.orderId,
+      drinkId: orderItems.drinkId,
+      genreSlug: genres.slug,
       name: orderItems.nameSnapshot,
       quantity: orderItems.quantity,
       lineTotal: orderItems.lineTotal,
       options: orderItems.optionsSnapshot,
     })
     .from(orderItems)
+    .leftJoin(drinks, eq(orderItems.drinkId, drinks.id))
+    .leftJoin(genres, eq(drinks.genreId, genres.id))
     .where(
       inArray(
         orderItems.orderId,
@@ -57,7 +61,10 @@ async function withItems(rows: OrderRow[]) {
     createdAt: row.createdAt.toISOString(),
     items: itemRows
       .filter((item) => item.orderId === row.id)
-      .map(({ name, quantity, lineTotal, options }) => ({
+      .map(({ drinkId, genreSlug, name, quantity, lineTotal, options }) => ({
+        drinkId,
+        // Menu items can get Props; Freestyle drinks have no drink page.
+        ratable: Boolean(drinkId && genreSlug && genreSlug !== "freestyle"),
         name,
         quantity,
         lineTotal,

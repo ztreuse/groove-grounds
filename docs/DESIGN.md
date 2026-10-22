@@ -115,13 +115,14 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `RepsView` | reps | Reps page body: sticky balance card with recent Reps (or a join prompt), how you earn, the level ladder (current level on lilac) and rewards (affordable ones ringed). Rules live in `lib/reps.ts`. |
 | `CrewForm` / `CrewRequestView` | crew | Crew Order request form (lead-time notice on lilac, three fieldsets with heading-style legends) and the request page: status steps, quote with Accept / Decline, sticky summary. |
 | `CrewInbox` | backstage | Owner inbox grouped by status; new requests take a quote (amount + note) or a two-tap decline. |
+| `PropsPrompt` / `DrinkPropsSection` | tracker, lineup | Props: after Bow the tracker shows a Give Props card per menu drink (five Groove stars, rating label, optional comment); the drink page shows the average, count and three latest comments. No seeded reviews. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
 
 ### Icons
 
 - **Groove icon set** (`components/icons/GrooveIcons.tsx`): our own SVG glyphs drawn like small logos. Solid shapes filled with `currentColor`, details cut out with even-odd (cart slats, cup sleeve, ice cubes), 24×24 grid. Not outlines, not sketches.
-- Motifs carry the theme: Playlist = shopping cart (kept literal so it reads as the cart), Center Stage = spotlight on a stage, The Lineup = takeaway cup, Freestyle = dance line with a spark, Crew = two dancers, Dance terms = sneaker, Plain words = cup on a saucer, Book a Class = calendar with a clock, empty Playlist = vinyl record. Genres (`lib/genres.ts` genreIcon): Old School = espresso shot glass, New School = latte with heart art, Mashup = frappe, Off-Beat = leaf, Intermission = cookie, All = takeaway cup; shown in espresso on the genre colour.
+- Motifs carry the theme: Playlist = shopping cart (kept literal so it reads as the cart), Center Stage = spotlight on a stage, The Lineup = takeaway cup, Freestyle = dance line with a spark, Crew = two dancers, Dance terms = sneaker, Plain words = cup on a saucer, Book a Class = calendar with a clock, empty Playlist = vinyl record, Props = star. Genres (`lib/genres.ts` genreIcon): Old School = espresso shot glass, New School = latte with heart art, Mashup = frappe, Off-Beat = leaf, Intermission = cookie, All = takeaway cup; shown in espresso on the genre colour.
 - Every icon that stands for a thing or a place uses the Groove set, through `IconTile` or directly. Add new ones to that file in the same style; don't mix in a stock icon for these.
 - Real brand marks only where a real service is named (the GCash payment option, `public/brands/`), at their own colours, credited in `docs/PHOTO_CREDITS.md`. Never restyle or redraw a brand mark.
 - Small utility marks (arrows, chevrons, check, plus/minus, close inside dialogs, search, edit, delete) use `lucide-react`, stroke 2.
