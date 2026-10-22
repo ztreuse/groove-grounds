@@ -160,13 +160,17 @@ export function LineupBrowser({
               >
                 <div className="mb-6 flex items-end gap-4 border-b border-border pb-4">
                   <div className="min-w-0">
-                    <p className="mb-2 flex items-center gap-2 eyebrow text-muted-foreground">
-                      <span
-                        aria-hidden
-                        className={`size-3 shrink-0 rounded-full ${genreBlockFor(g.slug)}`}
-                      />
-                      {!isPlain && term ? plain.terms[term] : null}
-                    </p>
+                    {/* Plain meaning with its genre swatch; the whole line
+                        (swatch too) goes away in Plain mode. */}
+                    {!isPlain && term && (
+                      <p className="mb-2 flex items-center gap-2 eyebrow text-muted-foreground">
+                        <span
+                          aria-hidden
+                          className={`size-3 shrink-0 rounded-full ${genreBlockFor(g.slug)}`}
+                        />
+                        {plain.terms[term]}
+                      </p>
+                    )}
                     <h2
                       id={`genre-${g.slug}`}
                       className="text-5xl leading-[0.85] font-black tracking-normal uppercase [font-stretch:64%] sm:text-7xl"
