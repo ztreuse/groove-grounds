@@ -53,9 +53,9 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
   return (
     <section
       ref={ref}
-      className="relative grid grid-cols-1 border-b border-border lg:min-h-[calc(100dvh-5.5rem)] lg:grid-cols-2"
+      className="relative overflow-hidden lg:flex lg:min-h-[calc(100dvh-5.5rem)] lg:items-center"
     >
-      <div className="flex flex-col justify-center px-5 pt-12 pb-14 sm:px-8 lg:py-16 lg:pr-12 lg:pl-[max(2rem,calc((100vw-72rem)/2+1rem))]">
+      <div className="relative z-10 flex flex-col justify-center px-5 pt-12 pb-6 sm:px-8 lg:w-1/2 lg:py-16 lg:pr-12 lg:pl-[max(2rem,calc((100vw-72rem)/2+1rem))]">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,12 +115,16 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
         </motion.div>
       </div>
 
-      <div className="relative min-h-[26rem] overflow-hidden bg-cream-soft sm:min-h-[34rem] lg:min-h-0">
+      {/* Photo as the backdrop: multiply turns the studio's white wall into
+          the page cream, and the mask fades it out behind the headline and
+          into the next section, so there's no photo edge anywhere. */}
+      <div className="relative h-[26rem] sm:h-[34rem] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[62%]">
         <motion.div
-          initial={{ clipPath: "inset(0 0 0 100%)" }}
-          animate={{ clipPath: "inset(0 0 0 0%)" }}
-          transition={{ duration: 1.2, ease }}
-          className="absolute inset-0"
+          aria-hidden
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.4, ease }}
+          className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_72%,transparent)] mix-blend-multiply lg:[mask-image:linear-gradient(to_right,transparent,black_28%),linear-gradient(to_bottom,black_68%,transparent)] lg:[mask-composite:intersect] dark:mix-blend-normal"
         >
           <motion.div
             style={{ y: photoY, scale: photoScale }}
@@ -132,7 +136,7 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
               fill
               priority
               sizes="(min-width: 1024px) 55vw, 100vw"
-              className="object-cover object-[30%_center]"
+              className="object-cover object-[30%_center] lg:object-[0%_center]"
             />
           </motion.div>
         </motion.div>
@@ -142,7 +146,7 @@ export function Hero({ spotlight }: { spotlight: LineupDrink | undefined }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.8, ease }}
-            className="absolute right-4 bottom-4 left-4 sm:right-auto sm:bottom-6 sm:left-6 sm:w-80"
+            className="absolute right-4 bottom-4 left-4 sm:bottom-6 sm:left-auto sm:w-80 lg:right-[max(2rem,calc((100vw-72rem)/2+1rem))] lg:bottom-16"
           >
             <Link
               href={`/lineup/${spotlight.slug}`}
