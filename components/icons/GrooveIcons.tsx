@@ -261,6 +261,28 @@ export const StarIcon = icon(
   <path d="M12 2.2l2.95 6.1 6.7.9-4.9 4.65 1.2 6.65L12 17.3l-5.95 3.2 1.2-6.65L2.35 9.2l6.7-.9z" />,
 );
 
+// Find the Studio -----------------------------------------------------------
+
+// Address: a map pin with a round hole.
+export const PinIcon = icon(
+  <path
+    d={`M12 1.8a7.6 7.6 0 0 0-7.6 7.6c0 5.5 7.6 12.8 7.6 12.8s7.6-7.3 7.6-12.8A7.6 7.6 0 0 0 12 1.8z ${c(12, 9.4, 2.9)}`}
+  />,
+);
+
+// Hours: a clock face with its hands cut out.
+export const ClockIcon = icon(
+  <path d={`${c(12, 12, 10)} M10.9 5.8h2.2v5.6l3.6 2.2-1.1 1.9-4.7-2.9z`} />,
+);
+
+// Phone: a handset with the screen and button cut out.
+export const PhoneIcon = icon(
+  <path
+    d={`M7.6 1.8h8.8a2.1 2.1 0 0 1 2.1 2.1v16.2a2.1 2.1 0 0 1-2.1 2.1H7.6a2.1 2.1 0 0 1-2.1-2.1V3.9a2.1 2.1 0 0 1 2.1-2.1z
+        M7.7 4.4h8.6v12.4H7.7z ${c(12, 19.4, 1.1)}`}
+  />,
+);
+
 // States ------------------------------------------------------------------
 
 // Empty Playlist: a vinyl record with grooves and a label.

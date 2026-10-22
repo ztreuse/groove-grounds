@@ -45,3 +45,7 @@ The sign-in page has **Try the demo dancer**: a shared customer account with pas
 
 Opening hours, slot length, max drinks per slot, how far ahead people can book, minimum notice and blackout dates live in the `schedule_settings` table. The owner edits them at `/backstage/schedule`.
 
+
+## Shop details
+
+The About and Find the Studio pages use `[YOUR …]` placeholders for facts only you know. Fill in the address, phone, email and socials in `lib/studio.ts`; setting `mapEmbedUrl` there (for example the `src` from Google Maps' "Embed a map") shows the map. The story and the choreographers' names live in `lib/copy.ts` under `about`. Opening hours come from Backstage > Class schedule.

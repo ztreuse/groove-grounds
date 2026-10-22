@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
-import { dance } from "@/lib/copy";
+import { StudioView } from "@/components/studio/StudioView";
+import { dance, plain } from "@/lib/copy";
+import { getScheduleRules } from "@/lib/db/schedule";
 
-export const metadata: Metadata = { title: dance.pages.studio };
+export const metadata: Metadata = {
+  title: dance.pages.studio,
+  description: plain.studio.intro,
+};
 
-export default function Page() {
-  return <PagePlaceholder page="studio" />;
+export default async function StudioPage() {
+  const rules = await getScheduleRules();
+  return (
+    <main className="flex-1">
+      <StudioView rules={rules} />
+    </main>
+  );
 }

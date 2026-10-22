@@ -671,10 +671,58 @@ export const dance = {
     failed: "Couldn't save. Try again.",
   },
 
-  placeholder: {
-    comingSoon: "This routine is still in rehearsal.",
-    phase: "Phase",
+  about: {
+    intro:
+      "A coffee bar built on the beat. Every drink is a dance style, and every order is a performance.",
+    storyTitle: "The story",
+    storyBody:
+      "Groove Grounds is a coffee bar for dancers, dance students and studio crews, and for anyone who likes the energy.",
+    storyOrigin: "[YOUR STORY: how Groove Grounds started, and who started it]",
+    hooks: {
+      lineup: "The menu reads like a class schedule.",
+      playlist: "Line up your tracks before the set.",
+      showtime: "Checkout is the moment you step on stage.",
+    },
+    plainSwitch: "Not a dancer? Switch to Plain words anytime, up top.",
+    crewBody: "The people behind the bar who make every routine land.",
+    baristaName: "[BARISTA NAME]",
+    baristaRole: "[ROLE]",
+    baristaNote: "[A LINE ABOUT THEM AND THE STYLE THEY DANCE]",
+    inspirationTitle: "Named for the floor",
+    inspirationBody:
+      "Five genres, each named for how its drinks move. Every drink on The Lineup is a dance style.",
+    genreWhy: {
+      oldSchool:
+        "Espresso classics, named after the foundational street styles.",
+      newSchool: "Signature lattes and specials, named after the newer styles.",
+      mashup: "Blended drinks and frappes. A mashup blends songs together.",
+      offBeat:
+        "No coffee here: matcha, ube and refreshers, off the coffee beat.",
+      intermission:
+        "Pastries and snacks, what you grab at a show's intermission.",
+    },
+    dictionaryCta: "Open the Dance Dictionary",
+    lineupCta: "See The Lineup",
   },
+  studio: {
+    intro:
+      "Where the coffee meets the floor. Pickup only: order ahead and grab it on your way to class.",
+    address: "Address",
+    hours: "Studio hours",
+    closed: "No class on",
+    pickup: "Pickup only",
+    pickupBody:
+      "Drop-in to pick up as soon as it's ready, or Book a Class to pick a time. No delivery.",
+    contact: "Get in touch",
+    phone: "Phone",
+    email: "Email",
+    socials: "Socials",
+    mapTitle: "Map to {address}",
+    mapPending: "The map shows here once the address is set.",
+    crewNote:
+      "Bringing the whole crew? Send a Crew Order a couple of days ahead.",
+  },
+
   phases: {
     1: "Choreo",
     2: "Full out",
@@ -1368,10 +1416,56 @@ export const plain: Widen<typeof dance> = {
     failed: "Couldn't save. Try again.",
   },
 
-  placeholder: {
-    comingSoon: "This page is coming soon.",
-    phase: "Phase",
+  about: {
+    intro:
+      "A dance-themed coffee bar. Every drink is named after a dance style.",
+    storyTitle: "Our story",
+    storyBody:
+      "Groove Grounds is a coffee bar for dancers, dance students and studio groups, and for anyone who likes the energy.",
+    storyOrigin: "[YOUR STORY: how Groove Grounds started, and who started it]",
+    hooks: {
+      lineup: "Our menu, laid out like a class schedule.",
+      playlist: "Your cart, where you collect drinks before checkout.",
+      showtime: "Checkout, where you choose a pickup time and pay.",
+    },
+    plainSwitch:
+      "The switch at the top of the page changes dance terms to plain words.",
+    crewBody: "The baristas who make your drinks.",
+    baristaName: "[BARISTA NAME]",
+    baristaRole: "[ROLE]",
+    baristaNote: "[A LINE ABOUT THEM AND THE STYLE THEY DANCE]",
+    inspirationTitle: "Why the dance names",
+    inspirationBody:
+      "The menu has five categories, and every drink is named after a dance style.",
+    genreWhy: {
+      oldSchool: "Named after the foundational street dance styles.",
+      newSchool: "Lattes and specials, named after newer dance styles.",
+      mashup: "A mashup blends two songs, like a frappe blends a drink.",
+      offBeat: "Matcha, ube and refreshers: off the coffee beat.",
+      intermission: "What you grab during a show's break.",
+    },
+    dictionaryCta: "Open the glossary",
+    lineupCta: "See the menu",
   },
+  studio: {
+    intro:
+      "Our address, opening hours and how to reach us. Pickup only, no delivery.",
+    address: "Address",
+    hours: "Opening hours",
+    closed: "Closed on",
+    pickup: "Pickup only",
+    pickupBody:
+      "Order now for pickup as soon as it's ready, or schedule a pickup time. No delivery.",
+    contact: "Contact",
+    phone: "Phone",
+    email: "Email",
+    socials: "Social media",
+    mapTitle: "Map to {address}",
+    mapPending: "The map shows here once the address is set.",
+    crewNote:
+      "Ordering for a group? Place a group order a couple of days ahead.",
+  },
+
   phases: {
     1: "MVP",
     2: "Accounts and builder",

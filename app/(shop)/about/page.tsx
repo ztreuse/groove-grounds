@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/layout/PagePlaceholder";
-import { dance } from "@/lib/copy";
+import { AboutView } from "@/components/about/AboutView";
+import { dance, plain } from "@/lib/copy";
 
-export const metadata: Metadata = { title: dance.pages.about };
+export const metadata: Metadata = {
+  title: dance.pages.about,
+  description: plain.about.intro,
+};
 
-export default function Page() {
-  return <PagePlaceholder page="about" />;
+export default function AboutPage() {
+  return (
+    <main className="flex-1">
+      <AboutView />
+    </main>
+  );
 }
