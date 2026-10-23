@@ -27,7 +27,9 @@ export function Cypher({ posts }: { posts: CypherPost[] }) {
     target: strip,
     offset: ["start end", "end start"],
   });
-  const x = useTransform(scrollYProgress, [0, 1], ["4%", "-18%"]);
+  // Holds still until the strip is well in view, so the first photo starts
+  // on the page's left edge, then drifts left as the page scrolls on.
+  const x = useTransform(scrollYProgress, [0.4, 1], ["0%", "-12%"]);
   const pick = (wording: { dance: string; plain: string }) =>
     isPlain ? wording.plain : wording.dance;
 
@@ -43,7 +45,10 @@ export function Cypher({ posts }: { posts: CypherPost[] }) {
       </div>
 
       <div ref={strip} aria-hidden className="overflow-hidden">
-        <motion.div style={{ x }} className="flex w-max gap-4 sm:gap-6">
+        <motion.div
+          style={{ x }}
+          className="flex w-max gap-4 pl-[max(1rem,calc((100vw-72rem)/2+1rem))] sm:gap-6"
+        >
           {floor.map((photo, index) => (
             <div
               key={photo.src}
