@@ -240,7 +240,12 @@ export function ProfileView({
                       </span>
                     </div>
                     <div className="mt-2 flex flex-wrap items-start justify-between gap-2">
-                      <RunItBackButton kind="order" id={order.id} />
+                      {/* Crew Orders are quoted, not re-ordered in one tap. */}
+                      {order.type === "crew" ? (
+                        <span />
+                      ) : (
+                        <RunItBackButton kind="order" id={order.id} />
+                      )}
                       <Link
                         href={`/track/${order.id}`}
                         className="inline-flex min-h-11 items-center rounded-lg px-2 text-sm font-semibold text-highlight underline-offset-4 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring"
