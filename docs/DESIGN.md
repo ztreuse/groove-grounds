@@ -122,6 +122,7 @@ Emphasis: the italic accent (`accentLast`, last word italic in `highlight`) is u
 | `PropsPrompt` / `DrinkPropsSection` | tracker, lineup | Props: after Bow the tracker shows a Give Props card per menu drink (five Groove stars, rating label, optional comment); the drink page shows the average, count and three latest comments. No seeded reviews. |
 | `AboutView` | about | The Crew: photo `PageHero`, the story beside three hairline rows (Lineup / Playlist / Showtime with plain words and why), Choreographer photo cards (4:5, role, name in poster caps, note), and a dark genre band in hairline columns. Genre names stay dance terms in both modes there, with the plain meaning under. |
 | `StudioView` | studio | Find the Studio: hairline detail rows (accent `IconTile`, label, value) for address, hours from the class schedule plus upcoming closed days, pickup only and contact; a square map (embed from `lib/studio.ts`) or a dark placeholder panel until it is set. |
+| `PrivacyView` | privacy | Privacy policy (`/privacy`, linked in the footer): plain words in both modes, dark `PageHero` with the last-updated date, hairline-ruled sections in the reading column. Content lives in `lib/privacy.ts` and must match what the site actually stores. |
 
 Inputs use the `field` utility (filled `muted`, small corner, purple focus ring). Focus ring for everything: `focus-visible:ring-3 ring-ring`.
 

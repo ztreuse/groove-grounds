@@ -119,6 +119,7 @@ export const dance = {
     reset: "Reset demo",
     resetConfirm: "Tap again to reset",
     resetDone: "Demo reset: your cart and demo orders are cleared.",
+    privacy: "Privacy",
   },
 
   errors: {
@@ -762,6 +763,9 @@ export const dance = {
     label: "What does {term} mean?",
     more: "More in the Dance Dictionary",
   },
+  privacy: {
+    updated: "Last updated {date}. What we collect, why, and your choices.",
+  },
   phases: {
     1: "Choreo",
     2: "Full out",
@@ -789,6 +793,7 @@ export const dance = {
     backstageSchedule: "Class schedule",
     backstageCrewOrders: "Crew Order requests",
     backstageCypher: "The Cypher",
+    privacy: "Privacy",
   },
 } as const;
 
@@ -906,6 +911,7 @@ export const plain: Widen<typeof dance> = {
     reset: "Reset demo",
     resetConfirm: "Tap again to reset",
     resetDone: "Demo reset: your cart and demo orders are cleared.",
+    privacy: "Privacy",
   },
 
   errors: {
@@ -1545,6 +1551,9 @@ export const plain: Widen<typeof dance> = {
     label: "What does {term} mean?",
     more: "Open the glossary",
   },
+  privacy: {
+    updated: "Last updated {date}. What we collect, why, and your choices.",
+  },
   phases: {
     1: "MVP",
     2: "Accounts and builder",
@@ -1572,6 +1581,7 @@ export const plain: Widen<typeof dance> = {
     backstageSchedule: "Pickup schedule",
     backstageCrewOrders: "Group order requests",
     backstageCypher: "Community board",
+    privacy: "Privacy policy",
   },
 };
 

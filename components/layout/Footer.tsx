@@ -17,6 +17,7 @@ const footerLinks: { key: keyof Copy["footer"]; href: string }[] = [
   { key: "about", href: routes.about.href },
   { key: "contact", href: routes.studio.href },
   { key: "faq", href: routes.dictionary.href },
+  { key: "privacy", href: routes.privacy.href },
   { key: "demoBackstage", href: routes.backstageQueue.href },
 ];
 

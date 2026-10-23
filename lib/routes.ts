@@ -23,6 +23,7 @@ export const routes: Record<PageKey, RouteInfo> = {
   reps: { href: "/reps", area: "shop", phase: 3 },
   about: { href: "/about", area: "shop", phase: null },
   studio: { href: "/studio", area: "shop", phase: null },
+  privacy: { href: "/privacy", area: "shop", phase: null },
   backstageQueue: { href: "/backstage/queue", area: "backstage", phase: 1 },
   backstageLineup: { href: "/backstage/lineup", area: "backstage", phase: 1 },
   backstageSchedule: {
