@@ -7,7 +7,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MailIcon, SneakerIcon } from "@/components/icons/GrooveIcons";
-import { signIn, signUp, signInAsDemo } from "@/app/(auth)/actions";
+import {
+  sendMagicLink,
+  signIn,
+  signUp,
+  signInAsDemo,
+} from "@/app/(auth)/actions";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
 import {
@@ -30,11 +35,16 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
   const [serverError, setServerError] = useState<AuthErrorKey | null>(null);
   const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
   const [demoBusy, setDemoBusy] = useState(false);
+  // Set once a sign-in link was sent; shows the magic-link wording.
+  const [magicSent, setMagicSent] = useState(false);
+  const [magicBusy, setMagicBusy] = useState(false);
   const isJoin = mode === "join";
 
   const {
     register,
     handleSubmit,
+    getValues,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<JoinInput>({
     resolver: zodResolver(isJoin ? joinSchema : loginFormSchema),
@@ -61,6 +71,21 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
     router.refresh();
   });
 
+  async function emailLink() {
+    setServerError(null);
+    if (!(await trigger("email"))) return;
+    setMagicBusy(true);
+    const email = getValues("email");
+    const result = await sendMagicLink(email, next);
+    setMagicBusy(false);
+    if (!result.ok) {
+      setServerError(result.error);
+      return;
+    }
+    setMagicSent(true);
+    setConfirmEmail(email);
+  }
+
   async function tryDemo() {
     setServerError(null);
     setDemoBusy(true);
@@ -81,7 +106,9 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
         <IconTile icon={MailIcon} size="lg" />
         <h2 className="mt-3 text-3xl leading-none">{t.auth.checkEmail}</h2>
         <p className="mt-2 text-muted-foreground">
-          {fill(t.auth.checkEmailBody, { email: confirmEmail })}
+          {fill(magicSent ? t.auth.magicSentBody : t.auth.checkEmailBody, {
+            email: confirmEmail,
+          })}
         </p>
       </div>
     );
@@ -157,6 +184,18 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
         >
           {isSubmitting ? t.auth.working : title}
         </Button>
+        {!isJoin && (
+          <button
+            type="button"
+            onClick={emailLink}
+            disabled={magicBusy}
+            aria-label={plain.auth.magicLink}
+            className="mx-auto flex min-h-11 items-center gap-2 rounded-md px-3 text-sm font-semibold text-highlight outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring disabled:opacity-60"
+          >
+            <MailIcon aria-hidden className="size-4" />
+            {magicBusy ? t.auth.working : t.auth.magicLink}
+          </button>
+        )}
       </form>
 
       {/* One tap into the shared demo dancer, for portfolio visitors. */}

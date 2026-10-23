@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import {
   joinSchema,
   loginSchema,
+  safeNext,
   type AuthErrorKey,
   type AuthResult,
   type JoinInput,
@@ -61,6 +62,33 @@ export async function signUp(input: JoinInput): Promise<AuthResult> {
   if (error) return { ok: false, error: authError(error.code) };
   // With email confirmation on, Supabase returns no session yet.
   return { ok: true, needsConfirmation: !data.session };
+}
+
+// Magic link: a one-time sign-in link by email, for existing members (new
+// people join with a name first). Unknown emails get the same "check your
+// email" answer, so the form doesn't reveal who has an account.
+export async function sendMagicLink(
+  email: string,
+  next: string,
+): Promise<AuthResult> {
+  const parsed = loginSchema.shape.email.safeParse(email);
+  // The form checks the email first; this only guards direct calls.
+  if (!parsed.success) return { ok: false, error: "errorGeneric" };
+
+  const origin = (await headers()).get("origin") ?? "";
+  const supabase = await createSupabaseServer();
+  const { error } = await supabase.auth.signInWithOtp({
+    email: parsed.data,
+    options: {
+      shouldCreateUser: false,
+      emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(safeNext(next, "/profile"))}`,
+    },
+  });
+  if (error) {
+    const key = authError(error.code);
+    if (key === "errorRateLimit") return { ok: false, error: key };
+  }
+  return { ok: true, needsConfirmation: true };
 }
 
 // One tap into the shared demo dancer account.

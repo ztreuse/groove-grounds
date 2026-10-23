@@ -325,6 +325,9 @@ export const dance = {
     noAccount: "New here?",
     guestNote: "No account needed to order. Guest checkout stays open.",
     checkEmail: "Check your email",
+    magicLink: "Skip the password: email me a link",
+    magicSentBody:
+      "If {email} is on the crew list, a sign-in link is on its way. It works once, so open it on this device.",
     checkEmailBody:
       "We sent a confirmation link to {email}. Tap it to finish joining the crew.",
     signedInAs: "Signed in as {name}",
@@ -697,7 +700,8 @@ export const dance = {
     storyTitle: "The story",
     storyBody:
       "Groove Grounds is a coffee bar for dancers, dance students and studio crews, and for anyone who likes the energy.",
-    storyOrigin: "[YOUR STORY: how Groove Grounds started, and who started it]",
+    storyOrigin:
+      "It started in a studio hallway: a crew running the same 8-count past midnight, and nowhere open for a coffee after. Groove Grounds is the bar we wished was next door. Drop in between classes, order like you'd call a routine, and get back on the floor.",
     hooks: {
       lineup: "The menu reads like a class schedule.",
       playlist: "Line up your tracks before the set.",
@@ -1107,6 +1111,9 @@ export const plain: Widen<typeof dance> = {
     noAccount: "New here?",
     guestNote: "You can still order without an account.",
     checkEmail: "Check your email",
+    magicLink: "Email me a sign-in link",
+    magicSentBody:
+      "If {email} has an account, a sign-in link is on its way. It works once, so open it on this device.",
     checkEmailBody:
       "We sent a confirmation link to {email}. Open it to finish signing up.",
     signedInAs: "Logged in as {name}",
@@ -1477,7 +1484,8 @@ export const plain: Widen<typeof dance> = {
     storyTitle: "Our story",
     storyBody:
       "Groove Grounds is a coffee bar for dancers, dance students and studio groups, and for anyone who likes the energy.",
-    storyOrigin: "[YOUR STORY: how Groove Grounds started, and who started it]",
+    storyOrigin:
+      "It started with dancers rehearsing late and nowhere nearby to get coffee afterwards. Groove Grounds is the café we wished was next door: quick pickup between classes, with drinks named after the styles we dance.",
     hooks: {
       lineup: "Our menu, laid out like a class schedule.",
       playlist: "Your cart, where you collect drinks before checkout.",

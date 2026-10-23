@@ -335,5 +335,6 @@ Remix choices are stored on each order item as a snapshot so old orders stay acc
 
 ## Open items
 
-- Logo: wordmark "Groove Grounds" with a coffee bean shaped like a sneaker sole or a record (to be designed)
-- Final drink photos (use placeholders until then)
+- Logo: the mark is in place (a vinyl record with a coffee-bean label, `components/layout/LogoMark.tsx`) beside the "Groove Grounds" wordmark; a final custom wordmark is optional
+- Drink photos: real Pexels photos for every item (credited in `docs/PHOTO_CREDITS.md`); swap in the shop's own photos if it ever becomes real
+- Google sign-in and order emails (Resend) need their own accounts and keys

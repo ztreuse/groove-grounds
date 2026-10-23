@@ -48,4 +48,11 @@ Opening hours, slot length, max drinks per slot, how far ahead people can book, 
 
 ## Shop details
 
-Find the Studio uses fictional contact details on purpose (a made-up street, a reserved `.example` email, a placeholder number), set in `lib/studio.ts`. Setting `mapEmbedUrl` there (for example the `src` from Google Maps' "Embed a map") shows a map; only do that for a real address. The About page's choreographers are fictional too (hands-only photos, so no real person is named); its founding story is still a `[YOUR STORY]` placeholder in `lib/copy.ts`. The story and the choreographers' names live in `lib/copy.ts` under `about`. Opening hours come from Backstage > Class schedule.
+Find the Studio uses fictional contact details on purpose (a made-up street, a reserved `.example` email, a placeholder number), set in `lib/studio.ts`. Setting `mapEmbedUrl` there (for example the `src` from Google Maps' "Embed a map") shows a map; only do that for a real address. The About page's founding story and choreographers are fictional too (hands-only photos, so no real person is named); they live in `lib/copy.ts` under `about`. The story and the choreographers' names live in `lib/copy.ts` under `about`. Opening hours come from Backstage > Class schedule.
+
+## Magic-link sign-in
+
+Sign in offers "Email me a sign-in link" for existing members (Supabase `signInWithOtp`, `shouldCreateUser: false`). The link returns through `/auth/callback`. Two Supabase settings matter:
+
+- **Redirect URLs** (Authentication → URL Configuration) must allow `<your site>/auth/callback` for every origin you use (localhost and the deployed URL).
+- Supabase's built-in email service only delivers to your project's team members and is heavily rate-limited. For visitors to receive links (and sign-up confirmations), add a custom SMTP provider under Authentication → Emails.
