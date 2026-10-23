@@ -29,7 +29,7 @@ export function Cypher({ posts }: { posts: CypherPost[] }) {
   });
   // Drifts the whole time it's on screen; it starts a little to the right,
   // so the first photo is still fully in view when the strip is centred.
-  const x = useTransform(scrollYProgress, [0, 1], ["10%", "-12%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["3%", "-12%"]);
   const pick = (wording: { dance: string; plain: string }) =>
     isPlain ? wording.plain : wording.dance;
 
