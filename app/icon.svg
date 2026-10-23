@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Groove Grounds mark (same as components/layout/LogoMark.tsx): a vinyl
+       record whose label is a coffee bean. Colours are the espresso, cream
+       and purple tokens from app/globals.css; cream record on dark tabs. -->
+  <style>
+    .disc { fill: #3b2a20; }
+    .groove { stroke: #f5efe3; stroke-opacity: 0.35; }
+    @media (prefers-color-scheme: dark) {
+      .disc { fill: #f5efe3; }
+      .groove { stroke: #3b2a20; }
+    }
+  </style>
+  <circle class="disc" cx="24" cy="24" r="23"/>
+  <circle class="groove" cx="24" cy="24" r="19" fill="none" stroke-width="0.9"/>
+  <circle class="groove" cx="24" cy="24" r="15.5" fill="none" stroke-width="0.9"/>
+  <circle class="groove" cx="24" cy="24" r="12" fill="none" stroke-width="0.9"/>
+  <ellipse cx="24" cy="24" rx="7.5" ry="9.5" transform="rotate(28 24 24)" fill="#7b4fc9"/>
+  <path d="M20.4 16.6c3.4 2.6 3.6 5.6 1.8 7.6s-1.6 5 1.8 7.4" fill="none" stroke="#f5efe3" stroke-width="1.8" stroke-linecap="round" transform="rotate(28 24 24)"/>
+</svg>
