@@ -60,7 +60,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
           <p className="inline-flex items-center gap-2 rounded-md bg-muted px-3 py-1.5 text-sm font-semibold">
             <Radio
               aria-hidden
-              className={`size-4 ${live ? "text-highlight motion-safe:animate-pulse" : "text-muted-foreground"}`}
+              className={`size-4 ${live ? "text-highlight" : "text-muted-foreground"}`}
             />
             {live ? t.tracker.live : t.tracker.polling}
           </p>
@@ -69,7 +69,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 px-4 pt-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start">
         {/* Left: code and live status. Right: pickup details and items. */}
         <div>
-          <div className="mt-6 rounded-3xl bg-espresso p-5 text-cream dark:bg-espresso-deep">
+          <div className="mt-6 bg-espresso p-5 text-cream dark:bg-espresso-deep">
             <p className="text-sm font-medium text-khaki">
               {t.tracker.orderCode}
             </p>
@@ -90,21 +90,21 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
           {order.status === "stage_ready" && (
             <div
               role="alert"
-              className="mt-6 flex items-center gap-3 rounded-2xl bg-accent p-4 font-semibold text-accent-foreground"
+              className="mt-6 flex items-center gap-3 bg-accent p-4 font-semibold text-accent-foreground"
             >
               <PartyPopper aria-hidden className="size-6 shrink-0" />
               {t.tracker.stageReadyAlert}
             </div>
           )}
           {order.status === "bow" && (
-            <p className="mt-6 rounded-2xl bg-muted p-4 font-semibold">
+            <p className="mt-6 bg-muted p-4 font-semibold">
               {t.tracker.bowMessage}
             </p>
           )}
           {order.status === "cut" && (
             <p
               role="alert"
-              className="mt-6 rounded-2xl bg-destructive/10 p-4 font-semibold text-destructive"
+              className="mt-6 bg-destructive/10 p-4 font-semibold text-destructive"
             >
               <span className="block label-display text-2xl uppercase">
                 {t.status.cut}

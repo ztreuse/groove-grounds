@@ -116,10 +116,18 @@ export const dance = {
     rights: "© Groove Grounds. A concept project.",
     hours: "Open daily, {open} to {close}",
     demoBackstage: "Demo Backstage",
+    reset: "Reset demo",
+    resetConfirm: "Tap again to reset",
+    resetDone: "Demo reset: your cart and demo orders are cleared.",
   },
 
   errors: {
     notFoundBody: "That page fell off the beat. Let's get you back on count.",
+    errorBody:
+      "Something tripped on the way in. Take it from the top, or head back to Center Stage.",
+    retry: "Take it from the top",
+    reference: "Reference {digest}",
+    errorTitle: "Something went wrong",
   },
 
   lineup: {
@@ -515,6 +523,11 @@ export const dance = {
 
   crew: {
     orderItem: "Crew Order",
+    demoTitle: "Concept demo",
+    demoBody:
+      "Nobody's behind the counter to quote this one. Send yourself a demo quote and run the rest of the routine.",
+    demoQuote: "Send myself a demo quote",
+    demoQuoteNote: "Demo quote: in a real shop, the crew would set this price.",
     trackOrder: "Follow it live",
     respondFailed: "Couldn't update. Try again.",
     intro:
@@ -886,10 +899,18 @@ export const plain: Widen<typeof dance> = {
     rights: "© Groove Grounds. A concept project.",
     hours: "Open daily, {open} to {close}",
     demoBackstage: "Demo Backstage",
+    reset: "Reset demo",
+    resetConfirm: "Tap again to reset",
+    resetDone: "Demo reset: your cart and demo orders are cleared.",
   },
 
   errors: {
     notFoundBody: "We couldn't find that page.",
+    errorBody:
+      "Something went wrong loading this page. Try again, or go back to the home page.",
+    retry: "Try again",
+    reference: "Reference {digest}",
+    errorTitle: "Something went wrong",
   },
 
   lineup: {
@@ -1284,6 +1305,11 @@ export const plain: Widen<typeof dance> = {
 
   crew: {
     orderItem: "Group order",
+    demoTitle: "Concept demo",
+    demoBody:
+      "This is a concept site, so nobody will quote this request. Send yourself a demo quote to try the rest of the flow.",
+    demoQuote: "Send myself a demo quote",
+    demoQuoteNote: "Demo quote: in a real shop, staff would set this price.",
     trackOrder: "Track your order",
     respondFailed: "Couldn't update. Try again.",
     intro:

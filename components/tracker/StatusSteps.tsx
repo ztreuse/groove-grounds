@@ -30,13 +30,12 @@ export function StatusSteps({ status }: { status: OrderStatus }) {
       >
         {COUNTS.map((n) => {
           const filled = n <= count;
-          const current = n === count && status !== "bow";
           return (
             <div key={n} className="text-center">
               <div
-                className={`h-12 rounded-xl transition-colors duration-500 sm:h-16 ${
+                className={`h-12 rounded-sm transition-colors duration-500 sm:h-16 ${
                   filled ? "bg-primary" : "bg-muted"
-                } ${current ? "motion-safe:animate-pulse" : ""}`}
+                }`}
               />
               <span
                 className={`mt-1 block label-display text-lg ${
@@ -59,7 +58,7 @@ export function StatusSteps({ status }: { status: OrderStatus }) {
             <li
               key={step}
               aria-current={current ? "step" : undefined}
-              className={`flex items-center gap-3 rounded-2xl px-3 py-2 ${
+              className={`flex items-center gap-3 rounded-md px-3 py-2 ${
                 current ? "surface" : ""
               } ${!done && !current ? "opacity-60" : ""}`}
             >

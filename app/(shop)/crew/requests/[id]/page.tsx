@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CrewRequestView } from "@/components/crew/CrewRequestView";
 import { dance } from "@/lib/copy";
 import { getCrewRequest } from "@/lib/db/crew";
+import { ownsDemoCrewRequest } from "@/lib/demo-orders";
 
 export const metadata: Metadata = {
   title: dance.crew.requestTitle,
@@ -19,5 +20,7 @@ export default async function CrewRequestPage({
   const { id } = await params;
   const request = await getCrewRequest(id);
   if (!request) notFound();
-  return <CrewRequestView request={request} />;
+  const canDemoQuote =
+    request.status === "new" && (await ownsDemoCrewRequest(id));
+  return <CrewRequestView request={request} canDemoQuote={canDemoQuote} />;
 }

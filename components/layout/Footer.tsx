@@ -7,6 +7,7 @@ import { fill, type Copy } from "@/lib/copy";
 import { formatClock } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { LogoMark } from "./LogoMark";
+import { ResetDemo } from "./ResetDemo";
 
 // The footer always uses plain words (the `footer` copy is the same in both
 // dictionaries), so it reads the same in Dance and Plain mode.
@@ -51,6 +52,9 @@ export function Footer({ openMinute, closeMinute }: FooterProps) {
                 </Link>
               </li>
             ))}
+            <li>
+              <ResetDemo />
+            </li>
           </ul>
         </nav>
       </div>

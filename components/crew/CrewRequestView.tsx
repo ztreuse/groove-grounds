@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
-import { respondToQuote } from "@/app/(shop)/crew/actions";
+import { respondToQuote, sendDemoQuote } from "@/app/(shop)/crew/actions";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/use-copy";
@@ -19,7 +19,14 @@ const STEPS = ["new", "quoted", "accepted"] as const;
 
 // A Crew Order request as the customer sees it: status steps, the quote
 // with Accept / Decline once it's ready, and the request details.
-export function CrewRequestView({ request }: { request: CrewRequest }) {
+export function CrewRequestView({
+  request,
+  canDemoQuote = false,
+}: {
+  request: CrewRequest;
+  // The visitor sent this request: offer a demo quote (concept demo).
+  canDemoQuote?: boolean;
+}) {
   const { t, plain } = useCopy();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -31,6 +38,14 @@ export function CrewRequestView({ request }: { request: CrewRequest }) {
   async function respond(accept: boolean) {
     setBusy(true);
     const ok = await respondToQuote(request.id, accept);
+    if (!ok) toast(t.crew.respondFailed);
+    router.refresh();
+    setBusy(false);
+  }
+
+  async function demoQuote() {
+    setBusy(true);
+    const ok = await sendDemoQuote(request.id);
     if (!ok) toast(t.crew.respondFailed);
     router.refresh();
     setBusy(false);
@@ -132,6 +147,24 @@ export function CrewRequestView({ request }: { request: CrewRequest }) {
               </div>
             )}
           </div>
+          {canDemoQuote && (
+            <div className="mt-4 border border-dashed border-border p-5">
+              <p className="eyebrow text-highlight">{t.crew.demoTitle}</p>
+              <p className="mt-1 max-w-prose text-muted-foreground">
+                {t.crew.demoBody}
+              </p>
+              <Button
+                variant="outline"
+                size="lg"
+                className="mt-4"
+                disabled={busy}
+                onClick={demoQuote}
+                aria-label={plain.crew.demoQuote}
+              >
+                {t.crew.demoQuote}
+              </Button>
+            </div>
+          )}
           <p className="mt-4 text-sm text-muted-foreground">
             {t.crew.keepLink}
           </p>

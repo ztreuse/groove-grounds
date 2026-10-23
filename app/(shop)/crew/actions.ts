@@ -6,13 +6,25 @@ import {
   crewFormSchema,
   manilaDateTime,
 } from "@/lib/crew";
-import { createCrewRequest, respondToCrewQuote } from "@/lib/db/crew";
+import { dance } from "@/lib/copy";
+import {
+  createCrewRequest,
+  getCrewRequest,
+  quoteCrewRequest,
+  respondToCrewQuote,
+} from "@/lib/db/crew";
 import { getProfile } from "@/lib/db/profiles";
-import { rememberDemoOrder } from "@/lib/demo-orders";
+import {
+  ownsDemoCrewRequest,
+  rememberDemoCrewRequest,
+  rememberDemoOrder,
+} from "@/lib/demo-orders";
 import { getScheduleRules } from "@/lib/db/schedule";
 import { getCurrentUser } from "@/lib/supabase/server";
 
 const DAY = 24 * 60 * 60 * 1000;
+// A typical drink on The Lineup, for demo quotes without a budget.
+const DEMO_PRICE_PER_HEAD = 170;
 
 type SubmitResult =
   | { ok: true; id: string }
@@ -52,6 +64,7 @@ export async function submitCrewRequest(input: unknown): Promise<SubmitResult> {
     budget: form.budget,
     details: form.details || null,
   });
+  await rememberDemoCrewRequest(id);
   return { ok: true, id };
 }
 
@@ -61,4 +74,15 @@ export async function respondToQuote(id: string, accept: boolean) {
   const result = await respondToCrewQuote(id, accept === true);
   if (typeof result === "string") await rememberDemoOrder(result);
   return Boolean(result);
+}
+
+// Concept demo: nobody's on shift to quote, so a visitor can quote their
+// own request (from this browser) to try the rest of the flow. The amount
+// is their budget, or a typical drink price per head.
+export async function sendDemoQuote(id: string) {
+  if (!(await ownsDemoCrewRequest(id))) return false;
+  const request = await getCrewRequest(id);
+  if (!request || request.status !== "new") return false;
+  const amount = request.budget ?? request.headcount * DEMO_PRICE_PER_HEAD;
+  return quoteCrewRequest(id, amount, dance.crew.demoQuoteNote);
 }

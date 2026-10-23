@@ -132,7 +132,7 @@ export function QueueBoard() {
         <p className="flex items-center gap-2 rounded-md bg-muted px-3 py-1 text-sm font-semibold">
           <Radio
             aria-hidden
-            className={`size-4 ${live ? "text-highlight motion-safe:animate-pulse" : "text-muted-foreground"}`}
+            className={`size-4 ${live ? "text-highlight" : "text-muted-foreground"}`}
           />
           {live ? t.tracker.live : t.tracker.polling}
         </p>
