@@ -326,6 +326,9 @@ export const dance = {
     noAccount: "New here?",
     guestNote: "No account needed to order. Guest checkout stays open.",
     checkEmail: "Check your email",
+    google: "Continue with Google",
+    errorLink:
+      "That link missed its count: it may have expired or been used. Try again.",
     magicLink: "Skip the password: email me a link",
     magicSentBody:
       "If {email} is on the crew list, a sign-in link is on its way. It works once, so open it on this device.",
@@ -1117,6 +1120,9 @@ export const plain: Widen<typeof dance> = {
     noAccount: "New here?",
     guestNote: "You can still order without an account.",
     checkEmail: "Check your email",
+    google: "Continue with Google",
+    errorLink:
+      "That sign-in link didn't work. It may have expired or been used already. Please try again.",
     magicLink: "Email me a sign-in link",
     magicSentBody:
       "If {email} has an account, a sign-in link is on its way. It works once, so open it on this device.",

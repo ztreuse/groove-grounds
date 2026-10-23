@@ -37,6 +37,7 @@ export type AuthErrorKey =
   | "errorNotConfirmed"
   | "errorRateLimit"
   | "errorEmailBlocked"
+  | "errorLink"
   | "errorGeneric";
 
 export type AuthResult =

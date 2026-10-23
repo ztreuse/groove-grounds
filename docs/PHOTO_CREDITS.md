@@ -56,8 +56,9 @@ Backgrounds in `public/scenes/` (page headers, home, Freestyle stage), also from
 
 ## Brand marks
 
-Shown only to label the matching (simulated) payment option; the checkout is a demo and no real payments are taken. Trademarks belong to their owners.
+Shown only to label the matching service: the (simulated) payment option, and the Google sign-in button. The checkout is a demo and no real payments are taken. Trademarks belong to their owners.
 
 | File | Source |
 | --- | --- |
 | `public/brands/gcash.svg` | GCash logo, [Wikimedia Commons: GCash_logo.svg](https://commons.wikimedia.org/wiki/File:GCash_logo.svg). GCash is a trademark of G-Xchange, Inc. |
+| `public/brands/google.svg` | Google "G" mark, in its standard colours, used per Google's [sign-in branding guidelines](https://developers.google.com/identity/branding-guidelines). Google is a trademark of Google LLC. |

@@ -25,14 +25,27 @@ import {
 import { fill, type Copy } from "@/lib/copy";
 import { routes } from "@/lib/routes";
 import { IconTile } from "@/components/layout/IconTile";
+import { getSupabaseBrowser } from "@/lib/supabase/client";
 import { AuthField } from "./AuthField";
 
 type Mode = "join" | "login";
 
-function Form({ mode, next }: { mode: Mode; next: string }) {
+function Form({
+  mode,
+  next,
+  linkFailed = false,
+}: {
+  mode: Mode;
+  next: string;
+  // Back from /auth/callback with ?error=link (expired or cancelled).
+  linkFailed?: boolean;
+}) {
   const { t, plain, isPlain } = useCopy();
   const router = useRouter();
-  const [serverError, setServerError] = useState<AuthErrorKey | null>(null);
+  const [serverError, setServerError] = useState<AuthErrorKey | null>(
+    linkFailed ? "errorLink" : null,
+  );
+  const [googleBusy, setGoogleBusy] = useState(false);
   const [confirmEmail, setConfirmEmail] = useState<string | null>(null);
   const [demoBusy, setDemoBusy] = useState(false);
   // Set once a sign-in link was sent; shows the magic-link wording.
@@ -84,6 +97,23 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
     }
     setMagicSent(true);
     setConfirmEmail(email);
+  }
+
+  // Google sign-in: off to Google, back through /auth/callback (which also
+  // creates the profile, with the name from Google, on first sign-in).
+  async function continueWithGoogle() {
+    setServerError(null);
+    setGoogleBusy(true);
+    const { error } = await getSupabaseBrowser().auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      },
+    });
+    if (error) {
+      setGoogleBusy(false);
+      setServerError("errorGeneric");
+    }
   }
 
   async function tryDemo() {
@@ -208,10 +238,22 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
         type="button"
         variant="outline"
         size="lg"
+        onClick={continueWithGoogle}
+        disabled={googleBusy}
+        aria-label={plain.auth.google}
+        className="mt-4 h-auto min-h-14 w-full gap-3 rounded-md"
+      >
+        <Image src="/brands/google.svg" alt="" width={20} height={20} />
+        {googleBusy ? t.auth.working : t.auth.google}
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="lg"
         onClick={tryDemo}
         disabled={demoBusy}
         aria-label={plain.auth.tryDemo}
-        className="mt-4 h-auto min-h-14 w-full gap-3 rounded-md"
+        className="mt-3 h-auto min-h-14 w-full gap-3 rounded-md"
       >
         <IconTile icon={SneakerIcon} size="sm" />
         {demoBusy ? t.auth.working : t.auth.tryDemo}
@@ -235,8 +277,11 @@ function Form({ mode, next }: { mode: Mode; next: string }) {
 }
 
 function FormFromQuery({ mode }: { mode: Mode }) {
-  const next = safeNext(useSearchParams().get("next"), routes.profile.href);
-  return <Form mode={mode} next={next} />;
+  const params = useSearchParams();
+  const next = safeNext(params.get("next"), routes.profile.href);
+  return (
+    <Form mode={mode} next={next} linkFailed={params.get("error") === "link"} />
+  );
 }
 
 // Photo panel beside the form on wide screens: the crew, the tagline.
