@@ -2,6 +2,10 @@
 
 Dance-themed coffee ordering site — a concept / portfolio demo by ztreuse. No real orders or payments.
 
+**Live demo:** https://groove-grounds.vercel.app
+
+**How it all works, step by step** (sign-up, ordering, the staff side, group orders, points): [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md).
+
 The full spec is in [docs/PROJECT.md](docs/PROJECT.md); build prompts are in [PROMPTS.md](PROMPTS.md).
 
 ## Getting started
