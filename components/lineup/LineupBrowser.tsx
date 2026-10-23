@@ -81,7 +81,9 @@ export function LineupBrowser({
   }
 
   return (
-    <main className="flex-1 pb-16">
+    // overflow-x-clip lets the sticky bar's backdrop run edge to edge
+    // without a sideways scroll (and, unlike hidden, keeps sticky working).
+    <main className="flex-1 overflow-x-clip pb-16">
       <PageHero
         title={t.pages.lineup}
         plainTitle={plain.pages.lineup}
@@ -91,7 +93,13 @@ export function LineupBrowser({
       />
 
       <div className="mx-auto w-full max-w-6xl px-4">
-        <div className="fade-below sticky top-16 z-30 -mx-4 space-y-3 bg-background/90 px-4 py-3 backdrop-blur-md supports-backdrop-filter:bg-background/80">
+        <div className="sticky top-16 z-30 -mx-4 space-y-3 px-4 py-3">
+          {/* Solid backdrop across the whole screen, so the bar has no
+              edges, fading into the cards scrolling underneath. */}
+          <div
+            aria-hidden
+            className="fade-below absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-background"
+          />
           {/* Search field: icon tile, input, live count, clear and the
               temperature dropdown, all 36px with equal 6px padding inside
               the 48px frame. Genre chips below, wrapping on md+. */}
