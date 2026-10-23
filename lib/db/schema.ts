@@ -330,6 +330,10 @@ export const crewRequests = pgTable("crew_requests", {
   quoteNote: text("quote_note"),
   quotedAt: timestamp("quoted_at", { withTimezone: true }),
   respondedAt: timestamp("responded_at", { withTimezone: true }),
+  // The scheduled order made when the customer accepts the quote.
+  orderId: uuid("order_id").references(() => orders.id, {
+    onDelete: "set null",
+  }),
   createdAt,
 }).enableRLS();
 

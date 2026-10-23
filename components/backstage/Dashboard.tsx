@@ -359,10 +359,11 @@ function Upcoming({
   return (
     <ul className="divide-y divide-border">
       {slots.map((slot) => {
-        const full = slot.drinks >= capacity;
+        const crew = slot.type === "crew";
+        const full = !crew && slot.drinks >= capacity;
         return (
           <li
-            key={slot.slotStart}
+            key={`${slot.slotStart}-${slot.type}`}
             className="grid gap-3 py-4 first:pt-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
           >
             <div className="min-w-0">
@@ -385,21 +386,25 @@ function Upcoming({
               <p
                 className={`text-sm font-semibold ${full ? "text-highlight" : ""}`}
               >
-                {full
-                  ? t.dashboard.classFull
-                  : fill(t.dashboard.slotDrinks, {
-                      drinks: slot.drinks,
-                      capacity,
-                    })}
+                {crew
+                  ? fill(t.dashboard.crewSlot, { drinks: slot.drinks })
+                  : full
+                    ? t.dashboard.classFull
+                    : fill(t.dashboard.slotDrinks, {
+                        drinks: slot.drinks,
+                        capacity,
+                      })}
               </p>
-              <div aria-hidden className="mt-1.5 h-1.5 rounded-sm bg-muted">
-                <div
-                  className="h-full rounded-sm bg-highlight"
-                  style={{
-                    width: `${Math.min(slot.drinks / capacity, 1) * 100}%`,
-                  }}
-                />
-              </div>
+              {!crew && (
+                <div aria-hidden className="mt-1.5 h-1.5 rounded-sm bg-muted">
+                  <div
+                    className="h-full rounded-sm bg-highlight"
+                    style={{
+                      width: `${Math.min(slot.drinks / capacity, 1) * 100}%`,
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </li>
         );

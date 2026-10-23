@@ -372,6 +372,7 @@ export const dance = {
     pickup: "Pickup",
     asap: "Drop-in · about 10 minutes",
     classAt: "Class at {time}",
+    crewAt: "Crew Order, {time}",
     choreographer: "Your choreographer",
     items: "Your set",
     total: "Total",
@@ -395,7 +396,8 @@ export const dance = {
     cut: "Cut from the set",
     confirmCut: "Tap again to cut",
     classAt: "Class at {time}",
-    upcoming: "Upcoming class",
+    crewAt: "Crew Order at {time}",
+    upcoming: "Upcoming",
     viewTracker: "Customer view",
     refresh: "Refresh",
     columnEmpty: "Nobody here yet",
@@ -512,6 +514,9 @@ export const dance = {
   },
 
   crew: {
+    orderItem: "Crew Order",
+    trackOrder: "Follow it live",
+    respondFailed: "Couldn't update. Try again.",
     intro:
       "Rolling deep? Tell us about your rehearsal, battle or event and we'll quote the drinks.",
     leadTime:
@@ -641,6 +646,7 @@ export const dance = {
     upcomingTitle: "Booked classes",
     upcomingBody: "Scheduled pickups still to come.",
     slotDrinks: "{drinks} of {capacity} drinks",
+    crewSlot: "Crew Order · {drinks} drinks",
     classFull: "Class full",
     empty: "Nothing on the floor this week yet.",
     noUpcoming: "No classes booked yet.",
@@ -735,6 +741,10 @@ export const dance = {
       "Bringing the whole crew? Send a Crew Order a couple of days ahead.",
   },
 
+  termTip: {
+    label: "What does {term} mean?",
+    more: "More in the Dance Dictionary",
+  },
   phases: {
     1: "Choreo",
     2: "Full out",
@@ -1132,6 +1142,7 @@ export const plain: Widen<typeof dance> = {
     pickup: "Pickup",
     asap: "As soon as possible · about 10 minutes",
     classAt: "Pickup at {time}",
+    crewAt: "Group order, {time}",
     choreographer: "Your barista",
     items: "Your order",
     total: "Total",
@@ -1155,6 +1166,7 @@ export const plain: Widen<typeof dance> = {
     cut: "Cancel order",
     confirmCut: "Tap again to cancel",
     classAt: "Pickup at {time}",
+    crewAt: "Group order at {time}",
     upcoming: "Upcoming pickup",
     viewTracker: "Customer view",
     refresh: "Refresh",
@@ -1271,6 +1283,9 @@ export const plain: Widen<typeof dance> = {
   },
 
   crew: {
+    orderItem: "Group order",
+    trackOrder: "Track your order",
+    respondFailed: "Couldn't update. Try again.",
     intro:
       "Ordering for a group or event? Send the details and we'll quote the drinks.",
     leadTime:
@@ -1398,6 +1413,7 @@ export const plain: Widen<typeof dance> = {
     upcomingTitle: "Scheduled pickups",
     upcomingBody: "Upcoming scheduled pickups.",
     slotDrinks: "{drinks} of {capacity} drinks",
+    crewSlot: "Group order · {drinks} drinks",
     classFull: "Slot full",
     empty: "No orders in the last 7 days yet.",
     noUpcoming: "No scheduled pickups yet.",
@@ -1491,6 +1507,10 @@ export const plain: Widen<typeof dance> = {
       "Ordering for a group? Place a group order a couple of days ahead.",
   },
 
+  termTip: {
+    label: "What does {term} mean?",
+    more: "Open the glossary",
+  },
   phases: {
     1: "MVP",
     2: "Accounts and builder",

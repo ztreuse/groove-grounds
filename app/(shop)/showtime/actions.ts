@@ -1,6 +1,5 @@
 "use server";
 
-import { randomInt } from "node:crypto";
 import { sql } from "drizzle-orm";
 import {
   orderPayloadSchema,
@@ -14,6 +13,7 @@ import {
   getDrinksForCheckout,
   getSlotAvailability,
 } from "@/lib/db/queries";
+import { isDuplicateCode, orderCode } from "@/lib/db/order-code";
 import { orderItems, orders, timeSlots } from "@/lib/db/schema";
 import { getProfile } from "@/lib/db/profiles";
 import { rememberDemoOrder } from "@/lib/demo-orders";
@@ -35,24 +35,6 @@ class CheckoutError extends Error {
   constructor(public result: CheckoutFailure) {
     super(result.error);
   }
-}
-
-// No 0/O or 1/I/L, so codes are easy to read out at the counter.
-const CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-function orderCode() {
-  let code = "GG-";
-  for (let i = 0; i < 5; i++)
-    code += CODE_ALPHABET[randomInt(CODE_ALPHABET.length)];
-  return code;
-}
-
-function isDuplicateCode(error: unknown) {
-  const cause = (error as { cause?: unknown })?.cause ?? error;
-  const { code, constraint_name } = cause as {
-    code?: string;
-    constraint_name?: string;
-  };
-  return code === "23505" && constraint_name === "orders_code_unique";
 }
 
 // Name and number for a signed-in member, to fill in the form.

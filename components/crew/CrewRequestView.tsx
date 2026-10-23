@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
+import { toast } from "sonner";
 import { respondToQuote } from "@/app/(shop)/crew/actions";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,8 @@ export function CrewRequestView({ request }: { request: CrewRequest }) {
 
   async function respond(accept: boolean) {
     setBusy(true);
-    await respondToQuote(request.id, accept);
+    const ok = await respondToQuote(request.id, accept);
+    if (!ok) toast(t.crew.respondFailed);
     router.refresh();
     setBusy(false);
   }
@@ -78,6 +80,20 @@ export function CrewRequestView({ request }: { request: CrewRequest }) {
               {t.crew.statuses[request.status]}
             </h2>
             <p className="mt-2">{t.crew.statusBody[request.status]}</p>
+            {request.status === "accepted" && request.orderId && (
+              <Button
+                asChild
+                size="lg"
+                className="mt-5 bg-espresso text-cream hover:bg-espresso-soft"
+              >
+                <Link
+                  href={`/track/${request.orderId}`}
+                  aria-label={plain.crew.trackOrder}
+                >
+                  {t.crew.trackOrder}
+                </Link>
+              </Button>
+            )}
 
             {request.quoteAmount !== null && !declined && (
               <div className="mt-6 border-t border-border pt-5">

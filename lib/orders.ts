@@ -43,8 +43,10 @@ export const isOpen = (status: OrderStatus) =>
 // Booked classes reach the queue this long before their slot.
 export const SURFACE_MINUTES = 15;
 
-// Demo baristas. Each order gets one, picked from its id so it stays stable.
-const CHOREOGRAPHERS = ["Mika", "Jojo", "Bea", "Kiko", "Dani"];
+// The fictional crew from The Crew page (about.choreographers in copy.ts),
+// first names only. Each order gets one, picked from its id so it stays
+// stable.
+const CHOREOGRAPHERS = ["Mika", "Jun"];
 export function choreographerFor(orderId: string) {
   let hash = 0;
   for (const char of orderId) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;

@@ -27,6 +27,7 @@ import { routes } from "@/lib/routes";
 import { usePlaylist } from "@/stores/playlist";
 import { OptionGroup } from "./OptionGroup";
 import { QuantityStepper } from "./QuantityStepper";
+import { TermTip } from "@/components/layout/TermTip";
 
 type RemixPanelProps = {
   drink: DrinkDetail;
@@ -133,7 +134,10 @@ export function RemixPanel({ drink, editItemId = null }: RemixPanelProps) {
         </div>
       )}
       <div className="mb-2">
-        <h2 className="text-5xl leading-none sm:text-6xl">{t.terms.remix}</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-5xl leading-none sm:text-6xl">{t.terms.remix}</h2>
+          <TermTip term={t.terms.remix} plain={plain.terms.remix} />
+        </div>
         {!isPlain && (
           <p className="mt-2 eyebrow text-muted-foreground">
             {plain.terms.remix}

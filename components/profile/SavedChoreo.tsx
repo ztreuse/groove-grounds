@@ -9,6 +9,7 @@ import type { SavedChoreoEntry } from "@/lib/db/choreo";
 import { formatPeso } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { RunItBackButton } from "./RunItBackButton";
+import { TermTip } from "@/components/layout/TermTip";
 
 function RemoveButton({ id }: { id: string }) {
   const { t, plain } = useCopy();
@@ -50,9 +51,15 @@ export function SavedChoreo({
 
   return (
     <section aria-labelledby="saved-choreo" className="mt-6">
-      <h2 id="saved-choreo" className="text-3xl leading-none">
-        {t.profile.savedChoreo}
-      </h2>
+      <div className="flex items-center gap-2">
+        <h2 id="saved-choreo" className="text-3xl leading-none">
+          {t.profile.savedChoreo}
+        </h2>
+        <TermTip
+          term={t.profile.savedChoreo}
+          plain={plain.profile.savedChoreo}
+        />
+      </div>
       {!isPlain && (
         <p className="mt-1 text-sm text-muted-foreground">
           {plain.profile.savedChoreo}

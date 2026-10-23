@@ -378,3 +378,21 @@ export const snackWordNotes: { term: string; note: string }[] = [
     note: "Dancers taking turns to outdo each other, judged or in a cypher.",
   },
 ];
+
+// Remix group names that the glossary lists under their choices.
+const termAliases: Record<string, string> = {
+  Counts: "8 / 16 / 32-count",
+  Energy: "Marking / Half-out / Full out",
+  "Sweet level": "Clean / Smooth / Full / Extra",
+  "Saved Choreo": "Choreo",
+};
+
+// The one-line "why it fits" for a dance term, for the "?" tooltips.
+export function whyFor(term: string) {
+  const key = termAliases[term] ?? term;
+  for (const section of dictionarySections) {
+    const entry = section.entries.find((item) => item.term === key);
+    if (entry) return entry.why;
+  }
+  return null;
+}

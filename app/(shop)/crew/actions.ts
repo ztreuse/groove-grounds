@@ -8,6 +8,7 @@ import {
 } from "@/lib/crew";
 import { createCrewRequest, respondToCrewQuote } from "@/lib/db/crew";
 import { getProfile } from "@/lib/db/profiles";
+import { rememberDemoOrder } from "@/lib/demo-orders";
 import { getScheduleRules } from "@/lib/db/schedule";
 import { getCurrentUser } from "@/lib/supabase/server";
 
@@ -54,6 +55,10 @@ export async function submitCrewRequest(input: unknown): Promise<SubmitResult> {
   return { ok: true, id };
 }
 
+// Accepting creates the scheduled order; it's remembered as this
+// visitor's demo order, so they can move it along in Demo Backstage too.
 export async function respondToQuote(id: string, accept: boolean) {
-  return respondToCrewQuote(id, accept);
+  const result = await respondToCrewQuote(id, accept === true);
+  if (typeof result === "string") await rememberDemoOrder(result);
+  return Boolean(result);
 }

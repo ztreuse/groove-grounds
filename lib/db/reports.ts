@@ -78,10 +78,11 @@ async function getHours() {
   `)) as unknown as Rows<{ hour: number; orders: number }>;
 }
 
-// Booked pickups still to come, one row per slot.
+// Booked pickups still to come: one row per class slot, and one per Crew
+// Order time (those don't use class capacity).
 async function getUpcoming() {
   const rows = (await db.execute(sql`
-    select o.slot_start,
+    select o.slot_start, o.type,
       count(*)::int as orders,
       coalesce(sum(q.drinks), 0)::int as drinks,
       array_agg(o.code order by o.created_at) as codes
@@ -89,18 +90,20 @@ async function getUpcoming() {
     cross join lateral (
       select sum(quantity) as drinks from order_items where order_id = o.id
     ) q
-    where o.type = 'class' and o.status <> 'cut' and o.slot_start > now()
-    group by o.slot_start
+    where o.type in ('class', 'crew') and o.status <> 'cut' and o.slot_start > now()
+    group by o.slot_start, o.type
     order by o.slot_start
     limit 8
   `)) as unknown as Rows<{
     slot_start: Date | string;
+    type: "class" | "crew";
     orders: number;
     drinks: number;
     codes: string[];
   }>;
   return rows.map((row) => ({
     slotStart: new Date(row.slot_start).toISOString(),
+    type: row.type,
     orders: row.orders,
     drinks: row.drinks,
     codes: row.codes,

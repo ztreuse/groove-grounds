@@ -26,6 +26,7 @@ import { LevelProgress } from "@/components/reps/LevelProgress";
 import { RunItBackButton } from "./RunItBackButton";
 import { SavedChoreo } from "./SavedChoreo";
 import { Reveal } from "@/components/motion/Reveal";
+import { TermTip } from "@/components/layout/TermTip";
 
 const levelKey: Record<Profile["level"], keyof Copy["levels"]> = {
   rookie: "rookie",
@@ -188,9 +189,15 @@ export function ProfileView({
           <SavedChoreo choreo={choreo} readOnly={isDemo} />
 
           <section aria-labelledby="past" className="mt-10">
-            <h2 id="past" className="text-3xl leading-none">
-              {t.profile.pastPerformances}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 id="past" className="text-3xl leading-none">
+                {t.profile.pastPerformances}
+              </h2>
+              <TermTip
+                term={t.profile.pastPerformances}
+                plain={plain.profile.pastPerformances}
+              />
+            </div>
             {!isPlain && (
               <p className="mt-1 text-sm text-muted-foreground">
                 {plain.profile.pastPerformances}

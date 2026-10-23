@@ -9,6 +9,7 @@ import { fill } from "@/lib/copy";
 import { isTemperature, tempStyles } from "@/lib/temps";
 import { formatPeso } from "@/lib/format";
 import type { RemixGroup, RemixOption } from "@/lib/pricing";
+import { TermTip } from "@/components/layout/TermTip";
 
 type OptionGroupProps = {
   group: RemixGroup;
@@ -147,17 +148,23 @@ export function OptionGroup({
   return (
     <fieldset className="border-t border-border pt-6">
       <legend className="sr-only">{group.plainLabel}</legend>
-      <div
-        aria-hidden
-        className="mb-3 flex items-baseline justify-between gap-3"
-      >
+      <div className="mb-3 flex items-baseline justify-between gap-3">
         <div>
+          {/* The "?" follows the last word, even when the name wraps. */}
           <p className="font-heading text-2xl leading-none font-bold tracking-tight">
-            {main}
+            <span aria-hidden>{main}</span>{" "}
+            <TermTip term={group.danceLabel} plain={group.plainLabel} />
           </p>
-          {sub && <p className="mt-1 text-sm text-muted-foreground">{sub}</p>}
+          {sub && (
+            <p aria-hidden className="mt-1 text-sm text-muted-foreground">
+              {sub}
+            </p>
+          )}
         </div>
-        <p className="shrink-0 eyebrow text-[0.65rem] text-muted-foreground">
+        <p
+          aria-hidden
+          className="shrink-0 eyebrow text-[0.65rem] text-muted-foreground"
+        >
           {hint}
         </p>
       </div>

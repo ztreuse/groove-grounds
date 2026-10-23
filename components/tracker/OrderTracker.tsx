@@ -42,7 +42,7 @@ export function OrderTracker({ initialOrder }: { initialOrder: TrackedOrder }) {
   }, [order.status, order.code, plain.status.stageReady]);
 
   const pickup = order.slotStart
-    ? fill(t.tracker.classAt, {
+    ? fill(order.type === "crew" ? t.tracker.crewAt : t.tracker.classAt, {
         time: `${formatDay(dayKey(new Date(order.slotStart)))}, ${formatTime(order.slotStart)}`,
       })
     : t.tracker.asap;

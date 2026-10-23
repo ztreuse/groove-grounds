@@ -47,7 +47,9 @@ export function QueueCard({
         </div>
         <span className="shrink-0 rounded-md bg-accent px-2 py-0.5 text-xs font-bold text-accent-foreground">
           {order.slotStart
-            ? fill(t.queue.classAt, { time: formatTime(order.slotStart) })
+            ? fill(order.type === "crew" ? t.queue.crewAt : t.queue.classAt, {
+                time: formatTime(order.slotStart),
+              })
             : t.terms.dropIn}
         </span>
       </div>
